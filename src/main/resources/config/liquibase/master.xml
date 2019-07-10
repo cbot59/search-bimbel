@@ -29,7 +29,6 @@
     <include file="classpath:config/liquibase/changelog/20190710001053_added_entity_constraints_Student.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20190710001232_added_entity_constraints_StudentEnrollment.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20190710042215_added_entity_constraints_Subject.xml" relativeToChangelogFile="false"/>
-    <include file="classpath:config/liquibase/changelog/20190710061213_added_entity_constraints_SubjectType.xml" relativeToChangelogFile="false"/>
 
     <include file="classpath:config/liquibase/changelog/00000000000001_initial_role.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/00000000000002_initial_province.xml" relativeToChangelogFile="false"/>
