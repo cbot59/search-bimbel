@@ -1,17 +1,15 @@
 package it.aldi.app.domain;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A DayOfWeek.
@@ -22,10 +20,9 @@ import java.util.Objects;
 public class DayOfWeek implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
@@ -38,6 +35,7 @@ public class DayOfWeek implements Serializable {
     @OneToMany(mappedBy = "dayOfWeek")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Schedule> schedules = new HashSet<>();
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -74,22 +72,22 @@ public class DayOfWeek implements Serializable {
     }
 
     public Set<Schedule> getSchedules() {
-        return schedules;
+        return Collections.unmodifiableSet(schedules);
     }
 
     public DayOfWeek schedules(Set<Schedule> schedules) {
-        this.schedules = schedules;
+        this.schedules = Collections.unmodifiableSet(schedules);
         return this;
     }
 
     public DayOfWeek addSchedule(Schedule schedule) {
-        this.schedules.add(schedule);
+        schedules.add(schedule);
         schedule.setDayOfWeek(this);
         return this;
     }
 
     public DayOfWeek removeSchedule(Schedule schedule) {
-        this.schedules.remove(schedule);
+        schedules.remove(schedule);
         schedule.setDayOfWeek(null);
         return this;
     }
@@ -108,23 +106,20 @@ public class DayOfWeek implements Serializable {
             return false;
         }
         DayOfWeek dayOfWeek = (DayOfWeek) o;
-        if (dayOfWeek.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), dayOfWeek.getId());
+        return dayOfWeek.id != null && id != null && Objects.equals(id, dayOfWeek.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(id);
     }
 
     @Override
     public String toString() {
         return "DayOfWeek{" +
-            "id=" + getId() +
-            ", shortName='" + getShortName() + "'" +
-            ", fullName='" + getFullName() + "'" +
+            "id=" + id +
+            ", shortName='" + shortName + "'" +
+            ", fullName='" + fullName + "'" +
             "}";
     }
 }

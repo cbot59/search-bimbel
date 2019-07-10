@@ -1,17 +1,16 @@
 package it.aldi.app.domain;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A Enrollment.
@@ -22,14 +21,13 @@ import java.util.Objects;
 public class Enrollment implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
-    @Min(value = 1)
+    @Min(1)
     @Column(name = "num_of_meeting", nullable = false)
     private Integer numOfMeeting;
 
@@ -40,6 +38,7 @@ public class Enrollment implements Serializable {
     @OneToMany(mappedBy = "enrollment")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<StudentEnrollment> studentEnrollments = new HashSet<>();
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -76,28 +75,28 @@ public class Enrollment implements Serializable {
     }
 
     public Set<StudentEnrollment> getStudentEnrollments() {
-        return studentEnrollments;
+        return Collections.unmodifiableSet(studentEnrollments);
     }
 
     public Enrollment studentEnrollments(Set<StudentEnrollment> studentEnrollments) {
-        this.studentEnrollments = studentEnrollments;
+        this.studentEnrollments = Collections.unmodifiableSet(studentEnrollments);
         return this;
     }
 
     public Enrollment addStudentEnrollment(StudentEnrollment studentEnrollment) {
-        this.studentEnrollments.add(studentEnrollment);
+        studentEnrollments.add(studentEnrollment);
         studentEnrollment.setEnrollment(this);
         return this;
     }
 
     public Enrollment removeStudentEnrollment(StudentEnrollment studentEnrollment) {
-        this.studentEnrollments.remove(studentEnrollment);
+        studentEnrollments.remove(studentEnrollment);
         studentEnrollment.setEnrollment(null);
         return this;
     }
 
     public void setStudentEnrollments(Set<StudentEnrollment> studentEnrollments) {
-        this.studentEnrollments = studentEnrollments;
+        this.studentEnrollments = Collections.unmodifiableSet(studentEnrollments);
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -110,23 +109,20 @@ public class Enrollment implements Serializable {
             return false;
         }
         Enrollment enrollment = (Enrollment) o;
-        if (enrollment.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), enrollment.getId());
+        return enrollment.id != null && id != null && Objects.equals(id, enrollment.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(id);
     }
 
     @Override
     public String toString() {
         return "Enrollment{" +
-            "id=" + getId() +
-            ", numOfMeeting=" + getNumOfMeeting() +
-            ", phone='" + getPhone() + "'" +
+            "id=" + id +
+            ", numOfMeeting=" + numOfMeeting +
+            ", phone='" + phone + "'" +
             "}";
     }
 }

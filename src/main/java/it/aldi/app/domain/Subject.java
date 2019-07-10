@@ -1,13 +1,11 @@
 package it.aldi.app.domain;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -20,10 +18,9 @@ import java.util.Objects;
 public class Subject implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
@@ -95,23 +92,20 @@ public class Subject implements Serializable {
             return false;
         }
         Subject subject = (Subject) o;
-        if (subject.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), subject.getId());
+        return subject.id != null && id != null && Objects.equals(id, subject.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(id);
     }
 
     @Override
     public String toString() {
         return "Subject{" +
-            "id=" + getId() +
-            ", name='" + getName() + "'" +
-            ", description='" + getDescription() + "'" +
+            "id=" + id +
+            ", name='" + name + "'" +
+            ", description='" + description + "'" +
             "}";
     }
 }

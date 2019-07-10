@@ -1,7 +1,6 @@
 package it.aldi.app.controller.roles.owner;
 
 import it.aldi.app.controller.Routes;
-import it.aldi.app.domain.Organization;
 import it.aldi.app.security.model.BimbelUserPrincipal;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -30,10 +29,8 @@ public class OwnerController {
     public String manageStudent(Model model, Authentication authentication) {
         BimbelUserPrincipal bimbelUserPrincipal = (BimbelUserPrincipal) authentication.getPrincipal();
 
-        Long organizationId = bimbelUserPrincipal.getBimbelUser().getOrganizations().stream()
-            .map(Organization::getId)
-            .findFirst()
-            .orElse(null);
+        // TODO: adjust controller
+        Long organizationId = null;
 
         model.addAttribute("orgIds", organizationId);
 
@@ -44,10 +41,8 @@ public class OwnerController {
     public String manageTutor(Model model, Authentication authentication) {
         BimbelUserPrincipal bimbelUserPrincipal = (BimbelUserPrincipal) authentication.getPrincipal();
 
-        Long organizationId = bimbelUserPrincipal.getBimbelUser().getOrganizations().stream()
-            .map(Organization::getId)
-            .findFirst()
-            .orElse(null);
+        // TODO: adjust controller
+        Long organizationId = null;
 
         model.addAttribute("orgIds", organizationId);
 

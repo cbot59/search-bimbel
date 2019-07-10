@@ -4,6 +4,7 @@ import it.aldi.app.domain.BimbelUserType;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
 
 /**
  * Spring Data  repository for the BimbelUserType entity.
@@ -12,4 +13,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BimbelUserTypeRepository extends JpaRepository<BimbelUserType, Long> {
 
+    Optional<BimbelUserType> findById(Long id);
 }

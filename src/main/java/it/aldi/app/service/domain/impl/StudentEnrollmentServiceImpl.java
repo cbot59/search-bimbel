@@ -1,16 +1,14 @@
-package it.aldi.app.service.impl;
+package it.aldi.app.service.domain.impl;
 
-import it.aldi.app.service.StudentEnrollmentService;
 import it.aldi.app.domain.StudentEnrollment;
 import it.aldi.app.repository.StudentEnrollmentRepository;
+import it.aldi.app.service.domain.StudentEnrollmentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Service Implementation for managing StudentEnrollment.
@@ -51,7 +49,6 @@ public class StudentEnrollmentServiceImpl implements StudentEnrollmentService {
         return studentEnrollmentRepository.findAll();
     }
 
-
     /**
      * Get one studentEnrollment by id.
      *
@@ -60,9 +57,10 @@ public class StudentEnrollmentServiceImpl implements StudentEnrollmentService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<StudentEnrollment> findOne(Long id) {
+    public StudentEnrollment findOne(Long id) {
         log.debug("Request to get StudentEnrollment : {}", id);
-        return studentEnrollmentRepository.findById(id);
+        return studentEnrollmentRepository.findById(id)
+            .orElse(null);
     }
 
     /**
@@ -72,6 +70,7 @@ public class StudentEnrollmentServiceImpl implements StudentEnrollmentService {
      */
     @Override
     public void delete(Long id) {
-        log.debug("Request to delete StudentEnrollment : {}", id);        studentEnrollmentRepository.deleteById(id);
+        log.debug("Request to delete StudentEnrollment : {}", id);
+        studentEnrollmentRepository.delete(id);
     }
 }

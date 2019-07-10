@@ -1,16 +1,14 @@
 package it.aldi.app.service.domain.impl;
 
-import it.aldi.app.service.DayOfWeekService;
 import it.aldi.app.domain.DayOfWeek;
 import it.aldi.app.repository.DayOfWeekRepository;
+import it.aldi.app.service.domain.DayOfWeekService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Service Implementation for managing DayOfWeek.
@@ -51,7 +49,6 @@ public class DayOfWeekServiceImpl implements DayOfWeekService {
         return dayOfWeekRepository.findAll();
     }
 
-
     /**
      * Get one dayOfWeek by id.
      *
@@ -60,9 +57,10 @@ public class DayOfWeekServiceImpl implements DayOfWeekService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<DayOfWeek> findOne(Long id) {
+    public DayOfWeek findOne(Long id) {
         log.debug("Request to get DayOfWeek : {}", id);
-        return dayOfWeekRepository.findById(id);
+        return dayOfWeekRepository.findById(id)
+            .orElse(null);
     }
 
     /**
@@ -72,6 +70,7 @@ public class DayOfWeekServiceImpl implements DayOfWeekService {
      */
     @Override
     public void delete(Long id) {
-        log.debug("Request to delete DayOfWeek : {}", id);        dayOfWeekRepository.deleteById(id);
+        log.debug("Request to delete DayOfWeek : {}", id);
+        dayOfWeekRepository.delete(id);
     }
 }

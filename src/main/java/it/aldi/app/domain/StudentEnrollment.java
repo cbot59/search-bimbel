@@ -1,12 +1,10 @@
 package it.aldi.app.domain;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -19,10 +17,9 @@ import java.util.Objects;
 public class StudentEnrollment implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
@@ -78,21 +75,18 @@ public class StudentEnrollment implements Serializable {
             return false;
         }
         StudentEnrollment studentEnrollment = (StudentEnrollment) o;
-        if (studentEnrollment.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), studentEnrollment.getId());
+        return studentEnrollment.id != null && id != null && Objects.equals(id, studentEnrollment.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(id);
     }
 
     @Override
     public String toString() {
         return "StudentEnrollment{" +
-            "id=" + getId() +
+            "id=" + id +
             "}";
     }
 }

@@ -1,11 +1,8 @@
 package it.aldi.app.service.domain;
 
 import it.aldi.app.domain.Enrollment;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
-import java.util.Optional;
 
 /**
  * Service Interface for managing Enrollment.
@@ -28,14 +25,13 @@ public interface EnrollmentService {
      */
     Page<Enrollment> findAll(Pageable pageable);
 
-
     /**
      * Get the "id" enrollment.
      *
      * @param id the id of the entity
      * @return the entity
      */
-    Optional<Enrollment> findOne(Long id);
+    Enrollment findOne(Long id);
 
     /**
      * Delete the "id" enrollment.

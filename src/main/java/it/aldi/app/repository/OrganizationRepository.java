@@ -17,16 +17,6 @@ import java.util.Optional;
 @SuppressWarnings("unused")
 @Repository
 public interface OrganizationRepository extends JpaRepository<Organization, Long> {
+
     Optional<Organization> findById(Long id);
-
-    @Query(value = "select distinct organization from Organization organization left join fetch organization.roles",
-        countQuery = "select count(distinct organization) from Organization organization")
-    Page<Organization> findAllWithEagerRelationships(Pageable pageable);
-
-    @Query("select distinct organization from Organization organization left join fetch organization.roles")
-    List<Organization> findAllWithEagerRelationships();
-
-    @Query("select organization from Organization organization left join fetch organization.roles where organization.id =:id")
-    Optional<Organization> findOneWithEagerRelationships(@Param("id") Long id);
-
 }

@@ -39,15 +39,9 @@ public class OrganizationServiceImpl implements OrganizationService {
         return organizationRepository.save(organization);
     }
 
-    /**
-     * Get all the Organization with eager load of many-to-many relationships.
-     *
-     * @param pageable the pagination information
-     * @return the list of entities
-     */
     @Override
-    public Page<Organization> findAllWithEagerRelationships(Pageable pageable) {
-        return organizationRepository.findAllWithEagerRelationships(pageable);
+    public Page<Organization> findAll(Pageable pageable) {
+        return organizationRepository.findAll(pageable);
     }
 
     /**

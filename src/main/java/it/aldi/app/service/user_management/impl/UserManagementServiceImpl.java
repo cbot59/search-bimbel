@@ -5,9 +5,9 @@ import it.aldi.app.controller.rest.dto.response.TutorDto;
 import it.aldi.app.domain.BimbelUser;
 import it.aldi.app.service.domain.BimbelUserService;
 import it.aldi.app.service.user_management.UserManagementService;
-import it.aldi.app.util.RoleConstant;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,10 +22,8 @@ public class UserManagementServiceImpl implements UserManagementService {
 
     @Override
     public List<TutorDto> getTutors(Long organizationId) {
-        List<BimbelUser> bimbelUsers = bimbelUserService.findAllByOrganizationAndRole(
-            organizationId,
-            RoleConstant.tutor()
-        );
+        // TODO: adjust tutors api
+        List<BimbelUser> bimbelUsers = Collections.emptyList();
 
         return bimbelUsers.stream()
             .map(TutorDto::valueOf)
@@ -34,10 +32,8 @@ public class UserManagementServiceImpl implements UserManagementService {
 
     @Override
     public List<StudentDto> getStudents(Long organizationId) {
-        List<BimbelUser> bimbelUsers = bimbelUserService.findAllByOrganizationAndRole(
-            organizationId,
-            RoleConstant.student()
-        );
+        // TODO: adjust students api
+        List<BimbelUser> bimbelUsers = Collections.emptyList();
 
         return bimbelUsers.stream()
             .map(StudentDto::valueOf)

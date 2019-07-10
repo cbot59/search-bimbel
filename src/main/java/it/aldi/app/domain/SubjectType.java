@@ -1,16 +1,14 @@
 package it.aldi.app.domain;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A SubjectType.
@@ -21,10 +19,9 @@ import java.util.Objects;
 public class SubjectType implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name")
@@ -33,6 +30,7 @@ public class SubjectType implements Serializable {
     @OneToMany(mappedBy = "Subject")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Subject> subjects = new HashSet<>();
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -56,28 +54,28 @@ public class SubjectType implements Serializable {
     }
 
     public Set<Subject> getSubjects() {
-        return subjects;
+        return Collections.unmodifiableSet(subjects);
     }
 
     public SubjectType subjects(Set<Subject> subjects) {
-        this.subjects = subjects;
+        this.subjects = Collections.unmodifiableSet(subjects);
         return this;
     }
 
     public SubjectType addSubject(Subject subject) {
-        this.subjects.add(subject);
-        subject.setSubject(this);
+        subjects.add(subject);
+        subject.setSubjectType(this);
         return this;
     }
 
     public SubjectType removeSubject(Subject subject) {
-        this.subjects.remove(subject);
-        subject.setSubject(null);
+        subjects.remove(subject);
+        subject.setSubjectType(null);
         return this;
     }
 
     public void setSubjects(Set<Subject> subjects) {
-        this.subjects = subjects;
+        this.subjects = Collections.unmodifiableSet(subjects);
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -90,22 +88,19 @@ public class SubjectType implements Serializable {
             return false;
         }
         SubjectType subjectType = (SubjectType) o;
-        if (subjectType.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), subjectType.getId());
+        return subjectType.id != null && id != null && Objects.equals(id, subjectType.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(id);
     }
 
     @Override
     public String toString() {
         return "SubjectType{" +
-            "id=" + getId() +
-            ", name='" + getName() + "'" +
+            "id=" + id +
+            ", name='" + name + "'" +
             "}";
     }
 }

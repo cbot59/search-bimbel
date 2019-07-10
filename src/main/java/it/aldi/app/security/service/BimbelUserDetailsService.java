@@ -18,7 +18,7 @@ public class BimbelUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        return bimbelUserRepository.findByUsernameWithEagerRelationships(username)
+        return bimbelUserRepository.findByUsername(username)
             .map(BimbelUserPrincipal::of)
             .orElseThrow(() -> new UsernameNotFoundException(username));
     }

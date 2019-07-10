@@ -32,7 +32,7 @@ public interface DayOfWeekService {
      * @param id the id of the entity
      * @return the entity
      */
-    Optional<DayOfWeek> findOne(Long id);
+    DayOfWeek findOne(Long id);
 
     /**
      * Delete the "id" dayOfWeek.

@@ -3,7 +3,6 @@ package it.aldi.app.service.domain;
 import it.aldi.app.domain.StudentEnrollment;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Service Interface for managing StudentEnrollment.
@@ -25,14 +24,13 @@ public interface StudentEnrollmentService {
      */
     List<StudentEnrollment> findAll();
 
-
     /**
      * Get the "id" studentEnrollment.
      *
      * @param id the id of the entity
      * @return the entity
      */
-    Optional<StudentEnrollment> findOne(Long id);
+    StudentEnrollment findOne(Long id);
 
     /**
      * Delete the "id" studentEnrollment.

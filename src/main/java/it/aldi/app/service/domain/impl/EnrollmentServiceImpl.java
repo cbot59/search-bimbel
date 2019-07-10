@@ -1,17 +1,14 @@
 package it.aldi.app.service.domain.impl;
 
-import it.aldi.app.service.EnrollmentService;
 import it.aldi.app.domain.Enrollment;
 import it.aldi.app.repository.EnrollmentRepository;
+import it.aldi.app.service.domain.EnrollmentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 /**
  * Service Implementation for managing Enrollment.
@@ -53,7 +50,6 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         return enrollmentRepository.findAll(pageable);
     }
 
-
     /**
      * Get one enrollment by id.
      *
@@ -62,9 +58,10 @@ public class EnrollmentServiceImpl implements EnrollmentService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<Enrollment> findOne(Long id) {
+    public Enrollment findOne(Long id) {
         log.debug("Request to get Enrollment : {}", id);
-        return enrollmentRepository.findById(id);
+        return enrollmentRepository.findById(id)
+            .orElse(null);
     }
 
     /**
@@ -74,6 +71,7 @@ public class EnrollmentServiceImpl implements EnrollmentService {
      */
     @Override
     public void delete(Long id) {
-        log.debug("Request to delete Enrollment : {}", id);        enrollmentRepository.deleteById(id);
+        log.debug("Request to delete Enrollment : {}", id);
+        enrollmentRepository.delete(id);
     }
 }

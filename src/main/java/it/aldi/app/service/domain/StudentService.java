@@ -1,11 +1,8 @@
 package it.aldi.app.service.domain;
 
 import it.aldi.app.domain.Student;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
-import java.util.Optional;
 
 /**
  * Service Interface for managing Student.
@@ -28,14 +25,13 @@ public interface StudentService {
      */
     Page<Student> findAll(Pageable pageable);
 
-
     /**
      * Get the "id" student.
      *
      * @param id the id of the entity
      * @return the entity
      */
-    Optional<Student> findOne(Long id);
+    Student findOne(Long id);
 
     /**
      * Delete the "id" student.

@@ -1,16 +1,14 @@
 package it.aldi.app.domain;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A Student.
@@ -21,15 +19,15 @@ import java.util.Objects;
 public class Student implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToMany(mappedBy = "student")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<StudentEnrollment> studentEnrollments = new HashSet<>();
+
     @OneToOne
     @JoinColumn(unique = true)
     private BimbelUser bimbelUser;
@@ -44,28 +42,28 @@ public class Student implements Serializable {
     }
 
     public Set<StudentEnrollment> getStudentEnrollments() {
-        return studentEnrollments;
+        return Collections.unmodifiableSet(studentEnrollments);
     }
 
     public Student studentEnrollments(Set<StudentEnrollment> studentEnrollments) {
-        this.studentEnrollments = studentEnrollments;
+        this.studentEnrollments = Collections.unmodifiableSet(studentEnrollments);
         return this;
     }
 
     public Student addStudentEnrollment(StudentEnrollment studentEnrollment) {
-        this.studentEnrollments.add(studentEnrollment);
+        studentEnrollments.add(studentEnrollment);
         studentEnrollment.setStudent(this);
         return this;
     }
 
     public Student removeStudentEnrollment(StudentEnrollment studentEnrollment) {
-        this.studentEnrollments.remove(studentEnrollment);
+        studentEnrollments.remove(studentEnrollment);
         studentEnrollment.setStudent(null);
         return this;
     }
 
     public void setStudentEnrollments(Set<StudentEnrollment> studentEnrollments) {
-        this.studentEnrollments = studentEnrollments;
+        this.studentEnrollments = Collections.unmodifiableSet(studentEnrollments);
     }
 
     public BimbelUser getBimbelUser() {
@@ -91,21 +89,18 @@ public class Student implements Serializable {
             return false;
         }
         Student student = (Student) o;
-        if (student.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), student.getId());
+        return student.id != null && id != null && Objects.equals(id, student.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(id);
     }
 
     @Override
     public String toString() {
         return "Student{" +
-            "id=" + getId() +
+            "id=" + id +
             "}";
     }
 }

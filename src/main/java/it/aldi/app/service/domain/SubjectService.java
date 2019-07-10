@@ -1,7 +1,6 @@
 package it.aldi.app.service.domain;
 
 import it.aldi.app.domain.Subject;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -28,14 +27,13 @@ public interface SubjectService {
      */
     Page<Subject> findAll(Pageable pageable);
 
-
     /**
      * Get the "id" subject.
      *
      * @param id the id of the entity
      * @return the entity
      */
-    Optional<Subject> findOne(Long id);
+    Subject findOne(Long id);
 
     /**
      * Delete the "id" subject.

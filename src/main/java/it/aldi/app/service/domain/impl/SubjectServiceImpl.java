@@ -1,17 +1,14 @@
 package it.aldi.app.service.domain.impl;
 
-import it.aldi.app.service.SubjectService;
 import it.aldi.app.domain.Subject;
 import it.aldi.app.repository.SubjectRepository;
+import it.aldi.app.service.domain.SubjectService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 /**
  * Service Implementation for managing Subject.
@@ -53,7 +50,6 @@ public class SubjectServiceImpl implements SubjectService {
         return subjectRepository.findAll(pageable);
     }
 
-
     /**
      * Get one subject by id.
      *
@@ -62,9 +58,10 @@ public class SubjectServiceImpl implements SubjectService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<Subject> findOne(Long id) {
+    public Subject findOne(Long id) {
         log.debug("Request to get Subject : {}", id);
-        return subjectRepository.findById(id);
+        return subjectRepository.findById(id)
+            .orElse(null);
     }
 
     /**
@@ -74,6 +71,7 @@ public class SubjectServiceImpl implements SubjectService {
      */
     @Override
     public void delete(Long id) {
-        log.debug("Request to delete Subject : {}", id);        subjectRepository.deleteById(id);
+        log.debug("Request to delete Subject : {}", id);
+        subjectRepository.delete(id);
     }
 }

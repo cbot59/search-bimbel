@@ -1,16 +1,15 @@
 package it.aldi.app.domain;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A BimbelUserType.
@@ -21,10 +20,9 @@ import java.util.Objects;
 public class BimbelUserType implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name")
@@ -33,6 +31,7 @@ public class BimbelUserType implements Serializable {
     @OneToMany(mappedBy = "bimbelUserType")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<BimbelUserTypeRole> bimbelUserTypeRoles = new HashSet<>();
+
     @OneToOne(mappedBy = "bimbelUserType")
     @JsonIgnore
     private BimbelUser bimbelUser;
@@ -60,28 +59,28 @@ public class BimbelUserType implements Serializable {
     }
 
     public Set<BimbelUserTypeRole> getBimbelUserTypeRoles() {
-        return bimbelUserTypeRoles;
+        return Collections.unmodifiableSet(bimbelUserTypeRoles);
     }
 
     public BimbelUserType bimbelUserTypeRoles(Set<BimbelUserTypeRole> bimbelUserTypeRoles) {
-        this.bimbelUserTypeRoles = bimbelUserTypeRoles;
+        this.bimbelUserTypeRoles = Collections.unmodifiableSet(bimbelUserTypeRoles);
         return this;
     }
 
     public BimbelUserType addBimbelUserTypeRole(BimbelUserTypeRole bimbelUserTypeRole) {
-        this.bimbelUserTypeRoles.add(bimbelUserTypeRole);
+        bimbelUserTypeRoles.add(bimbelUserTypeRole);
         bimbelUserTypeRole.setBimbelUserType(this);
         return this;
     }
 
     public BimbelUserType removeBimbelUserTypeRole(BimbelUserTypeRole bimbelUserTypeRole) {
-        this.bimbelUserTypeRoles.remove(bimbelUserTypeRole);
+        bimbelUserTypeRoles.remove(bimbelUserTypeRole);
         bimbelUserTypeRole.setBimbelUserType(null);
         return this;
     }
 
     public void setBimbelUserTypeRoles(Set<BimbelUserTypeRole> bimbelUserTypeRoles) {
-        this.bimbelUserTypeRoles = bimbelUserTypeRoles;
+        this.bimbelUserTypeRoles = Collections.unmodifiableSet(bimbelUserTypeRoles);
     }
 
     public BimbelUser getBimbelUser() {
@@ -107,22 +106,19 @@ public class BimbelUserType implements Serializable {
             return false;
         }
         BimbelUserType bimbelUserType = (BimbelUserType) o;
-        if (bimbelUserType.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), bimbelUserType.getId());
+        return bimbelUserType.id != null && id != null && Objects.equals(id, bimbelUserType.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(id);
     }
 
     @Override
     public String toString() {
         return "BimbelUserType{" +
-            "id=" + getId() +
-            ", name='" + getName() + "'" +
+            "id=" + id +
+            ", name='" + name + "'" +
             "}";
     }
 }

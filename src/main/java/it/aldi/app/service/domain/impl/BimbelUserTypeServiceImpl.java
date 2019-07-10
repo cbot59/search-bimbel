@@ -1,18 +1,15 @@
 package it.aldi.app.service.domain.impl;
 
-import it.aldi.app.service.BimbelUserTypeService;
 import it.aldi.app.domain.BimbelUserType;
 import it.aldi.app.repository.BimbelUserTypeRepository;
+import it.aldi.app.service.domain.BimbelUserTypeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 /**
  * Service Implementation for managing BimbelUserType.
@@ -53,17 +50,16 @@ public class BimbelUserTypeServiceImpl implements BimbelUserTypeService {
         return bimbelUserTypeRepository.findAll();
     }
 
-
-
     /**
-     *  get all the bimbelUserTypes where BimbelUser is null.
-     *  @return the list of entities
+     * get all the bimbelUserTypes where BimbelUser is null.
+     *
+     * @return the list of entities
      */
+    @Override
     @Transactional(readOnly = true)
     public List<BimbelUserType> findAllWhereBimbelUserIsNull() {
         log.debug("Request to get all bimbelUserTypes where BimbelUser is null");
-        return StreamSupport
-            .stream(bimbelUserTypeRepository.findAll().spliterator(), false)
+        return bimbelUserTypeRepository.findAll().stream()
             .filter(bimbelUserType -> bimbelUserType.getBimbelUser() == null)
             .collect(Collectors.toList());
     }
@@ -76,9 +72,10 @@ public class BimbelUserTypeServiceImpl implements BimbelUserTypeService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<BimbelUserType> findOne(Long id) {
+    public BimbelUserType findOne(Long id) {
         log.debug("Request to get BimbelUserType : {}", id);
-        return bimbelUserTypeRepository.findById(id);
+        return bimbelUserTypeRepository.findById(id)
+            .orElse(null);
     }
 
     /**
@@ -88,6 +85,7 @@ public class BimbelUserTypeServiceImpl implements BimbelUserTypeService {
      */
     @Override
     public void delete(Long id) {
-        log.debug("Request to delete BimbelUserType : {}", id);        bimbelUserTypeRepository.deleteById(id);
+        log.debug("Request to delete BimbelUserType : {}", id);
+        bimbelUserTypeRepository.delete(id);
     }
 }

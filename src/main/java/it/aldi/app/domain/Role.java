@@ -1,6 +1,5 @@
 package it.aldi.app.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import it.aldi.app.util.RoleConstant;
 import lombok.AllArgsConstructor;
 import org.hibernate.annotations.Cache;
@@ -38,6 +37,10 @@ public class Role implements Serializable {
         inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "id"))
     private Set<Privilege> privileges;
 
+    @OneToMany(mappedBy = "role")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<BimbelUserTypeRole> bimbelUserTypeRoles = new HashSet<>();
+
     private Role() {
     }
 
@@ -65,11 +68,6 @@ public class Role implements Serializable {
     public static Role student() {
         return new Role(RoleConstant.student());
     }
-
-    @ManyToMany(mappedBy = "roles")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JsonIgnore
-    private Set<Organization> organizations = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -118,29 +116,29 @@ public class Role implements Serializable {
         this.privileges = Collections.unmodifiableSet(privileges);
     }
 
-    public Set<Organization> getOrganizations() {
-        return Collections.unmodifiableSet(organizations);
+    public Set<BimbelUserTypeRole> getBimbelUserTypeRoles() {
+        return bimbelUserTypeRoles;
     }
 
-    public Role organizations(Set<Organization> organizations) {
-        this.organizations = Collections.unmodifiableSet(organizations);
+    public Role bimbelUserTypeRoles(Set<BimbelUserTypeRole> bimbelUserTypeRoles) {
+        this.bimbelUserTypeRoles = bimbelUserTypeRoles;
         return this;
     }
 
-    public Role addOrganization(Organization organization) {
-        organizations.add(organization);
-        organization.getRoles().add(this);
+    public Role addBimbelUserTypeRole(BimbelUserTypeRole bimbelUserTypeRole) {
+        bimbelUserTypeRoles.add(bimbelUserTypeRole);
+        bimbelUserTypeRole.setRole(this);
         return this;
     }
 
-    public Role removeOrganization(Organization organization) {
-        organizations.remove(organization);
-        organization.getRoles().remove(this);
+    public Role removeBimbelUserTypeRole(BimbelUserTypeRole bimbelUserTypeRole) {
+        bimbelUserTypeRoles.remove(bimbelUserTypeRole);
+        bimbelUserTypeRole.setRole(null);
         return this;
     }
 
-    public void setOrganizations(Set<Organization> organizations) {
-        this.organizations = Collections.unmodifiableSet(organizations);
+    public void setBimbelUserTypeRoles(Set<BimbelUserTypeRole> bimbelUserTypeRoles) {
+        this.bimbelUserTypeRoles = bimbelUserTypeRoles;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

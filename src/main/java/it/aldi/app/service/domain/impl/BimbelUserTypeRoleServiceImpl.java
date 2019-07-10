@@ -1,16 +1,14 @@
 package it.aldi.app.service.domain.impl;
 
-import it.aldi.app.service.BimbelUserTypeRoleService;
 import it.aldi.app.domain.BimbelUserTypeRole;
 import it.aldi.app.repository.BimbelUserTypeRoleRepository;
+import it.aldi.app.service.domain.BimbelUserTypeRoleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Service Implementation for managing BimbelUserTypeRole.
@@ -51,7 +49,6 @@ public class BimbelUserTypeRoleServiceImpl implements BimbelUserTypeRoleService 
         return bimbelUserTypeRoleRepository.findAll();
     }
 
-
     /**
      * Get one bimbelUserTypeRole by id.
      *
@@ -60,9 +57,10 @@ public class BimbelUserTypeRoleServiceImpl implements BimbelUserTypeRoleService 
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<BimbelUserTypeRole> findOne(Long id) {
+    public BimbelUserTypeRole findOne(Long id) {
         log.debug("Request to get BimbelUserTypeRole : {}", id);
-        return bimbelUserTypeRoleRepository.findById(id);
+        return bimbelUserTypeRoleRepository.findById(id)
+            .orElse(null);
     }
 
     /**
@@ -72,6 +70,7 @@ public class BimbelUserTypeRoleServiceImpl implements BimbelUserTypeRoleService 
      */
     @Override
     public void delete(Long id) {
-        log.debug("Request to delete BimbelUserTypeRole : {}", id);        bimbelUserTypeRoleRepository.deleteById(id);
+        log.debug("Request to delete BimbelUserTypeRole : {}", id);
+        bimbelUserTypeRoleRepository.delete(id);
     }
 }

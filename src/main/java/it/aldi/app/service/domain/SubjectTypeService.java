@@ -3,7 +3,6 @@ package it.aldi.app.service.domain;
 import it.aldi.app.domain.SubjectType;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Service Interface for managing SubjectType.
@@ -25,14 +24,13 @@ public interface SubjectTypeService {
      */
     List<SubjectType> findAll();
 
-
     /**
      * Get the "id" subjectType.
      *
      * @param id the id of the entity
      * @return the entity
      */
-    Optional<SubjectType> findOne(Long id);
+    SubjectType findOne(Long id);
 
     /**
      * Delete the "id" subjectType.

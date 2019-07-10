@@ -1,6 +1,5 @@
 package it.aldi.app.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -9,8 +8,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -45,18 +42,6 @@ public class Organization implements Serializable {
     @Column(name = "activated")
     private Boolean activated;
 
-    @ManyToMany(mappedBy = "organizations", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JsonIgnore
-    private Set<BimbelUser> bimbelUsers = new HashSet<>();
-
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "organization_role",
-        joinColumns = @JoinColumn(name = "organization_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private Set<Role> roles = new HashSet<>();
-
     private Organization() {
     }
 
@@ -68,7 +53,7 @@ public class Organization implements Serializable {
     }
 
     public static Organization createDefault(String name, Set<Role> roles) {
-        return new Organization(name).roles(roles);
+        return new Organization(name);
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -131,56 +116,6 @@ public class Organization implements Serializable {
     public void setActivated(Boolean activated) {
         this.activated = activated;
     }
-
-    public Set<BimbelUser> getBimbelUsers() {
-        return bimbelUsers;
-    }
-
-    public Organization bimbelUsers(Set<BimbelUser> bimbelUsers) {
-        this.bimbelUsers = bimbelUsers;
-        return this;
-    }
-
-    public Organization addBimbelUser(BimbelUser bimbelUser) {
-        this.bimbelUsers.add(bimbelUser);
-        bimbelUser.getOrganizations().add(this);
-        return this;
-    }
-
-    public Organization removeBimbelUser(BimbelUser bimbelUser) {
-        this.bimbelUsers.remove(bimbelUser);
-        bimbelUser.getOrganizations().remove(this);
-        return this;
-    }
-
-    public void setBimbelUsers(Set<BimbelUser> bimbelUsers) {
-        this.bimbelUsers = bimbelUsers;
-    }
-
-    public Set<Role> getRoles() {
-        return Collections.unmodifiableSet(roles);
-    }
-
-    public Organization roles(Set<Role> roles) {
-        this.roles = Collections.unmodifiableSet(roles);
-        return this;
-    }
-
-    public Organization addRole(Role role) {
-        roles.add(role);
-        role.getOrganizations().add(this);
-        return this;
-    }
-
-    public Organization removeRole(Role role) {
-        roles.remove(role);
-        role.getOrganizations().remove(this);
-        return this;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -192,24 +127,21 @@ public class Organization implements Serializable {
             return false;
         }
         Organization organization = (Organization) o;
-        if (organization.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), organization.getId());
+        return organization.id != null && id != null && Objects.equals(id, organization.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(id);
     }
 
     @Override
     public String toString() {
         return "Organization{" +
-            "id=" + getId() +
-            ", name='" + getName() + "'" +
-            ", address='" + getAddress() + "'" +
-            ", phone='" + getPhone() + "'" +
+            "id=" + id +
+            ", name='" + name + "'" +
+            ", address='" + address + "'" +
+            ", phone='" + phone + "'" +
             ", activated='" + isActivated() + "'" +
             "}";
     }

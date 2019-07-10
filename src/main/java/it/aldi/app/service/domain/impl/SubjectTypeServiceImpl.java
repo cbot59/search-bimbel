@@ -1,16 +1,14 @@
 package it.aldi.app.service.domain.impl;
 
-import it.aldi.app.service.SubjectTypeService;
 import it.aldi.app.domain.SubjectType;
 import it.aldi.app.repository.SubjectTypeRepository;
+import it.aldi.app.service.domain.SubjectTypeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Service Implementation for managing SubjectType.
@@ -51,7 +49,6 @@ public class SubjectTypeServiceImpl implements SubjectTypeService {
         return subjectTypeRepository.findAll();
     }
 
-
     /**
      * Get one subjectType by id.
      *
@@ -60,9 +57,10 @@ public class SubjectTypeServiceImpl implements SubjectTypeService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<SubjectType> findOne(Long id) {
+    public SubjectType findOne(Long id) {
         log.debug("Request to get SubjectType : {}", id);
-        return subjectTypeRepository.findById(id);
+        return subjectTypeRepository.findById(id)
+            .orElse(null);
     }
 
     /**
@@ -72,6 +70,7 @@ public class SubjectTypeServiceImpl implements SubjectTypeService {
      */
     @Override
     public void delete(Long id) {
-        log.debug("Request to delete SubjectType : {}", id);        subjectTypeRepository.deleteById(id);
+        log.debug("Request to delete SubjectType : {}", id);
+        subjectTypeRepository.delete(id);
     }
 }

@@ -3,7 +3,6 @@ package it.aldi.app.service.domain;
 import it.aldi.app.domain.BimbelUserType;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Service Interface for managing BimbelUserType.
@@ -24,6 +23,7 @@ public interface BimbelUserTypeService {
      * @return the list of entities
      */
     List<BimbelUserType> findAll();
+
     /**
      * Get all the BimbelUserTypeDTO where BimbelUser is null.
      *
@@ -31,14 +31,13 @@ public interface BimbelUserTypeService {
      */
     List<BimbelUserType> findAllWhereBimbelUserIsNull();
 
-
     /**
      * Get the "id" bimbelUserType.
      *
      * @param id the id of the entity
      * @return the entity
      */
-    Optional<BimbelUserType> findOne(Long id);
+    BimbelUserType findOne(Long id);
 
     /**
      * Delete the "id" bimbelUserType.

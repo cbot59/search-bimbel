@@ -1,9 +1,8 @@
-package it.aldi.app.service;
+package it.aldi.app.service.domain;
 
 import it.aldi.app.domain.BimbelUserTypeRole;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Service Interface for managing BimbelUserTypeRole.
@@ -25,14 +24,13 @@ public interface BimbelUserTypeRoleService {
      */
     List<BimbelUserTypeRole> findAll();
 
-
     /**
      * Get the "id" bimbelUserTypeRole.
      *
      * @param id the id of the entity
      * @return the entity
      */
-    Optional<BimbelUserTypeRole> findOne(Long id);
+    BimbelUserTypeRole findOne(Long id);
 
     /**
      * Delete the "id" bimbelUserTypeRole.

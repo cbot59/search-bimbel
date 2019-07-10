@@ -4,6 +4,7 @@ import it.aldi.app.domain.SubjectType;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
 
 /**
  * Spring Data  repository for the SubjectType entity.
@@ -12,4 +13,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SubjectTypeRepository extends JpaRepository<SubjectType, Long> {
 
+    Optional<SubjectType> findById(Long id);
 }
