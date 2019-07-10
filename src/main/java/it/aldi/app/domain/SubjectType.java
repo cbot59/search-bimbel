@@ -27,7 +27,7 @@ public class SubjectType implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "Subject")
+    @OneToMany(mappedBy = "subjectType")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Subject> subjects = new HashSet<>();
 
