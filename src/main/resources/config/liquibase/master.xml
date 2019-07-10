@@ -24,7 +24,6 @@
     <include file="classpath:config/liquibase/changelog/20190223045719_added_entity_constraints_BimbelUser.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20190321231805_added_entity_constraints_Role.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20190418025321_added_entity_constraints_City.xml" relativeToChangelogFile="false"/>
-    <include file="classpath:config/liquibase/changelog/20190321221834_added_entity_constraints_Organization.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20190707092636_added_entity_constraints_Schedule.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20190709234756_added_entity_constraints_BimbelUserTypeRole.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20190710001053_added_entity_constraints_Student.xml" relativeToChangelogFile="false"/>
