@@ -14,4 +14,6 @@ import java.util.Optional;
 public interface BimbelUserTypeRepository extends JpaRepository<BimbelUserType, Long> {
 
     Optional<BimbelUserType> findById(Long id);
+
+    Optional<BimbelUserType> findByName(String name);
 }

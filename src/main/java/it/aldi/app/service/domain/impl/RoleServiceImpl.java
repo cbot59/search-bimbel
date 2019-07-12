@@ -105,4 +105,11 @@ public class RoleServiceImpl implements RoleService {
     public List<Role> findAll() {
         return roleRepository.findAll();
     }
+
+    @Override
+    public Role findOne(String name) {
+        log.debug("Request to get Role : {}", name);
+        return roleRepository.findByName(name)
+            .orElse(null);
+    }
 }

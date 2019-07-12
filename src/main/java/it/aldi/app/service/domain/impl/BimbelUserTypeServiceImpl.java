@@ -88,4 +88,11 @@ public class BimbelUserTypeServiceImpl implements BimbelUserTypeService {
         log.debug("Request to delete BimbelUserType : {}", id);
         bimbelUserTypeRepository.delete(id);
     }
+
+    @Override
+    public BimbelUserType findOne(String name) {
+        log.debug("Request to get BimbelUserType : {}", name);
+        return bimbelUserTypeRepository.findByName(name)
+            .orElse(null);
+    }
 }

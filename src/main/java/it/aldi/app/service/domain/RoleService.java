@@ -63,4 +63,12 @@ public interface RoleService {
      * @return the list of entities
      */
     List<Role> findAll();
+
+    /**
+     * Get the "name" role.
+     *
+     * @param name of the entity
+     * @return the entity
+     */
+    Role findOne(String name);
 }

@@ -45,4 +45,12 @@ public interface BimbelUserTypeService {
      * @param id the id of the entity
      */
     void delete(Long id);
+
+    /**
+     * Get the "name" bimbelUserType
+     *
+     * @param name of the entity
+     * @return the entity
+     */
+    BimbelUserType findOne(String name);
 }
