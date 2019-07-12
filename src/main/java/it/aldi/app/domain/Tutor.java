@@ -1,16 +1,14 @@
 package it.aldi.app.domain;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A Tutor.
@@ -21,15 +19,19 @@ import java.util.Objects;
 public class Tutor implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToMany(mappedBy = "tutor")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<UserOrganization> userOrganizations = new HashSet<>();
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private BimbelUser bimbelUser;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -40,11 +42,11 @@ public class Tutor implements Serializable {
     }
 
     public Set<UserOrganization> getUserOrganizations() {
-        return userOrganizations;
+        return Collections.unmodifiableSet(userOrganizations);
     }
 
     public Tutor userOrganizations(Set<UserOrganization> userOrganizations) {
-        this.userOrganizations = userOrganizations;
+        this.userOrganizations = Collections.unmodifiableSet(userOrganizations);
         return this;
     }
 
@@ -61,7 +63,20 @@ public class Tutor implements Serializable {
     }
 
     public void setUserOrganizations(Set<UserOrganization> userOrganizations) {
-        this.userOrganizations = userOrganizations;
+        this.userOrganizations = Collections.unmodifiableSet(userOrganizations);
+    }
+
+    public BimbelUser getBimbelUser() {
+        return bimbelUser;
+    }
+
+    public Tutor bimbelUser(BimbelUser bimbelUser) {
+        this.bimbelUser = bimbelUser;
+        return this;
+    }
+
+    public void setBimbelUser(BimbelUser bimbelUser) {
+        this.bimbelUser = bimbelUser;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -70,25 +85,25 @@ public class Tutor implements Serializable {
         if (this == o) {
             return true;
         }
+
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
+
         Tutor tutor = (Tutor) o;
-        if (tutor.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), tutor.getId());
+
+        return tutor.id != null && id != null && Objects.equals(id, tutor.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(id);
     }
 
     @Override
     public String toString() {
         return "Tutor{" +
-            "id=" + getId() +
+            "id=" + id +
             "}";
     }
 }

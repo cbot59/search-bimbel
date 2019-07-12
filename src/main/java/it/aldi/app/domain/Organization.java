@@ -1,5 +1,6 @@
 package it.aldi.app.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -8,6 +9,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -41,6 +44,14 @@ public class Organization implements Serializable {
 
     @Column(name = "activated")
     private Boolean activated;
+
+    @OneToMany(mappedBy = "organization")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<UserOrganization> userOrganizations = new HashSet<>();
+
+    @OneToOne(mappedBy = "organization")
+    @JsonIgnore
+    private Owner owner;
 
     private Organization() {
     }
@@ -116,6 +127,44 @@ public class Organization implements Serializable {
     public void setActivated(Boolean activated) {
         this.activated = activated;
     }
+
+    public Set<UserOrganization> getUserOrganizations() {
+        return Collections.unmodifiableSet(userOrganizations);
+    }
+
+    public Organization userOrganizations(Set<UserOrganization> userOrganizations) {
+        this.userOrganizations = Collections.unmodifiableSet(userOrganizations);
+        return this;
+    }
+
+    public Organization addUserOrganization(UserOrganization userOrganization) {
+        userOrganizations.add(userOrganization);
+        userOrganization.setOrganization(this);
+        return this;
+    }
+
+    public Organization removeUserOrganization(UserOrganization userOrganization) {
+        userOrganizations.remove(userOrganization);
+        userOrganization.setOrganization(null);
+        return this;
+    }
+
+    public void setUserOrganizations(Set<UserOrganization> userOrganizations) {
+        this.userOrganizations = Collections.unmodifiableSet(userOrganizations);
+    }
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public Organization owner(Owner owner) {
+        this.owner = owner;
+        return this;
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -123,10 +172,13 @@ public class Organization implements Serializable {
         if (this == o) {
             return true;
         }
+
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
+
         Organization organization = (Organization) o;
+
         return organization.id != null && id != null && Objects.equals(id, organization.id);
     }
 

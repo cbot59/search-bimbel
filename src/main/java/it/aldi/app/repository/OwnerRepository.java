@@ -4,6 +4,7 @@ import it.aldi.app.domain.Owner;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
 
 /**
  * Spring Data  repository for the Owner entity.
@@ -12,4 +13,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OwnerRepository extends JpaRepository<Owner, Long> {
 
+    Optional<Owner> findById(Long id);
 }

@@ -32,6 +32,10 @@ public class Student implements Serializable {
     @JoinColumn(unique = true)
     private BimbelUser bimbelUser;
 
+    @OneToMany(mappedBy = "student")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<UserOrganization> userOrganizations = new HashSet<>();
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -78,6 +82,31 @@ public class Student implements Serializable {
     public void setBimbelUser(BimbelUser bimbelUser) {
         this.bimbelUser = bimbelUser;
     }
+
+    public Set<UserOrganization> getUserOrganizations() {
+        return Collections.unmodifiableSet(userOrganizations);
+    }
+
+    public Student userOrganizations(Set<UserOrganization> userOrganizations) {
+        this.userOrganizations = Collections.unmodifiableSet(userOrganizations);
+        return this;
+    }
+
+    public Student addUserOrganization(UserOrganization userOrganization) {
+        userOrganizations.add(userOrganization);
+        userOrganization.setStudent(this);
+        return this;
+    }
+
+    public Student removeUserOrganization(UserOrganization userOrganization) {
+        userOrganizations.remove(userOrganization);
+        userOrganization.setStudent(null);
+        return this;
+    }
+
+    public void setUserOrganizations(Set<UserOrganization> userOrganizations) {
+        this.userOrganizations = Collections.unmodifiableSet(userOrganizations);
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -85,10 +114,13 @@ public class Student implements Serializable {
         if (this == o) {
             return true;
         }
+
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
+
         Student student = (Student) o;
+
         return student.id != null && id != null && Objects.equals(id, student.id);
     }
 

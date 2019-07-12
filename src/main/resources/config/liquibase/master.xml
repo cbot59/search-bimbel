@@ -20,6 +20,9 @@
     <include file="classpath:config/liquibase/changelog/20190710040020_added_entity_DayOfWeek.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20190710042215_added_entity_Subject.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20190710061213_added_entity_SubjectType.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20190712134038_added_entity_UserOrganization.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20190712134345_added_entity_Owner.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20190712134753_added_entity_Tutor.xml" relativeToChangelogFile="false"/>
 
     <include file="classpath:config/liquibase/changelog/20190223045719_added_entity_constraints_BimbelUser.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20190321231805_added_entity_constraints_Role.xml" relativeToChangelogFile="false"/>
@@ -29,6 +32,9 @@
     <include file="classpath:config/liquibase/changelog/20190710001053_added_entity_constraints_Student.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20190710001232_added_entity_constraints_StudentEnrollment.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20190710042215_added_entity_constraints_Subject.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20190712134038_added_entity_constraints_UserOrganization.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20190712134345_added_entity_constraints_Owner.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20190712134753_added_entity_constraints_Tutor.xml" relativeToChangelogFile="false"/>
 
     <include file="classpath:config/liquibase/changelog/00000000000001_initial_role.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/00000000000002_initial_province.xml" relativeToChangelogFile="false"/>

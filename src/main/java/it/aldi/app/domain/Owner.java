@@ -1,11 +1,9 @@
 package it.aldi.app.domain;
 
-
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -18,15 +16,18 @@ import java.util.Objects;
 public class Owner implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne
     @JoinColumn(unique = true)
     private Organization organization;
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private BimbelUser bimbelUser;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -49,6 +50,19 @@ public class Owner implements Serializable {
     public void setOrganization(Organization organization) {
         this.organization = organization;
     }
+
+    public BimbelUser getBimbelUser() {
+        return bimbelUser;
+    }
+
+    public Owner bimbelUser(BimbelUser bimbelUser) {
+        this.bimbelUser = bimbelUser;
+        return this;
+    }
+
+    public void setBimbelUser(BimbelUser bimbelUser) {
+        this.bimbelUser = bimbelUser;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -56,25 +70,25 @@ public class Owner implements Serializable {
         if (this == o) {
             return true;
         }
+
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
+
         Owner owner = (Owner) o;
-        if (owner.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), owner.getId());
+
+        return owner.id != null && id != null && Objects.equals(id, owner.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(id);
     }
 
     @Override
     public String toString() {
         return "Owner{" +
-            "id=" + getId() +
+            "id=" + id +
             "}";
     }
 }

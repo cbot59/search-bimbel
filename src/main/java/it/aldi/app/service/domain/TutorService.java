@@ -1,7 +1,6 @@
-package it.aldi.app.service;
+package it.aldi.app.service.domain;
 
 import it.aldi.app.domain.Tutor;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -28,14 +27,13 @@ public interface TutorService {
      */
     Page<Tutor> findAll(Pageable pageable);
 
-
     /**
      * Get the "id" tutor.
      *
      * @param id the id of the entity
      * @return the entity
      */
-    Optional<Tutor> findOne(Long id);
+    Tutor findOne(Long id);
 
     /**
      * Delete the "id" tutor.

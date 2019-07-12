@@ -1,12 +1,10 @@
 package it.aldi.app.domain;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -19,10 +17,9 @@ import java.util.Objects;
 public class UserOrganization implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
@@ -91,14 +88,14 @@ public class UserOrganization implements Serializable {
         if (this == o) {
             return true;
         }
+
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
+
         UserOrganization userOrganization = (UserOrganization) o;
-        if (userOrganization.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), userOrganization.getId());
+
+        return userOrganization.id != null && id != null && Objects.equals(id, userOrganization.id);
     }
 
     @Override
@@ -109,7 +106,7 @@ public class UserOrganization implements Serializable {
     @Override
     public String toString() {
         return "UserOrganization{" +
-            "id=" + getId() +
+            "id=" + id +
             "}";
     }
 }

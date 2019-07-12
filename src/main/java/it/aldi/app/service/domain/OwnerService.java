@@ -1,4 +1,4 @@
-package it.aldi.app.service;
+package it.aldi.app.service.domain;
 
 import it.aldi.app.domain.Owner;
 
@@ -25,14 +25,13 @@ public interface OwnerService {
      */
     List<Owner> findAll();
 
-
     /**
      * Get the "id" owner.
      *
      * @param id the id of the entity
      * @return the entity
      */
-    Optional<Owner> findOne(Long id);
+    Owner findOne(Long id);
 
     /**
      * Delete the "id" owner.

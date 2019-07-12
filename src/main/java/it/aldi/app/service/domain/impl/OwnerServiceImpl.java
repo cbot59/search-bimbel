@@ -1,16 +1,14 @@
-package it.aldi.app.service.impl;
+package it.aldi.app.service.domain.impl;
 
-import it.aldi.app.service.OwnerService;
 import it.aldi.app.domain.Owner;
 import it.aldi.app.repository.OwnerRepository;
+import it.aldi.app.service.domain.OwnerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Service Implementation for managing Owner.
@@ -51,7 +49,6 @@ public class OwnerServiceImpl implements OwnerService {
         return ownerRepository.findAll();
     }
 
-
     /**
      * Get one owner by id.
      *
@@ -60,9 +57,10 @@ public class OwnerServiceImpl implements OwnerService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<Owner> findOne(Long id) {
+    public Owner findOne(Long id) {
         log.debug("Request to get Owner : {}", id);
-        return ownerRepository.findById(id);
+        return ownerRepository.findById(id)
+            .orElse(null);
     }
 
     /**
@@ -72,6 +70,7 @@ public class OwnerServiceImpl implements OwnerService {
      */
     @Override
     public void delete(Long id) {
-        log.debug("Request to delete Owner : {}", id);        ownerRepository.deleteById(id);
+        log.debug("Request to delete Owner : {}", id);
+        ownerRepository.delete(id);
     }
 }

@@ -1,17 +1,14 @@
-package it.aldi.app.service.impl;
+package it.aldi.app.service.domain.impl;
 
-import it.aldi.app.service.TutorService;
 import it.aldi.app.domain.Tutor;
 import it.aldi.app.repository.TutorRepository;
+import it.aldi.app.service.domain.TutorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 /**
  * Service Implementation for managing Tutor.
@@ -53,7 +50,6 @@ public class TutorServiceImpl implements TutorService {
         return tutorRepository.findAll(pageable);
     }
 
-
     /**
      * Get one tutor by id.
      *
@@ -62,9 +58,10 @@ public class TutorServiceImpl implements TutorService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<Tutor> findOne(Long id) {
+    public Tutor findOne(Long id) {
         log.debug("Request to get Tutor : {}", id);
-        return tutorRepository.findById(id);
+        return tutorRepository.findById(id)
+            .orElse(null);
     }
 
     /**
@@ -74,6 +71,7 @@ public class TutorServiceImpl implements TutorService {
      */
     @Override
     public void delete(Long id) {
-        log.debug("Request to delete Tutor : {}", id);        tutorRepository.deleteById(id);
+        log.debug("Request to delete Tutor : {}", id);
+        tutorRepository.delete(id);
     }
 }

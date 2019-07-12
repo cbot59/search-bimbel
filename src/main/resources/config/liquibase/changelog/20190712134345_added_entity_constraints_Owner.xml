@@ -14,5 +14,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="organization"/>
 
+        <addForeignKeyConstraint baseColumnNames="bimbel_user_id"
+                                 baseTableName="owner"
+                                 constraintName="fk_owner_bimbel_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="bimbel_user"/>
+
     </changeSet>
 </databaseChangeLog>

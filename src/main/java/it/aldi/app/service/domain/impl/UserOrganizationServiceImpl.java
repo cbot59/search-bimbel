@@ -1,17 +1,14 @@
 package it.aldi.app.service.domain.impl;
 
-import it.aldi.app.service.UserOrganizationService;
 import it.aldi.app.domain.UserOrganization;
 import it.aldi.app.repository.UserOrganizationRepository;
+import it.aldi.app.service.domain.UserOrganizationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 /**
  * Service Implementation for managing UserOrganization.
@@ -53,7 +50,6 @@ public class UserOrganizationServiceImpl implements UserOrganizationService {
         return userOrganizationRepository.findAll(pageable);
     }
 
-
     /**
      * Get one userOrganization by id.
      *
@@ -62,9 +58,10 @@ public class UserOrganizationServiceImpl implements UserOrganizationService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<UserOrganization> findOne(Long id) {
+    public UserOrganization findOne(Long id) {
         log.debug("Request to get UserOrganization : {}", id);
-        return userOrganizationRepository.findById(id);
+        return userOrganizationRepository.findById(id)
+            .orElse(null);
     }
 
     /**
@@ -74,6 +71,7 @@ public class UserOrganizationServiceImpl implements UserOrganizationService {
      */
     @Override
     public void delete(Long id) {
-        log.debug("Request to delete UserOrganization : {}", id);        userOrganizationRepository.deleteById(id);
+        log.debug("Request to delete UserOrganization : {}", id);
+        userOrganizationRepository.delete(id);
     }
 }
