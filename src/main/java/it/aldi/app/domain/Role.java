@@ -58,15 +58,15 @@ public class Role implements Serializable {
     }
 
     public static Role owner() {
-        return new Role(RoleConstant.owner());
+        return new Role(RoleConstant.OWNER);
     }
 
     public static Role tutor() {
-        return new Role(RoleConstant.tutor());
+        return new Role(RoleConstant.TUTOR);
     }
 
     public static Role student() {
-        return new Role(RoleConstant.student());
+        return new Role(RoleConstant.STUDENT);
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

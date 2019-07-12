@@ -1,7 +1,7 @@
 package it.aldi.app.security.model;
 
 import it.aldi.app.domain.BimbelUser;
-import it.aldi.app.domain.Organization;
+import it.aldi.app.util.RoleConstant;
 import lombok.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,14 +18,17 @@ public class BimbelUserPrincipal implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // TODO: adjust getting authorities
-        Organization defaultOrg = null;
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+        String role = bimbelUser.getBimbelUserType().getName();
 
-        if (defaultOrg == null) {
-            grantedAuthorities.add(new SimpleGrantedAuthority("USER"));
-
-            return grantedAuthorities;
+        switch (role) {
+            case RoleConstant.OWNER:
+            case RoleConstant.STUDENT:
+            case RoleConstant.TUTOR:
+                grantedAuthorities.add(new SimpleGrantedAuthority(role));
+                break;
+            default:
+                grantedAuthorities.add(new SimpleGrantedAuthority("USER"));
         }
 
         return grantedAuthorities;

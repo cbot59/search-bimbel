@@ -83,8 +83,8 @@ public class RegisterServiceImpl implements RegisterService {
     }
 
     private static boolean isManagementRole(Role role) {
-        return role.getName().equalsIgnoreCase(RoleConstant.owner())
-            || role.getName().equalsIgnoreCase(RoleConstant.tutor());
+        return role.getName().equalsIgnoreCase(RoleConstant.OWNER)
+            || role.getName().equalsIgnoreCase(RoleConstant.TUTOR);
     }
 
     private static Set<Role> everyRoles(List<Role> availableRoles) {
