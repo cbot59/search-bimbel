@@ -72,9 +72,8 @@ public class BimbelUser implements Serializable {
         return new BimbelUser(bimbelUserDto);
     }
 
-    public static BimbelUser register(BimbelUserDto bimbelUserDto, Set<Role> roles) {
-        // TODO: adjust registration process
-        return from(bimbelUserDto);
+    public static BimbelUser register(BimbelUserDto bimbelUserDto, BimbelUserType bimbelUserType) {
+        return from(bimbelUserDto).bimbelUserType(bimbelUserType);
     }
 
     public static BimbelUser empty() {

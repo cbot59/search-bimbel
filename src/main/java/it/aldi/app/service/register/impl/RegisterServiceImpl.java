@@ -2,8 +2,12 @@ package it.aldi.app.service.register.impl;
 
 import it.aldi.app.controller.dto.BimbelUserDto;
 import it.aldi.app.domain.BimbelUser;
+import it.aldi.app.domain.BimbelUserType;
+import it.aldi.app.domain.BimbelUserTypeRole;
 import it.aldi.app.domain.Role;
 import it.aldi.app.service.domain.BimbelUserService;
+import it.aldi.app.service.domain.BimbelUserTypeRoleService;
+import it.aldi.app.service.domain.BimbelUserTypeService;
 import it.aldi.app.service.domain.RoleService;
 import it.aldi.app.service.register.RegisterService;
 import it.aldi.app.util.ErrorMsgConstant;
@@ -24,19 +28,33 @@ public class RegisterServiceImpl implements RegisterService {
 
     private final BimbelUserService bimbelUserService;
 
+    private final BimbelUserTypeService bimbelUserTypeService;
+
+    private final BimbelUserTypeRoleService bimbelUserTypeRoleService;
+
     private final RoleService roleService;
 
-    public RegisterServiceImpl(ErrorMsgConstant errorMsgConstant, BimbelUserService bimbelUserService,
+    public RegisterServiceImpl(ErrorMsgConstant errorMsgConstant,
+                               BimbelUserService bimbelUserService,
+                               BimbelUserTypeService bimbelUserTypeService,
+                               BimbelUserTypeRoleService bimbelUserTypeRoleService,
                                RoleService roleService) {
         this.errorMsgConstant = errorMsgConstant;
         this.bimbelUserService = bimbelUserService;
+        this.bimbelUserTypeService = bimbelUserTypeService;
+        this.bimbelUserTypeRoleService = bimbelUserTypeRoleService;
         this.roleService = roleService;
     }
 
     @Override
     public void registerUser(BimbelUserDto bimbelUserDto) {
-        Set<Role> assignedRoles = assignRoles(bimbelUserDto);
-        BimbelUser bimbelUser = BimbelUser.register(bimbelUserDto, assignedRoles);
+        BimbelUserType bimbelUserType = bimbelUserTypeService.findOne(bimbelUserDto.getRoles());
+        Role role = roleService.findOne(bimbelUserDto.getRoles());
+
+        BimbelUserTypeRole bimbelUserTypeRole = BimbelUserTypeRole.from(bimbelUserType, role);
+        BimbelUser bimbelUser = BimbelUser.register(bimbelUserDto, bimbelUserType);
+
+        bimbelUserTypeRoleService.save(bimbelUserTypeRole);
         bimbelUserService.save(bimbelUser);
     }
 

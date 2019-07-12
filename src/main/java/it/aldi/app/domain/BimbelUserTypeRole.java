@@ -30,6 +30,14 @@ public class BimbelUserTypeRole implements Serializable {
     @JsonIgnoreProperties("bimbelUserTypeRoles")
     private Role role;
 
+    private BimbelUserTypeRole(BimbelUserType bimbelUserType, Role role) {
+        this.bimbelUserType = bimbelUserType;
+        this.role = role;
+    }
+    public static BimbelUserTypeRole from(BimbelUserType bimbelUserType, Role role) {
+        return new BimbelUserTypeRole(bimbelUserType, role);
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
