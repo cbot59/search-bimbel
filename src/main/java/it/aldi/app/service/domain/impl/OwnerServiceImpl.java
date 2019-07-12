@@ -73,4 +73,11 @@ public class OwnerServiceImpl implements OwnerService {
         log.debug("Request to delete Owner : {}", id);
         ownerRepository.delete(id);
     }
+
+    @Override
+    public Owner findByUserId(Long bimbelUserId) {
+        log.debug("Request to get Owner by userId : {}", bimbelUserId);
+        return ownerRepository.findByBimbelUser(bimbelUserId)
+            .orElse(null);
+    }
 }

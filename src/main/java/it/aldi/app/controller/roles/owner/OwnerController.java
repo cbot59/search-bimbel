@@ -2,6 +2,7 @@ package it.aldi.app.controller.roles.owner;
 
 import it.aldi.app.controller.Routes;
 import it.aldi.app.security.model.BimbelUserPrincipal;
+import it.aldi.app.service.domain.OwnerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,8 @@ public class OwnerController {
     private static final String OWNER_MANAGE_TUTOR_VIEW = "owner/manage_tutor";
     private static final String OWNER_UPLOAD_MATERIAL_VIEW = "owner/upload_material";
 
+    private OwnerService ownerService;
+
     @GetMapping
     public String ownerDashboard(Model model) {
         log.debug("Entering owner's home");
@@ -29,8 +32,8 @@ public class OwnerController {
     public String manageStudent(Model model, Authentication authentication) {
         BimbelUserPrincipal bimbelUserPrincipal = (BimbelUserPrincipal) authentication.getPrincipal();
 
-        // TODO: adjust controller
-        Long organizationId = null;
+        Long organizationId = ownerService.findByUserId(bimbelUserPrincipal.getBimbelUser().getId())
+            .getId();
 
         model.addAttribute("orgIds", organizationId);
 
@@ -41,8 +44,8 @@ public class OwnerController {
     public String manageTutor(Model model, Authentication authentication) {
         BimbelUserPrincipal bimbelUserPrincipal = (BimbelUserPrincipal) authentication.getPrincipal();
 
-        // TODO: adjust controller
-        Long organizationId = null;
+        Long organizationId = ownerService.findByUserId(bimbelUserPrincipal.getBimbelUser().getId())
+            .getId();
 
         model.addAttribute("orgIds", organizationId);
 

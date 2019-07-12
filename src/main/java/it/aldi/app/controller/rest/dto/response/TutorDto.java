@@ -13,7 +13,7 @@ public class TutorDto {
     private String username;
     private List<String> subjects;
 
-    public TutorDto(BimbelUser bimbelUser) {
+    private TutorDto(BimbelUser bimbelUser) {
         name = bimbelUser.getName();
         email = bimbelUser.getEmail();
         username = bimbelUser.getEmail();

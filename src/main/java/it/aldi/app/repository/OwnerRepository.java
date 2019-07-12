@@ -14,4 +14,6 @@ import java.util.Optional;
 public interface OwnerRepository extends JpaRepository<Owner, Long> {
 
     Optional<Owner> findById(Long id);
+
+    Optional<Owner> findByBimbelUser(Long id);
 }

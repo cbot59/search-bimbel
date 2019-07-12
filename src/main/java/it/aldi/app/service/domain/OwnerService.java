@@ -39,4 +39,12 @@ public interface OwnerService {
      * @param id the id of the entity
      */
     void delete(Long id);
+
+    /**
+     * Get the "id" owner
+     *
+     * @param bimbelUserId of the entity
+     * @return the entity
+     */
+    Owner findByUserId(Long bimbelUserId);
 }

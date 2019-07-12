@@ -10,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * Service Implementation for managing UserOrganization.
  */
@@ -73,5 +75,11 @@ public class UserOrganizationServiceImpl implements UserOrganizationService {
     public void delete(Long id) {
         log.debug("Request to delete UserOrganization : {}", id);
         userOrganizationRepository.delete(id);
+    }
+
+    @Override
+    public List<UserOrganization> findByOrganization(Long organizationId) {
+        log.debug("Request to get all UserOrganizations by organizationId, {}", organizationId);
+        return userOrganizationRepository.findByOrganization(organizationId);
     }
 }
