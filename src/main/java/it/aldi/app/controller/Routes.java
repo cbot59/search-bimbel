@@ -21,6 +21,8 @@ public class Routes {
     public static final String STUDENT_HOME = "/student";
     // OWNER
     public static final String OWNER_HOME = "/owner";
+    public static final String OWNER_MANAGE_JOB = OWNER_HOME + "/manage_job";
+    public static final String OWNER_MANAGE_JOB_ADD = OWNER_MANAGE_JOB + "/add";
     public static final String OWNER_MANAGE_STUDENT = OWNER_HOME + "/manage_student";
     public static final String OWNER_MANAGE_SUBJECT = OWNER_HOME + "/manage_subject";
     public static final String OWNER_MANAGE_SUBJECT_ADD = OWNER_MANAGE_SUBJECT + "/add";
@@ -32,11 +34,13 @@ public class Routes {
      */
     public static final String API = "/api";
     public static final String CITIES = "/cities";
+    public static final String JOBS = "/jobs";
     public static final String PROVINCES = "/provinces";
     public static final String STUDENTS = "/students";
     public static final String SUBJECTS = "/subjects";
     public static final String TUTORS = "/tutors";
     public static final String API_CITIES = API + CITIES;
+    public static final String API_JOBS = API + JOBS;
     public static final String API_PROVINCE = API + PROVINCES;
     public static final String API_STUDENTS = API + STUDENTS;
     public static final String API_SUBJECTS = API + SUBJECTS;

@@ -33,6 +33,14 @@
                 subject</span></a>
     </li>
 
+
+    <!-- Nav Item - Manage Subject -->
+    <li class="nav-item" sec:authorize="hasAuthority('OWNER')">
+        <a class="nav-link" th:href="${@routes.OWNER_MANAGE_JOB}">
+            <span class="fas fa-fw fa-tachometer-alt"></span>
+            <span th:text="#{sidebar-owner-manage_job}">Manage job</span></a>
+    </li>
+
     <!-- Nav Item - Manage Tutor -->
     <li class="nav-item" sec:authorize="hasAuthority('OWNER')">
         <a class="nav-link" th:href="${@routes.OWNER_MANAGE_TUTOR}">
