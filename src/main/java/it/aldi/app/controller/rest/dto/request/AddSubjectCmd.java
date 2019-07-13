@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SubjectCmd {
+public class AddSubjectCmd {
 
     @NotNull
     private String name;
@@ -24,7 +24,7 @@ public class SubjectCmd {
     @JsonIgnore
     private SubjectType subjectType;
 
-    public SubjectCmd subjectType(SubjectType type) {
+    public AddSubjectCmd subjectType(SubjectType type) {
         subjectType = type;
         return this;
     }

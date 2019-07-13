@@ -1,7 +1,7 @@
 package it.aldi.app.controller.roles.owner;
 
 import it.aldi.app.controller.Routes;
-import it.aldi.app.controller.rest.dto.request.SubjectCmd;
+import it.aldi.app.controller.rest.dto.request.AddSubjectCmd;
 import it.aldi.app.domain.Owner;
 import it.aldi.app.security.model.BimbelUserPrincipal;
 import it.aldi.app.service.domain.OwnerService;
@@ -50,16 +50,16 @@ public class ManageSubjectController {
 
     @GetMapping(Routes.OWNER_MANAGE_SUBJECT_ADD)
     public String addSubjectView(Model model) {
-        model.addAttribute(new SubjectCmd());
+        model.addAttribute(new AddSubjectCmd());
         model.addAttribute("subjectTypes", subjectTypeService.findAll());
 
         return ADD_SUBJECT_VIEW;
     }
 
     @PostMapping(Routes.OWNER_MANAGE_SUBJECT_ADD)
-    public ModelAndView postAddSubject(@Valid @ModelAttribute SubjectCmd subjectCmd, BindingResult bindingResult,
+    public ModelAndView postAddSubject(@Valid @ModelAttribute AddSubjectCmd cmd, BindingResult bindingResult,
                                        Authentication authentication) {
-        log.debug("Adding subject: {}", subjectCmd);
+        log.debug("Adding subject: {}", cmd);
 
         // TODO: validate if binding errors
 
@@ -68,7 +68,7 @@ public class ManageSubjectController {
         Owner owner = ownerService.findByUserId(bimbelUserPrincipal.getBimbelUser().getId())
             .orElseThrow(() -> new IllegalArgumentException("Owner not found for user: " + bimbelUserPrincipal.getBimbelUser()));
 
-        manageSubjectService.addSubject(subjectCmd, owner.getOrganization());
+        manageSubjectService.addSubject(cmd, owner.getOrganization());
 
         return new ModelAndView(ControllerConstant.redirect() + Routes.OWNER_MANAGE_SUBJECT);
     }

@@ -14,7 +14,7 @@
         <p class="alert alert-danger" th:if="${errMsg}" th:text="${errMsg}"></p>
         <form th:action="${@routes.OWNER_MANAGE_SUBJECT_ADD}"
               method="post"
-              th:object="${subjectCmd}">
+              th:object="${addSubjectCmd}">
             <div class="form-group row">
                 <label for="subject-name-input" class="col-3">Subject
                     Name</label>

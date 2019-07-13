@@ -1,7 +1,7 @@
 package it.aldi.app.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import it.aldi.app.controller.rest.dto.request.SubjectCmd;
+import it.aldi.app.controller.rest.dto.request.AddSubjectCmd;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -46,13 +46,13 @@ public class Subject implements Serializable {
     public Subject() {
     }
 
-    public Subject(SubjectCmd subjectCmd) {
-        name = subjectCmd.getName();
-        description = subjectCmd.getDescription();
+    public Subject(AddSubjectCmd cmd) {
+        name = cmd.getName();
+        description = cmd.getDescription();
     }
 
-    public static Subject from(SubjectCmd subjectCmd) {
-        return new Subject(subjectCmd).subjectType(subjectCmd.getSubjectType());
+    public static Subject from(AddSubjectCmd cmd) {
+        return new Subject(cmd).subjectType(cmd.getSubjectType());
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

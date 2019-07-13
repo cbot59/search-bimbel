@@ -1,6 +1,6 @@
 package it.aldi.app.service.manage_subject.impl;
 
-import it.aldi.app.controller.rest.dto.request.SubjectCmd;
+import it.aldi.app.controller.rest.dto.request.AddSubjectCmd;
 import it.aldi.app.controller.rest.dto.response.SubjectDto;
 import it.aldi.app.domain.Organization;
 import it.aldi.app.domain.Subject;
@@ -26,20 +26,20 @@ public class ManageSubjectServiceImpl implements ManageSubjectService {
     }
 
     @Override
-    public SubjectDto addSubject(SubjectCmd subjectCmd, Organization organization) {
-        Subject cmd = Subject.from(assignSubjectType(subjectCmd))
+    public SubjectDto addSubject(AddSubjectCmd cmd, Organization organization) {
+        Subject subject = Subject.from(assignSubjectType(cmd))
             .organization(organization);
 
-        return SubjectDto.from(subjectService.save(cmd));
+        return SubjectDto.from(subjectService.save(subject));
     }
 
-    private SubjectCmd assignSubjectType(SubjectCmd subjectCmd) {
+    private AddSubjectCmd assignSubjectType(AddSubjectCmd cmd) {
         List<SubjectType> subjectTypes = subjectTypeService.findAll();
 
         return subjectTypes.stream()
-            .filter(subjectType -> subjectCmd.getLevel().equals(subjectType.getName()))
+            .filter(subjectType -> cmd.getLevel().equals(subjectType.getName()))
             .findFirst()
-            .map(subjectCmd::subjectType)
-            .orElseThrow(() -> new IllegalArgumentException("SubjectType is not available: " + subjectCmd.getLevel()));
+            .map(cmd::subjectType)
+            .orElseThrow(() -> new IllegalArgumentException("SubjectType is not available: " + cmd.getLevel()));
     }
 }
