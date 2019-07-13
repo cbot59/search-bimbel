@@ -15,7 +15,6 @@
     <include file="classpath:config/liquibase/changelog/20190709234359_added_entity_BimbelUserType.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20190709234756_added_entity_BimbelUserTypeRole.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20190710001053_added_entity_Student.xml" relativeToChangelogFile="false"/>
-    <include file="classpath:config/liquibase/changelog/20190710001232_added_entity_StudentEnrollment.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20190710002032_added_entity_Enrollment.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20190710040020_added_entity_DayOfWeek.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20190710042215_added_entity_Subject.xml" relativeToChangelogFile="false"/>
@@ -32,7 +31,6 @@
     <include file="classpath:config/liquibase/changelog/20190707092636_added_entity_constraints_Schedule.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20190709234756_added_entity_constraints_BimbelUserTypeRole.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20190710001053_added_entity_constraints_Student.xml" relativeToChangelogFile="false"/>
-    <include file="classpath:config/liquibase/changelog/20190710001232_added_entity_constraints_StudentEnrollment.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20190710042215_added_entity_constraints_Subject.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20190712134038_added_entity_constraints_UserOrganization.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20190712134345_added_entity_constraints_Owner.xml" relativeToChangelogFile="false"/>
