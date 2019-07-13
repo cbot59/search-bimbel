@@ -35,12 +35,29 @@ public final class CustomApplicationRunner implements ApplicationRunner {
 
     private void insertInitialUser() {
         List<BimbelUserDto> bimbelUserDtos = new ArrayList<>();
+
         bimbelUserDtos.add(BimbelUserDto.builder()
             .email("rivaldi.saputra@jurnal.id")
             .username("rivaldi.saputra")
             .password("aldi123")
             .name("Rivaldi Saputra")
             .roles("OWNER")
+            .build());
+
+        bimbelUserDtos.add(BimbelUserDto.builder()
+            .email("rivaldi.saputra@jurnal.id2")
+            .username("rivaldi.dua")
+            .password("aldi123")
+            .name("Rivaldi Dua")
+            .roles("TUTOR")
+            .build());
+
+        bimbelUserDtos.add(BimbelUserDto.builder()
+            .email("rivaldi.saputra@jurnal.id3")
+            .username("rivaldi.tiga")
+            .password("aldi123")
+            .name("Rivaldi Tiga")
+            .roles("STUDENT")
             .build());
 
         for (BimbelUserDto bimbelUserDto : bimbelUserDtos) {
