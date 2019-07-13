@@ -9,7 +9,10 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A Schedule.
@@ -39,6 +42,10 @@ public class Schedule implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties("schedules")
     private DayOfWeek dayOfWeek;
+
+    @OneToMany(mappedBy = "schedule")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Subject> subjects = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -100,6 +107,32 @@ public class Schedule implements Serializable {
     public void setDayOfWeek(DayOfWeek dayOfWeek) {
         this.dayOfWeek = dayOfWeek;
     }
+
+    public Set<Subject> getSubjects() {
+        return Collections.unmodifiableSet(subjects);
+    }
+
+    public Schedule subjects(Set<Subject> subjects) {
+        this.subjects = Collections.unmodifiableSet(subjects);
+        return this;
+    }
+
+    public Schedule addSubject(Subject subject) {
+        subjects.add(subject);
+        subject.setSchedule(this);
+        return this;
+    }
+
+    public Schedule removeSubject(Subject subject) {
+        subjects.remove(subject);
+        subject.setSchedule(null);
+        return this;
+    }
+
+    public void setSubjects(Set<Subject> subjects) {
+        this.subjects = Collections.unmodifiableSet(subjects);
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override

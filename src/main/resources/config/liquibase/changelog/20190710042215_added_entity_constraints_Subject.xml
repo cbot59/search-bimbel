@@ -20,5 +20,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="organization"/>
 
+        <addForeignKeyConstraint baseColumnNames="schedule_id"
+                                 baseTableName="subject"
+                                 constraintName="fk_subject_schedule_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="schedule"/>
+
     </changeSet>
 </databaseChangeLog>

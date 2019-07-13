@@ -2,7 +2,6 @@ package it.aldi.app.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import it.aldi.app.controller.rest.dto.request.SubjectCmd;
-import lombok.AllArgsConstructor;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -39,6 +38,10 @@ public class Subject implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties("subjects")
     private Organization organization;
+
+    @ManyToOne
+    @JsonIgnoreProperties("subjects")
+    private Schedule schedule;
 
     public Subject() {
     }
@@ -111,6 +114,19 @@ public class Subject implements Serializable {
 
     public void setOrganization(Organization organization) {
         this.organization = organization;
+    }
+
+    public Schedule getSchedule() {
+        return schedule;
+    }
+
+    public Subject schedule(Schedule schedule) {
+        this.schedule = schedule;
+        return this;
+    }
+
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
