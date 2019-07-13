@@ -41,5 +41,6 @@
     <include file="classpath:config/liquibase/changelog/00000000000003_initial_city.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/00000000000004_drop_sequence.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/00000000000005_initial_bimbelUserType.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/00000000000006_initial_subjectType.xml" relativeToChangelogFile="false"/>
 
 </databaseChangeLog>

@@ -1,6 +1,8 @@
 package it.aldi.app.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import it.aldi.app.controller.rest.dto.request.SubjectCmd;
+import lombok.AllArgsConstructor;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -33,6 +35,22 @@ public class Subject implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties("subjects")
     private SubjectType subjectType;
+
+    @ManyToOne
+    @JsonIgnoreProperties("subjects")
+    private Organization organization;
+
+    public Subject() {
+    }
+
+    public Subject(SubjectCmd subjectCmd) {
+        name = subjectCmd.getName();
+        description = subjectCmd.getDescription();
+    }
+
+    public static Subject from(SubjectCmd subjectCmd) {
+        return new Subject(subjectCmd).subjectType(subjectCmd.getSubjectType());
+    }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -81,6 +99,20 @@ public class Subject implements Serializable {
     public void setSubjectType(SubjectType subjectType) {
         this.subjectType = subjectType;
     }
+
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public Subject organization(Organization organization) {
+        this.organization = organization;
+        return this;
+    }
+
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override

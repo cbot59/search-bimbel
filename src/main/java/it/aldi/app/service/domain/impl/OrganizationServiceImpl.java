@@ -59,6 +59,7 @@ public class OrganizationServiceImpl implements OrganizationService {
      *
      * @return the list of entities
      */
+    @Override
     @Transactional(readOnly = true)
     public List<Organization> findAllWhereOwnerIsNull() {
         log.debug("Request to get all organizations where Owner is null");

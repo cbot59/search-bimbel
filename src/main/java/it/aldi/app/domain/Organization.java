@@ -53,6 +53,10 @@ public class Organization implements Serializable {
     @JsonIgnore
     private Owner owner;
 
+    @OneToMany(mappedBy = "organization")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Subject> subjects = new HashSet<>();
+
     private Organization() {
     }
 
@@ -63,7 +67,7 @@ public class Organization implements Serializable {
         activated = false;
     }
 
-    public static Organization createDefault(String name, Set<Role> roles) {
+    public static Organization createDefault(String name) {
         return new Organization(name);
     }
 
@@ -160,6 +164,31 @@ public class Organization implements Serializable {
     public Organization owner(Owner owner) {
         this.owner = owner;
         return this;
+    }
+
+    public Set<Subject> getSubjects() {
+        return Collections.unmodifiableSet(subjects);
+    }
+
+    public Organization subjects(Set<Subject> subjects) {
+        this.subjects = Collections.unmodifiableSet(subjects);
+        return this;
+    }
+
+    public Organization addSubject(Subject subject) {
+        subjects.add(subject);
+        subject.setOrganization(this);
+        return this;
+    }
+
+    public Organization removeSubject(Subject subject) {
+        subjects.remove(subject);
+        subject.setOrganization(null);
+        return this;
+    }
+
+    public void setSubjects(Set<Subject> subjects) {
+        this.subjects = Collections.unmodifiableSet(subjects);
     }
 
     public void setOwner(Owner owner) {

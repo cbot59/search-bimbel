@@ -14,5 +14,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="subject_type"/>
 
+        <addForeignKeyConstraint baseColumnNames="organization_id"
+                                 baseTableName="subject"
+                                 constraintName="fk_subject_organization_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="organization"/>
+
     </changeSet>
 </databaseChangeLog>
