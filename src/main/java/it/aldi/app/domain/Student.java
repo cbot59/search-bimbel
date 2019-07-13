@@ -24,10 +24,6 @@ public class Student implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "student")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<StudentEnrollment> studentEnrollments = new HashSet<>();
-
     @OneToOne
     @JoinColumn(unique = true)
     private BimbelUser bimbelUser;
@@ -35,6 +31,10 @@ public class Student implements Serializable {
     @OneToMany(mappedBy = "student")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<UserOrganization> userOrganizations = new HashSet<>();
+
+    @OneToMany(mappedBy = "student")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Enrollment> enrollments = new HashSet<>();
 
     public Student(BimbelUser bimbelUser) {
         this.bimbelUser = bimbelUser;
@@ -51,31 +51,6 @@ public class Student implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Set<StudentEnrollment> getStudentEnrollments() {
-        return Collections.unmodifiableSet(studentEnrollments);
-    }
-
-    public Student studentEnrollments(Set<StudentEnrollment> studentEnrollments) {
-        this.studentEnrollments = Collections.unmodifiableSet(studentEnrollments);
-        return this;
-    }
-
-    public Student addStudentEnrollment(StudentEnrollment studentEnrollment) {
-        studentEnrollments.add(studentEnrollment);
-        studentEnrollment.setStudent(this);
-        return this;
-    }
-
-    public Student removeStudentEnrollment(StudentEnrollment studentEnrollment) {
-        studentEnrollments.remove(studentEnrollment);
-        studentEnrollment.setStudent(null);
-        return this;
-    }
-
-    public void setStudentEnrollments(Set<StudentEnrollment> studentEnrollments) {
-        this.studentEnrollments = Collections.unmodifiableSet(studentEnrollments);
     }
 
     public BimbelUser getBimbelUser() {
@@ -115,6 +90,32 @@ public class Student implements Serializable {
     public void setUserOrganizations(Set<UserOrganization> userOrganizations) {
         this.userOrganizations = Collections.unmodifiableSet(userOrganizations);
     }
+
+    public Set<Enrollment> getEnrollments() {
+        return Collections.unmodifiableSet(enrollments);
+    }
+
+    public Student enrollments(Set<Enrollment> enrollments) {
+        this.enrollments = Collections.unmodifiableSet(enrollments);
+        return this;
+    }
+
+    public Student addEnrollment(Enrollment enrollment) {
+        enrollments.add(enrollment);
+        enrollment.setStudent(this);
+        return this;
+    }
+
+    public Student removeEnrollment(Enrollment enrollment) {
+        enrollments.remove(enrollment);
+        enrollment.setStudent(null);
+        return this;
+    }
+
+    public void setEnrollments(Set<Enrollment> enrollments) {
+        this.enrollments = Collections.unmodifiableSet(enrollments);
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override

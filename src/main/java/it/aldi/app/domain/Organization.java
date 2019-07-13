@@ -57,6 +57,10 @@ public class Organization implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Subject> subjects = new HashSet<>();
 
+    @OneToMany(mappedBy = "organization")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Job> jobs = new HashSet<>();
+
     private Organization() {
     }
 
@@ -194,6 +198,32 @@ public class Organization implements Serializable {
     public void setOwner(Owner owner) {
         this.owner = owner;
     }
+
+    public Set<Job> getJobs() {
+        return Collections.unmodifiableSet(jobs);
+    }
+
+    public Organization jobs(Set<Job> jobs) {
+        this.jobs = Collections.unmodifiableSet(jobs);
+        return this;
+    }
+
+    public Organization addJob(Job job) {
+        jobs.add(job);
+        job.setOrganization(this);
+        return this;
+    }
+
+    public Organization removeJob(Job job) {
+        jobs.remove(job);
+        job.setOrganization(null);
+        return this;
+    }
+
+    public void setJobs(Set<Job> jobs) {
+        this.jobs = Collections.unmodifiableSet(jobs);
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override

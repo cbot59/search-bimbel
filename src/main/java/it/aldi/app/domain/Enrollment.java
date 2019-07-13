@@ -1,5 +1,6 @@
 package it.aldi.app.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -35,9 +36,9 @@ public class Enrollment implements Serializable {
     @Column(name = "phone", nullable = false)
     private String phone;
 
-    @OneToMany(mappedBy = "enrollment")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<StudentEnrollment> studentEnrollments = new HashSet<>();
+    @ManyToOne
+    @JsonIgnoreProperties("enrollments")
+    private Student student;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -74,30 +75,19 @@ public class Enrollment implements Serializable {
         this.phone = phone;
     }
 
-    public Set<StudentEnrollment> getStudentEnrollments() {
-        return Collections.unmodifiableSet(studentEnrollments);
+    public Student getStudent() {
+        return student;
     }
 
-    public Enrollment studentEnrollments(Set<StudentEnrollment> studentEnrollments) {
-        this.studentEnrollments = Collections.unmodifiableSet(studentEnrollments);
+    public Enrollment student(Student student) {
+        this.student = student;
         return this;
     }
 
-    public Enrollment addStudentEnrollment(StudentEnrollment studentEnrollment) {
-        studentEnrollments.add(studentEnrollment);
-        studentEnrollment.setEnrollment(this);
-        return this;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
-    public Enrollment removeStudentEnrollment(StudentEnrollment studentEnrollment) {
-        studentEnrollments.remove(studentEnrollment);
-        studentEnrollment.setEnrollment(null);
-        return this;
-    }
-
-    public void setStudentEnrollments(Set<StudentEnrollment> studentEnrollments) {
-        this.studentEnrollments = Collections.unmodifiableSet(studentEnrollments);
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override

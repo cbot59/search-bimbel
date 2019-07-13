@@ -23,6 +23,8 @@
     <include file="classpath:config/liquibase/changelog/20190712134038_added_entity_UserOrganization.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20190712134345_added_entity_Owner.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20190712134753_added_entity_Tutor.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20190713051348_added_entity_Job.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20190713052004_added_entity_JobApplication.xml" relativeToChangelogFile="false"/>
 
     <include file="classpath:config/liquibase/changelog/20190223045719_added_entity_constraints_BimbelUser.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20190321231805_added_entity_constraints_Role.xml" relativeToChangelogFile="false"/>
@@ -35,6 +37,9 @@
     <include file="classpath:config/liquibase/changelog/20190712134038_added_entity_constraints_UserOrganization.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20190712134345_added_entity_constraints_Owner.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20190712134753_added_entity_constraints_Tutor.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20190713051348_added_entity_constraints_Job.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20190713052004_added_entity_constraints_JobApplication.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20190710002032_added_entity_constraints_Enrollment.xml" relativeToChangelogFile="false"/>
 
     <include file="classpath:config/liquibase/changelog/00000000000001_initial_role.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/00000000000002_initial_province.xml" relativeToChangelogFile="false"/>

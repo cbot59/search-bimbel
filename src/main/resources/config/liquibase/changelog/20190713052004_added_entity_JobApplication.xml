@@ -14,22 +14,18 @@
     <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
 
     <!--
-        Added the entity Enrollment.
+        Added the entity JobApplication.
     -->
-    <changeSet id="20190710002032-1" author="jhipster">
-        <createTable tableName="enrollment">
+    <changeSet id="20190713052004-1" author="jhipster">
+        <createTable tableName="job_application">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="num_of_meeting" type="integer">
-                <constraints nullable="false" />
+            <column name="job_id" type="bigint">
+                <constraints nullable="true" />
             </column>
 
-            <column name="phone" type="varchar(255)">
-                <constraints nullable="false" />
-            </column>
-
-            <column name="student_id" type="bigint">
+            <column name="tutor_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 
