@@ -32,6 +32,14 @@ public class Tutor implements Serializable {
     @JoinColumn(unique = true)
     private BimbelUser bimbelUser;
 
+    public Tutor(BimbelUser bimbelUser) {
+        this.bimbelUser = bimbelUser;
+    }
+
+    public static Tutor initialize(BimbelUser bimbelUser) {
+        return new Tutor(bimbelUser);
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;

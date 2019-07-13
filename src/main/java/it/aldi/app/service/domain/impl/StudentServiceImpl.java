@@ -10,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 /**
  * Service Implementation for managing Student.
  */
@@ -73,5 +75,11 @@ public class StudentServiceImpl implements StudentService {
     public void delete(Long id) {
         log.debug("Request to delete Student : {}", id);
         studentRepository.delete(id);
+    }
+
+    @Override
+    public Optional<Student> findByUserId(Long bimbelUserId) {
+        log.debug("Request to get Student by userId: {}", bimbelUserId);
+        return studentRepository.findByBimbelUserId(bimbelUserId);
     }
 }

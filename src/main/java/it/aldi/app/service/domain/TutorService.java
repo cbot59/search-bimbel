@@ -41,4 +41,12 @@ public interface TutorService {
      * @param id the id of the entity
      */
     void delete(Long id);
+
+    /**
+     * Get the tutor.
+     *
+     * @param bimbelUserId of the entity
+     * @return the entity
+     */
+    Optional<Tutor> findByUserId(Long bimbelUserId);
 }

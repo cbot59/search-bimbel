@@ -36,6 +36,14 @@ public class Student implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<UserOrganization> userOrganizations = new HashSet<>();
 
+    public Student(BimbelUser bimbelUser) {
+        this.bimbelUser = bimbelUser;
+    }
+
+    public static Student initialize(BimbelUser bimbelUser) {
+        return new Student(bimbelUser);
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;

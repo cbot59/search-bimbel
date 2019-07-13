@@ -1,25 +1,25 @@
-const $tableStudent = $('#table-student');
+const $tableSubject = $('#table-subject');
 
-function getActionButton(username) {
+function getActionButton(name) {
   return `<button href="#">Delete</button>`;
 }
 
+// TODO: adjust request to be paginated
 const dataTableProp = {
   ajax: {
     dataSrc: json => {
-      json.recordsTotal = json.length;
-      json.recordsFiltered = json.length;
-      return json;
+      json.recordsTotal = json.totalElements;
+      json.recordsFiltered = json.numberOfElements;
+      return json.content;
     },
-    url: `${studentsApi}/${organizationIds}`,
+    url: `${subjectsApi}/${organizationId}`,
   },
   columns: [
     {data: 'name'},
-    {data: 'username'},
-    {data: 'email'},
-    {data: 'role'},
+    {data: 'description'},
+    {data: 'level'},
     {
-      data: 'username',
+      data: 'name',
       render: (data) => {
         return getActionButton(data);
       },
@@ -32,5 +32,5 @@ const dataTableProp = {
 };
 
 $(document).ready(() => {
-  $tableStudent.DataTable(dataTableProp);
+  $tableSubject.DataTable(dataTableProp);
 });

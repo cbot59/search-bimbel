@@ -10,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 /**
  * Service Implementation for managing Tutor.
  */
@@ -73,5 +75,11 @@ public class TutorServiceImpl implements TutorService {
     public void delete(Long id) {
         log.debug("Request to delete Tutor : {}", id);
         tutorRepository.delete(id);
+    }
+
+    @Override
+    public Optional<Tutor> findByUserId(Long bimbelUserId) {
+        log.debug("Request to get Tutor : {}", bimbelUserId);
+        return tutorRepository.findById(bimbelUserId);
     }
 }

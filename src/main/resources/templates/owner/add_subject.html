@@ -4,81 +4,52 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout">
 <head>
-    <title>Register</title>
+    <title>Add subject</title>
 </head>
 
 <body>
 <main layout:fragment="content">
     <div class="text-center">
-        <h1>Register</h1>
+        <h1>Add subject</h1>
         <p class="alert alert-danger" th:if="${errMsg}" th:text="${errMsg}"></p>
-        <form th:action="${@routes.REGISTER}"
+        <form th:action="${@routes.OWNER_MANAGE_SUBJECT_ADD}"
               method="post"
-              th:object="${bimbelUserDto}">
+              th:object="${subjectCmd}">
             <div class="form-group row">
-                <label for="name-input" class="col-3">Name</label>
+                <label for="subject-name-input" class="col-3">Subject
+                    Name</label>
                 <div class="col-6">
                     <p th:each="error : ${#fields.errors('name')}"
                        th:text="${error}">Validation error</p>
-                    <input type="text" class="form-control" id="name-input"
+                    <input type="text" class="form-control"
+                           id="subject-name-input"
                            required="required"
-                           th:pattern="${@regexConstant.NAME_REGEX}"
-                           th:title="#{validation-title-name}"
-                           th:placeholder="#{placeholder-name}"
+                           th:title="#{validation-add_subject-title-name}"
+                           th:placeholder="#{placeholder-add_subject-name}"
                            th:field="*{name}"/>
                 </div>
             </div>
             <div class="form-group row">
-                <label for="username-input" class="col-3">Username</label>
+                <label for="subject-description-input"
+                       class="col-3">Description</label>
                 <div class="col-6">
                     <p class="alert alert-danger"
-                       th:each="error : ${#fields.errors('username')}"
+                       th:each="error : ${#fields.errors('description')}"
                        th:text="${error}">Validation error</p>
-                    <input type="text" class="form-control" id="username-input"
-                           required="required"
-                           minlength="6"
-                           th:pattern="${@regexConstant.USERNAME_REGEX}"
-                           th:title="#{validation-title-username}"
-                           th:placeholder="#{placeholder-username}"
-                           th:field="*{username}"/>
+                    <input type="text" class="form-control"
+                           id="subject-description-input"
+                           th:placeholder="#{placeholder-add_subject-description}"
+                           th:field="*{description}"/>
                 </div>
             </div>
             <div class="form-group row">
-                <label for="email-input" class="col-3">Email</label>
+                <label for="level-input" class="col-3">Level</label>
                 <div class="col-6">
-                    <p th:each="error : ${#fields.errors('email')}"
-                       th:text="${error}">Validation error</p>
-                    <input type="email"
-                           class="form-control"
-                           id="email-input"
-                           required="required"
-                           th:placeholder="#{placeholder-email}"
-                           th:field="*{email}"/>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="password-input" class="col-3">Password</label>
-                <div class="col-6">
-                    <p th:each="error : ${#fields.errors('password')}"
-                       th:text="${error}">Validation error</p>
-                    <input type="password"
-                           class="form-control"
-                           id="password-input"
-                           required="required"
-                           minlength="6"
-                           th:title="#{validation-title-password}"
-                           th:placeholder="#{placeholder-password}"
-                           th:field="*{password}"/>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="role-input" class="col-3">Role</label>
-                <div class="col-6">
-                    <select class="form-control" id="role-input"
-                            th:field="*{roles}">
-                        <option th:each="role : ${roleList}"
-                                th:value="${role.getName()}"
-                                th:text="${role.getName()}"></option>
+                    <select class="form-control" id="level-input"
+                            th:field="*{level}">
+                        <option th:each="type : ${subjectTypes}"
+                                th:value="${type.getName()}"
+                                th:text="${type.getName()}"></option>
                     </select>
                 </div>
             </div>

@@ -4,6 +4,8 @@ import it.aldi.app.domain.Student;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Optional;
+
 /**
  * Service Interface for managing Student.
  */
@@ -39,4 +41,12 @@ public interface StudentService {
      * @param id the id of the entity
      */
     void delete(Long id);
+
+    /**
+     * Get the student.
+     *
+     * @param bimbelUserId of the entity
+     * @return the entity
+     */
+    Optional<Student> findByUserId(Long bimbelUserId);
 }

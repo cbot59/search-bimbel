@@ -29,6 +29,20 @@ public class Owner implements Serializable {
     @JoinColumn(unique = true)
     private BimbelUser bimbelUser;
 
+    public Owner() {
+        organization = null;
+        bimbelUser = null;
+    }
+
+    private Owner(Organization organization, BimbelUser bimbelUser) {
+        this.organization = organization;
+        this.bimbelUser = bimbelUser;
+    }
+
+    public static Owner initialize(Organization organization, BimbelUser bimbelUser) {
+        return new Owner(organization, bimbelUser);
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;

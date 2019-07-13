@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Service Implementation for managing Owner.
@@ -75,9 +76,8 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public Owner findByUserId(Long bimbelUserId) {
+    public Optional<Owner> findByUserId(Long bimbelUserId) {
         log.debug("Request to get Owner by userId : {}", bimbelUserId);
-        return ownerRepository.findByBimbelUser(bimbelUserId)
-            .orElse(null);
+        return ownerRepository.findByBimbelUserId(bimbelUserId);
     }
 }

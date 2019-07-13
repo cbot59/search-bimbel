@@ -80,6 +80,6 @@ public class UserOrganizationServiceImpl implements UserOrganizationService {
     @Override
     public List<UserOrganization> findByOrganization(Long organizationId) {
         log.debug("Request to get all UserOrganizations by organizationId, {}", organizationId);
-        return userOrganizationRepository.findByOrganization(organizationId);
+        return userOrganizationRepository.findByOrganizationId(organizationId);
     }
 }

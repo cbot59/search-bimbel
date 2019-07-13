@@ -46,5 +46,5 @@ public interface OwnerService {
      * @param bimbelUserId of the entity
      * @return the entity
      */
-    Owner findByUserId(Long bimbelUserId);
+    Optional<Owner> findByUserId(Long bimbelUserId);
 }

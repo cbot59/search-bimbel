@@ -10,6 +10,7 @@ import it.aldi.app.service.domain.BimbelUserTypeRoleService;
 import it.aldi.app.service.domain.BimbelUserTypeService;
 import it.aldi.app.service.domain.RoleService;
 import it.aldi.app.service.register.RegisterService;
+import it.aldi.app.service.register.UserTypeRegistrationService;
 import it.aldi.app.util.ErrorMsgConstant;
 import it.aldi.app.util.RoleConstant;
 import org.springframework.stereotype.Service;
@@ -34,16 +35,20 @@ public class RegisterServiceImpl implements RegisterService {
 
     private final RoleService roleService;
 
+    private final UserTypeRegistrationService userTypeRegistrationService;
+
     public RegisterServiceImpl(ErrorMsgConstant errorMsgConstant,
                                BimbelUserService bimbelUserService,
                                BimbelUserTypeService bimbelUserTypeService,
                                BimbelUserTypeRoleService bimbelUserTypeRoleService,
-                               RoleService roleService) {
+                               RoleService roleService,
+                               UserTypeRegistrationService userTypeRegistrationService) {
         this.errorMsgConstant = errorMsgConstant;
         this.bimbelUserService = bimbelUserService;
         this.bimbelUserTypeService = bimbelUserTypeService;
         this.bimbelUserTypeRoleService = bimbelUserTypeRoleService;
         this.roleService = roleService;
+        this.userTypeRegistrationService = userTypeRegistrationService;
     }
 
     @Override
@@ -55,7 +60,9 @@ public class RegisterServiceImpl implements RegisterService {
         BimbelUser bimbelUser = BimbelUser.register(bimbelUserDto, bimbelUserType);
 
         bimbelUserTypeRoleService.save(bimbelUserTypeRole);
-        bimbelUserService.save(bimbelUser);
+        BimbelUser savedBimbelUser = bimbelUserService.save(bimbelUser);
+
+        userTypeRegistrationService.registerUserType(savedBimbelUser);
     }
 
     @Override
