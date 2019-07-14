@@ -6,7 +6,7 @@ import it.aldi.app.domain.Owner;
 import it.aldi.app.security.model.BimbelUserPrincipal;
 import it.aldi.app.service.domain.OwnerService;
 import it.aldi.app.service.domain.SubjectTypeService;
-import it.aldi.app.service.manage_subject.ManageSubjectService;
+import it.aldi.app.service.subject_management.SubjectManagementService;
 import it.aldi.app.util.ControllerConstant;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +25,7 @@ import javax.validation.Valid;
 @Slf4j
 @Controller
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class ManageSubjectController {
+public class SubjectManagementController {
 
     private static final String MANAGE_SUBJECT_VIEW = "owner/manage_subject";
     private static final String ADD_SUBJECT_VIEW = "owner/add_subject";
@@ -34,7 +34,7 @@ public class ManageSubjectController {
 
     private final SubjectTypeService subjectTypeService;
 
-    private final ManageSubjectService manageSubjectService;
+    private final SubjectManagementService subjectManagementService;
 
     @GetMapping(Routes.OWNER_MANAGE_SUBJECT)
     public String getManageSubjectView(Model model, Authentication authentication) {
@@ -68,7 +68,7 @@ public class ManageSubjectController {
         Owner owner = ownerService.findByUserId(bimbelUserPrincipal.getBimbelUser().getId())
             .orElseThrow(() -> new IllegalArgumentException("Owner not found for user: " + bimbelUserPrincipal.getBimbelUser()));
 
-        manageSubjectService.addSubject(cmd, owner.getOrganization());
+        subjectManagementService.addSubject(cmd, owner.getOrganization());
 
         return new ModelAndView(ControllerConstant.redirect() + Routes.OWNER_MANAGE_SUBJECT);
     }
