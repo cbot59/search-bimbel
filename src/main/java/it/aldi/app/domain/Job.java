@@ -1,13 +1,11 @@
 package it.aldi.app.domain;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import it.aldi.app.controller.rest.dto.request.AddJobCmd;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -20,10 +18,9 @@ import java.util.Objects;
 public class Job implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
@@ -38,6 +35,20 @@ public class Job implements Serializable {
 
     @ManyToOne
     private Organization organization;
+
+    private Job() {
+
+    }
+
+    public Job(AddJobCmd cmd) {
+        name = cmd.getName();
+        age = cmd.getAge();
+        otherNote = cmd.getOtherNote();
+    }
+
+    public static Job from(AddJobCmd cmd) {
+        return new Job(cmd);
+    }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -109,25 +120,24 @@ public class Job implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
+
         Job job = (Job) o;
-        if (job.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), job.getId());
+
+        return job.id != null && id != null && Objects.equals(id, job.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(id);
     }
 
     @Override
     public String toString() {
         return "Job{" +
-            "id=" + getId() +
-            ", name='" + getName() + "'" +
-            ", age=" + getAge() +
-            ", otherNote='" + getOtherNote() + "'" +
+            "id=" + id +
+            ", name='" + name + "'" +
+            ", age=" + age +
+            ", otherNote='" + otherNote + "'" +
             "}";
     }
 }
