@@ -41,4 +41,19 @@ public interface JobService {
      * @param id the id of the entity
      */
     void delete(Long id);
+
+    /**
+     * Get all the jobs within a query search
+     * @param pageable the pagination information
+     * @param search keyword to find job
+     * @return the list of entities
+     */
+    Page<Job> findAll(Pageable pageable, String search);
+
+    /**
+     * Get all the jobs on an Organization
+     * @param pageable the pagination information
+     * @return the list of entities
+     */
+    Page<Job> findAllByOrgId(Long organizationId, Pageable pageable);
 }

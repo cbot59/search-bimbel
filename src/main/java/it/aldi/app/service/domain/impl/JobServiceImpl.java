@@ -75,4 +75,18 @@ public class JobServiceImpl implements JobService {
         log.debug("Request to delete Job : {}", id);
         jobRepository.delete(id);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<Job> findAll(Pageable pageable, String search) {
+        log.debug("Request to get all Jobs with a query: {}", search);
+        return jobRepository.findAll(pageable, search);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<Job> findAllByOrgId(Long organizationId, Pageable pageable) {
+        log.debug("Request to get all Jobs from Organization: {}", organizationId);
+        return jobRepository.findAllByOrganizationId(organizationId, pageable);
+    }
 }
