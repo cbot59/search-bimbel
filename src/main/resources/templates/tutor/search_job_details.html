@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+<main layout:fragment="content">
+    <form id="form-job-details" th:object="${jobDto}">
+        <div class="form-group row">
+            <label for="org-name-job-details-input" class="col-3"
+                   th:text="#{label-form-job_details-org_name}">Nama
+                bimbel</label>
+            <div class="col-6">
+                <input type="text"
+                       readonly="readonly"
+                       id="org-name-job-details-input"
+                       class="form-control"
+                       th:field="*{organizationName}"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="job-name-job-details-input" class="col-3"
+                   th:text="#{label-form-job_details-job_name}">Nama
+                pekerjaan</label>
+            <div class="col-6">
+                <input type="text"
+                       readonly="readonly"
+                       id="job-name-job-details-input"
+                       class="form-control"
+                       th:field="*{name}"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="job-age-job-details-input" class="col-3"
+                   th:text="#{label-form-job_details-job_age}">Usia
+                minimum</label>
+            <div class="col-6">
+                <input type="text"
+                       readonly="readonly"
+                       id="job-age-job-details-input"
+                       class="form-control"
+                       th:field="*{age}"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="job-other-note-job-details-input" class="col-3"
+                   th:text="#{label-form-job_details-job_other_note}">Deskripsi
+                pekerjaan
+            </label>
+            <div class="col-6">
+                <input type="text"
+                       readonly="readonly"
+                       id="job-other-note-job-details-input"
+                       class="form-control"
+                       th:field="*{otherNote}"/>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary"
+                th:text="#{button-apply}"></button>
+    </form>
+</main>
+
+<th:block layout:fragment="custom-js">
+
+</th:block>
+</body>
+</html>
