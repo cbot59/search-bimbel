@@ -10,7 +10,7 @@
 <body>
 <main layout:fragment="content">
     <div class="text-center">
-        <h1>Add subject</h1>
+        <h1>Add job</h1>
         <p class="alert alert-danger" th:if="${errMsg}" th:text="${errMsg}"></p>
         <form th:action="${@routes.OWNER_MANAGE_JOB_ADD}"
               method="post"

@@ -1,10 +1,12 @@
 package it.aldi.app.controller;
 
 import it.aldi.app.Application;
+import it.aldi.app.service.register.UserTypeRegistrationService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -20,6 +22,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Transactional
 public class SigninControllerTest {
     private MockMvc mockMvc;
+
+    @MockBean
+    private UserTypeRegistrationService userTypeRegistrationService;
 
     @Before
     public void setup() {
