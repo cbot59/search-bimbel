@@ -6,6 +6,9 @@ function getActionButton(username) {
 
 const dataTableProp = {
   ajax: {
+    data: params => {
+      params.page = $tableStudent.DataTable().page.info().page;
+    },
     dataSrc: json => {
       json.recordsTotal = json.length;
       json.recordsFiltered = json.length;
