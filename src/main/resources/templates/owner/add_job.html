@@ -36,7 +36,6 @@
                            id="job-age-input"
                            min="17"
                            max="100"
-                           th:title="#{}"
                            th:placeholder="#{placeholder-add_job-age}"
                            th:field="*{age}"/>
                 </div>
@@ -47,6 +46,7 @@
                     <textarea class="form-control"
                               id="other_note-input"
                               maxlength="255"
+                              th:field="*{otherNote}"
                               th:placeholder="#{placeholder-add_job-other_note}"></textarea>
                 </div>
             </div>

@@ -16,8 +16,8 @@ const dataTableProp = {
   },
   columns: [
     {data: 'name'},
-    {data: 'description'},
-    {data: 'level'},
+    {data: 'age'},
+    {data: 'otherNote'},
     {
       data: 'name',
       render: (data) => {
