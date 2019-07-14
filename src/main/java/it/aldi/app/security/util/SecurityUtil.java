@@ -18,17 +18,17 @@ public final class SecurityUtil {
     public static String getTargetUrlBasedOnRole(Set<GrantedAuthority> authorities) {
         log.debug("user role is: {}", authorities);
 
-        if (authorities.contains(new SimpleGrantedAuthority(RoleConstant.owner()))) {
+        if (authorities.contains(new SimpleGrantedAuthority(RoleConstant.OWNER))) {
             return Routes.OWNER_HOME;
         }
-        if (authorities.contains(new SimpleGrantedAuthority(RoleConstant.tutor()))) {
+        if (authorities.contains(new SimpleGrantedAuthority(RoleConstant.TUTOR))) {
             return Routes.TUTOR_HOME;
         }
-        if (authorities.contains(new SimpleGrantedAuthority(RoleConstant.student()))) {
+        if (authorities.contains(new SimpleGrantedAuthority(RoleConstant.STUDENT))) {
             return Routes.STUDENT_HOME;
         }
 
-        return Routes.INDEX;
+        return Routes.HOME;
     }
 
     public static boolean isOwner(Set<Role> roles) {

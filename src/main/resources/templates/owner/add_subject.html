@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Add subject</title>
+</head>
+
+<body>
+<main layout:fragment="content">
+    <div class="text-center">
+        <h1>Add subject</h1>
+        <p class="alert alert-danger" th:if="${errMsg}" th:text="${errMsg}"></p>
+        <form th:action="${@routes.OWNER_MANAGE_SUBJECT_ADD}"
+              method="post"
+              th:object="${addSubjectCmd}">
+            <div class="form-group row">
+                <label for="subject-name-input" class="col-3">Subject
+                    Name</label>
+                <div class="col-6">
+                    <p th:each="error : ${#fields.errors('name')}"
+                       th:text="${error}">Validation error</p>
+                    <input type="text" class="form-control"
+                           id="subject-name-input"
+                           required="required"
+                           th:title="#{validation-add_subject-title-name}"
+                           th:placeholder="#{placeholder-add_subject-name}"
+                           th:field="*{name}"/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="subject-description-input"
+                       class="col-3">Description</label>
+                <div class="col-6">
+                    <p class="alert alert-danger"
+                       th:each="error : ${#fields.errors('description')}"
+                       th:text="${error}">Validation error</p>
+                    <input type="text" class="form-control"
+                           id="subject-description-input"
+                           th:placeholder="#{placeholder-add_subject-description}"
+                           th:field="*{description}"/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="level-input" class="col-3">Level</label>
+                <div class="col-6">
+                    <select class="form-control" id="level-input"
+                            th:field="*{level}">
+                        <option th:each="type : ${subjectTypes}"
+                                th:value="${type.getName()}"
+                                th:text="${type.getName()}"></option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary"
+                    th:text="#{button-submit}"></button>
+        </form>
+    </div>
+</main>
+</body>
+</html>
+
+
+

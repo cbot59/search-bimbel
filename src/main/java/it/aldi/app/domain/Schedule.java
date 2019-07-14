@@ -1,13 +1,18 @@
 package it.aldi.app.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.ZonedDateTime;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A Schedule.
@@ -23,17 +28,24 @@ public class Schedule implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "time_in")
-    private ZonedDateTime timeIn;
+    @Column(name = "start_date")
+    private LocalDate startDate;
 
-    @Column(name = "time_out")
-    private ZonedDateTime timeOut;
+    @Column(name = "end_date")
+    private LocalDate endDate;
 
-    @Column(name = "name")
-    private String name;
+    @NotNull
+    @Max(24)
+    @Column(name = "available_hour", nullable = false)
+    private Integer availableHour;
 
-    @Column(name = "date")
-    private LocalDate date;
+    @ManyToOne
+    @JsonIgnoreProperties("schedules")
+    private DayOfWeek dayOfWeek;
+
+    @OneToMany(mappedBy = "schedule")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Subject> subjects = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -44,57 +56,83 @@ public class Schedule implements Serializable {
         this.id = id;
     }
 
-    public ZonedDateTime getTimeIn() {
-        return timeIn;
+    public LocalDate getStartDate() {
+        return startDate;
     }
 
-    public Schedule timeIn(ZonedDateTime timeIn) {
-        this.timeIn = timeIn;
+    public Schedule startDate(LocalDate startDate) {
+        this.startDate = startDate;
         return this;
     }
 
-    public void setTimeIn(ZonedDateTime timeIn) {
-        this.timeIn = timeIn;
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
-    public ZonedDateTime getTimeOut() {
-        return timeOut;
+    public LocalDate getEndDate() {
+        return endDate;
     }
 
-    public Schedule timeOut(ZonedDateTime timeOut) {
-        this.timeOut = timeOut;
+    public Schedule endDate(LocalDate endDate) {
+        this.endDate = endDate;
         return this;
     }
 
-    public void setTimeOut(ZonedDateTime timeOut) {
-        this.timeOut = timeOut;
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 
-    public String getName() {
-        return name;
+    public Integer getAvailableHour() {
+        return availableHour;
     }
 
-    public Schedule name(String name) {
-        this.name = name;
+    public Schedule availableHour(Integer availableHour) {
+        this.availableHour = availableHour;
         return this;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setAvailableHour(Integer availableHour) {
+        this.availableHour = availableHour;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public DayOfWeek getDayOfWeek() {
+        return dayOfWeek;
     }
 
-    public Schedule date(LocalDate date) {
-        this.date = date;
+    public Schedule dayOfWeek(DayOfWeek dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
         return this;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setDayOfWeek(DayOfWeek dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
     }
+
+    public Set<Subject> getSubjects() {
+        return Collections.unmodifiableSet(subjects);
+    }
+
+    public Schedule subjects(Set<Subject> subjects) {
+        this.subjects = Collections.unmodifiableSet(subjects);
+        return this;
+    }
+
+    public Schedule addSubject(Subject subject) {
+        subjects.add(subject);
+        subject.setSchedule(this);
+        return this;
+    }
+
+    public Schedule removeSubject(Subject subject) {
+        subjects.remove(subject);
+        subject.setSchedule(null);
+        return this;
+    }
+
+    public void setSubjects(Set<Subject> subjects) {
+        this.subjects = Collections.unmodifiableSet(subjects);
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -114,17 +152,16 @@ public class Schedule implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(id);
     }
 
     @Override
     public String toString() {
         return "Schedule{" +
             "id=" + id +
-            ", timeIn='" + timeIn + "'" +
-            ", timeOut='" + timeOut + "'" +
-            ", name='" + name + "'" +
-            ", date='" + date + "'" +
+            ", startDate='" + startDate + "'" +
+            ", endDate='" + endDate + "'" +
+            ", availableHour=" + availableHour +
             "}";
     }
 }

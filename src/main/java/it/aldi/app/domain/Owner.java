@@ -1,0 +1,108 @@
+package it.aldi.app.domain;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Objects;
+
+/**
+ * A Owner.
+ */
+@Entity
+@Table(name = "owner")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+public class Owner implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Organization organization;
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private BimbelUser bimbelUser;
+
+    public Owner() {
+        organization = null;
+        bimbelUser = null;
+    }
+
+    private Owner(Organization organization, BimbelUser bimbelUser) {
+        this.organization = organization;
+        this.bimbelUser = bimbelUser;
+    }
+
+    public static Owner initialize(Organization organization, BimbelUser bimbelUser) {
+        return new Owner(organization, bimbelUser);
+    }
+
+    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public Owner organization(Organization organization) {
+        this.organization = organization;
+        return this;
+    }
+
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
+    }
+
+    public BimbelUser getBimbelUser() {
+        return bimbelUser;
+    }
+
+    public Owner bimbelUser(BimbelUser bimbelUser) {
+        this.bimbelUser = bimbelUser;
+        return this;
+    }
+
+    public void setBimbelUser(BimbelUser bimbelUser) {
+        this.bimbelUser = bimbelUser;
+    }
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Owner owner = (Owner) o;
+
+        return owner.id != null && id != null && Objects.equals(id, owner.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Owner{" +
+            "id=" + id +
+            "}";
+    }
+}

@@ -12,5 +12,6 @@ import java.util.Optional;
 @SuppressWarnings("unused")
 @Repository
 public interface OrganizationRepository extends JpaRepository<Organization, Long> {
+
     Optional<Organization> findById(Long id);
 }

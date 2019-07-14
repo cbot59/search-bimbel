@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <property name="now" value="now()" dbms="mysql,h2"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+
+    <changeSet id="00000000000006" author="system" dbms="postgresql">
+        <insert tableName="subject_type">
+            <column name="id" value="1"/>
+            <column name="name" value="SD"/>
+        </insert>
+        <insert tableName="subject_type">
+            <column name="id" value="2"/>
+            <column name="name" value="SMP"/>
+        </insert>
+        <insert tableName="subject_type">
+            <column name="id" value="3"/>
+            <column name="name" value="SMA"/>
+        </insert>
+        <insert tableName="subject_type">
+            <column name="id" value="4"/>
+            <column name="name" value="UNIVERSITAS"/>
+        </insert>
+        <insert tableName="subject_type">
+            <column name="id" value="5"/>
+            <column name="name" value="UMUM"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

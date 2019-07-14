@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -44,12 +45,24 @@ public class Organization implements Serializable {
     @Column(name = "activated")
     private Boolean activated;
 
-    @ManyToMany(mappedBy = "organizations", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @OneToMany(mappedBy = "organization")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JsonIgnore
-    private Set<BimbelUser> bimbelUsers = new HashSet<>();
+    private Set<UserOrganization> userOrganizations = new HashSet<>();
 
-    private Organization() {}
+    @OneToOne(mappedBy = "organization")
+    @JsonIgnore
+    private Owner owner;
+
+    @OneToMany(mappedBy = "organization")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Subject> subjects = new HashSet<>();
+
+    @OneToMany(mappedBy = "organization")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Job> jobs = new HashSet<>();
+
+    private Organization() {
+    }
 
     private Organization(String name) {
         this.name = name;
@@ -123,30 +136,94 @@ public class Organization implements Serializable {
         this.activated = activated;
     }
 
-    public Set<BimbelUser> getBimbelUsers() {
-        return bimbelUsers;
+    public Set<UserOrganization> getUserOrganizations() {
+        return Collections.unmodifiableSet(userOrganizations);
     }
 
-    public Organization bimbelUsers(Set<BimbelUser> bimbelUsers) {
-        this.bimbelUsers = bimbelUsers;
+    public Organization userOrganizations(Set<UserOrganization> userOrganizations) {
+        this.userOrganizations = Collections.unmodifiableSet(userOrganizations);
         return this;
     }
 
-    public Organization addBimbelUser(BimbelUser bimbelUser) {
-        this.bimbelUsers.add(bimbelUser);
-        bimbelUser.getOrganizations().add(this);
+    public Organization addUserOrganization(UserOrganization userOrganization) {
+        userOrganizations.add(userOrganization);
+        userOrganization.setOrganization(this);
         return this;
     }
 
-    public Organization removeBimbelUser(BimbelUser bimbelUser) {
-        this.bimbelUsers.remove(bimbelUser);
-        bimbelUser.getOrganizations().remove(this);
+    public Organization removeUserOrganization(UserOrganization userOrganization) {
+        userOrganizations.remove(userOrganization);
+        userOrganization.setOrganization(null);
         return this;
     }
 
-    public void setBimbelUsers(Set<BimbelUser> bimbelUsers) {
-        this.bimbelUsers = bimbelUsers;
+    public void setUserOrganizations(Set<UserOrganization> userOrganizations) {
+        this.userOrganizations = Collections.unmodifiableSet(userOrganizations);
     }
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public Organization owner(Owner owner) {
+        this.owner = owner;
+        return this;
+    }
+
+    public Set<Subject> getSubjects() {
+        return Collections.unmodifiableSet(subjects);
+    }
+
+    public Organization subjects(Set<Subject> subjects) {
+        this.subjects = Collections.unmodifiableSet(subjects);
+        return this;
+    }
+
+    public Organization addSubject(Subject subject) {
+        subjects.add(subject);
+        subject.setOrganization(this);
+        return this;
+    }
+
+    public Organization removeSubject(Subject subject) {
+        subjects.remove(subject);
+        subject.setOrganization(null);
+        return this;
+    }
+
+    public void setSubjects(Set<Subject> subjects) {
+        this.subjects = Collections.unmodifiableSet(subjects);
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
+    }
+
+    public Set<Job> getJobs() {
+        return Collections.unmodifiableSet(jobs);
+    }
+
+    public Organization jobs(Set<Job> jobs) {
+        this.jobs = Collections.unmodifiableSet(jobs);
+        return this;
+    }
+
+    public Organization addJob(Job job) {
+        jobs.add(job);
+        job.setOrganization(this);
+        return this;
+    }
+
+    public Organization removeJob(Job job) {
+        jobs.remove(job);
+        job.setOrganization(null);
+        return this;
+    }
+
+    public void setJobs(Set<Job> jobs) {
+        this.jobs = Collections.unmodifiableSet(jobs);
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -154,28 +231,28 @@ public class Organization implements Serializable {
         if (this == o) {
             return true;
         }
+
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
+
         Organization organization = (Organization) o;
-        if (organization.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), organization.getId());
+
+        return organization.id != null && id != null && Objects.equals(id, organization.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(id);
     }
 
     @Override
     public String toString() {
         return "Organization{" +
-            "id=" + getId() +
-            ", name='" + getName() + "'" +
-            ", address='" + getAddress() + "'" +
-            ", phone='" + getPhone() + "'" +
+            "id=" + id +
+            ", name='" + name + "'" +
+            ", address='" + address + "'" +
+            ", phone='" + phone + "'" +
             ", activated='" + isActivated() + "'" +
             "}";
     }

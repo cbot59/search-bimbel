@@ -1,6 +1,8 @@
 package it.aldi.app.security;
 
 import it.aldi.app.controller.Routes;
+import it.aldi.app.security.model.BimbelUserPrincipal;
+import it.aldi.app.util.RoleConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
@@ -20,8 +22,10 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
         if (authentication != null) {
             log.warn("User {} attempted to access the protected URL: {}", authentication.getName(), request
                 .getRequestURI());
-        }
 
-        response.sendRedirect(request.getContextPath() + Routes.SIGNIN);
+            response.sendRedirect(request.getContextPath() + Routes.INDEX);
+        } else {
+            response.sendRedirect(request.getContextPath() + Routes.SIGNIN);
+        }
     }
 }

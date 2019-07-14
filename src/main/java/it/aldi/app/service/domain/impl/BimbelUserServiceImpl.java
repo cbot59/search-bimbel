@@ -5,14 +5,11 @@ import it.aldi.app.repository.BimbelUserRepository;
 import it.aldi.app.service.domain.BimbelUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Service Implementation for managing BimbelUser.
@@ -54,30 +51,19 @@ public class BimbelUserServiceImpl implements BimbelUserService {
     @Transactional(readOnly = true)
     public List<BimbelUser> findAll() {
         log.debug("Request to get all BimbelUsers");
-        return bimbelUserRepository.findAllWithEagerRelationships();
+        return bimbelUserRepository.findAll();
     }
 
     /**
-     * Get all the BimbelUser with eager load of many-to-many relationships.
-     *
-     * @return the list of entities
-     */
-    @Override
-    public Page<BimbelUser> findAllWithEagerRelationships(Pageable pageable) {
-        return bimbelUserRepository.findAllWithEagerRelationships(pageable);
-    }
-
-    /**
-     * Get one bimbelUser by id.
+     * Get bimbelUser
      *
      * @param id the id of the entity
-     * @return the entity
+     * @return the entity if exist or null
      */
     @Override
-    @Transactional(readOnly = true)
-    public Optional<BimbelUser> findOne(Long id) {
-        log.debug("Request to get BimbelUser : {}", id);
-        return bimbelUserRepository.findOneWithEagerRelationships(id);
+    public BimbelUser findOne(Long id) {
+        return bimbelUserRepository.findById(id)
+            .orElse(null);
     }
 
     /**
@@ -103,10 +89,5 @@ public class BimbelUserServiceImpl implements BimbelUserService {
         log.debug("Request to get BimbelUser : {}", email);
         return bimbelUserRepository.findByEmail(email)
             .orElse(null);
-    }
-
-    @Override
-    public List<BimbelUser> findAllByOrganizationAndRole(Long organizationId, String role) {
-        return bimbelUserRepository.findAllByOrganizationAndRole(organizationId, role);
     }
 }

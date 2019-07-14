@@ -10,7 +10,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Service Implementation for managing Organization.
@@ -50,6 +52,20 @@ public class OrganizationServiceImpl implements OrganizationService {
     public Page<Organization> findAll(Pageable pageable) {
         log.debug("Request to get all Organizations");
         return organizationRepository.findAll(pageable);
+    }
+
+    /**
+     * get all the organizations where Owner is null.
+     *
+     * @return the list of entities
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public List<Organization> findAllWhereOwnerIsNull() {
+        log.debug("Request to get all organizations where Owner is null");
+        return organizationRepository.findAll().stream()
+            .filter(organization -> organization.getOwner() == null)
+            .collect(Collectors.toList());
     }
 
     /**

@@ -21,10 +21,11 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
         countQuery = "select count(distinct role) from Role role")
     Page<Role> findAllWithEagerRelationships(Pageable pageable);
 
-    @Query(value = "select distinct role from Role role left join fetch role.privileges")
+    @Query("select distinct role from Role role left join fetch role.privileges")
     List<Role> findAllWithEagerRelationships();
 
     @Query("select role from Role role left join fetch role.privileges where role.id =:id")
     Optional<Role> findOneWithEagerRelationships(@Param("id") Long id);
 
+    Optional<Role> findByName(String name);
 }

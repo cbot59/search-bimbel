@@ -23,7 +23,7 @@
                     <input type="text" class="form-control" id="name-input"
                            required="required"
                            th:pattern="${@regexConstant.NAME_REGEX}"
-                           th:title="#{validation-title-name}"
+                           th:title="#{validation-register-title-name}"
                            th:placeholder="#{placeholder-name}"
                            th:field="*{name}"/>
                 </div>
@@ -38,7 +38,7 @@
                            required="required"
                            minlength="6"
                            th:pattern="${@regexConstant.USERNAME_REGEX}"
-                           th:title="#{validation-title-username}"
+                           th:title="#{validation-register-title-username}"
                            th:placeholder="#{placeholder-username}"
                            th:field="*{username}"/>
                 </div>
@@ -66,7 +66,7 @@
                            id="password-input"
                            required="required"
                            minlength="6"
-                           th:title="#{validation-title-password}"
+                           th:title="#{validation-register-title-password}"
                            th:placeholder="#{placeholder-password}"
                            th:field="*{password}"/>
                 </div>

@@ -31,7 +31,7 @@ public class SecurityUtilTest {
     @Test
     public void testGetTargetUrlBasedOnRoleShouldRouteToStudentHome() {
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        grantedAuthorities.add(new SimpleGrantedAuthority(RoleConstant.student()));
+        grantedAuthorities.add(new SimpleGrantedAuthority(RoleConstant.STUDENT));
 
         assertEquals("Route to student home", Routes.STUDENT_HOME, SecurityUtil.getTargetUrlBasedOnRole(grantedAuthorities));
     }

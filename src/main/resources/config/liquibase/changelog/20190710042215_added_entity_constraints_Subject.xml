@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity Subject.
+    -->
+    <changeSet id="20190710042215-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="subject_type_id"
+                                 baseTableName="subject"
+                                 constraintName="fk_subject_subject_type_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="subject_type"/>
+
+        <addForeignKeyConstraint baseColumnNames="organization_id"
+                                 baseTableName="subject"
+                                 constraintName="fk_subject_organization_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="organization"/>
+
+        <addForeignKeyConstraint baseColumnNames="schedule_id"
+                                 baseTableName="subject"
+                                 constraintName="fk_subject_schedule_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="schedule"/>
+
+    </changeSet>
+</databaseChangeLog>

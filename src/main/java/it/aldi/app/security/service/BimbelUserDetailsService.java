@@ -14,11 +14,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class BimbelUserDetailsService implements UserDetailsService {
 
-    private @NonNull BimbelUserRepository bimbelUserRepository;
+    private final @NonNull BimbelUserRepository bimbelUserRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        return bimbelUserRepository.findByUsernameWithEagerRelationships(username)
+        return bimbelUserRepository.findByUsername(username)
             .map(BimbelUserPrincipal::of)
             .orElseThrow(() -> new UsernameNotFoundException(username));
     }
