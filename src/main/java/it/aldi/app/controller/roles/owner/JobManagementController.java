@@ -63,7 +63,7 @@ public class JobManagementController {
         Owner owner = ownerService.findByUserId(bimbelUserPrincipal.getBimbelUser().getId())
             .orElseThrow(() -> new IllegalArgumentException("Owner not found for user: " + bimbelUserPrincipal.getBimbelUser()));
 
-        jobManagementService.addJob(cmd, owner.getOrganization());
+        jobManagementService.saveJob(cmd, owner.getOrganization());
 
         return new ModelAndView(ControllerConstant.redirect() + Routes.OWNER_MANAGE_JOB);
     }

@@ -68,7 +68,7 @@ public class SubjectManagementController {
         Owner owner = ownerService.findByUserId(bimbelUserPrincipal.getBimbelUser().getId())
             .orElseThrow(() -> new IllegalArgumentException("Owner not found for user: " + bimbelUserPrincipal.getBimbelUser()));
 
-        subjectManagementService.addSubject(cmd, owner.getOrganization());
+        subjectManagementService.saveSubject(cmd, owner.getOrganization());
 
         return new ModelAndView(ControllerConstant.redirect() + Routes.OWNER_MANAGE_SUBJECT);
     }

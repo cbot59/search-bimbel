@@ -1,7 +1,6 @@
 package it.aldi.app.service.subject_management.impl;
 
 import it.aldi.app.controller.rest.dto.request.AddSubjectCmd;
-import it.aldi.app.controller.rest.dto.response.SubjectDto;
 import it.aldi.app.domain.Organization;
 import it.aldi.app.domain.Subject;
 import it.aldi.app.domain.SubjectType;
@@ -26,11 +25,11 @@ public class SubjectManagementServiceImpl implements SubjectManagementService {
     }
 
     @Override
-    public SubjectDto addSubject(AddSubjectCmd cmd, Organization organization) {
+    public void saveSubject(AddSubjectCmd cmd, Organization organization) {
         Subject subject = Subject.from(assignSubjectType(cmd))
             .organization(organization);
 
-        return SubjectDto.from(subjectService.save(subject));
+        subjectService.save(subject);
     }
 
     private AddSubjectCmd assignSubjectType(AddSubjectCmd cmd) {

@@ -4,5 +4,5 @@ import it.aldi.app.controller.rest.dto.request.AddJobCmd;
 import it.aldi.app.domain.Organization;
 
 public interface JobManagementService {
-    void addJob(AddJobCmd addJobCmd, Organization organization);
+    void saveJob(AddJobCmd addJobCmd, Organization organization);
 }
