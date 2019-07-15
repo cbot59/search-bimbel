@@ -1,12 +1,11 @@
 package it.aldi.app.controller.roles.owner;
 
 import it.aldi.app.controller.Routes;
-import it.aldi.app.controller.rest.dto.request.AddSubjectCmd;
+import it.aldi.app.controller.rest.dto.request.AddJobCmd;
 import it.aldi.app.domain.Owner;
 import it.aldi.app.security.model.BimbelUserPrincipal;
 import it.aldi.app.service.domain.OwnerService;
-import it.aldi.app.service.domain.SubjectTypeService;
-import it.aldi.app.service.manage_subject.ManageSubjectService;
+import it.aldi.app.service.job_management.JobManagementService;
 import it.aldi.app.util.ControllerConstant;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,19 +24,17 @@ import javax.validation.Valid;
 @Slf4j
 @Controller
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class ManageSubjectController {
+public class JobManagementController {
 
-    private static final String MANAGE_SUBJECT_VIEW = "owner/manage_subject";
-    private static final String ADD_SUBJECT_VIEW = "owner/add_subject";
+    private static final String MANAGE_JOB_VIEW = "owner/manage_job";
+    private static final String ADD_JOB_VIEW = "owner/add_job";
 
     private final OwnerService ownerService;
 
-    private final SubjectTypeService subjectTypeService;
+    private final JobManagementService jobManagementService;
 
-    private final ManageSubjectService manageSubjectService;
-
-    @GetMapping(Routes.OWNER_MANAGE_SUBJECT)
-    public String getManageSubjectView(Model model, Authentication authentication) {
+    @GetMapping(Routes.OWNER_MANAGE_JOB)
+    public String getManageJobView(Model model, Authentication authentication) {
         BimbelUserPrincipal bimbelUserPrincipal = (BimbelUserPrincipal) authentication.getPrincipal();
 
         Owner owner = ownerService.findByUserId(bimbelUserPrincipal.getBimbelUser().getId())
@@ -45,21 +42,19 @@ public class ManageSubjectController {
 
         model.addAttribute("orgId", owner.getOrganization().getId());
 
-        return MANAGE_SUBJECT_VIEW;
+        return MANAGE_JOB_VIEW;
     }
 
-    @GetMapping(Routes.OWNER_MANAGE_SUBJECT_ADD)
-    public String addSubjectView(Model model) {
-        model.addAttribute(new AddSubjectCmd());
-        model.addAttribute("subjectTypes", subjectTypeService.findAll());
-
-        return ADD_SUBJECT_VIEW;
+    @GetMapping(Routes.OWNER_MANAGE_JOB_ADD)
+    public String addJobView(Model model) {
+        model.addAttribute(new AddJobCmd());
+        return ADD_JOB_VIEW;
     }
 
-    @PostMapping(Routes.OWNER_MANAGE_SUBJECT_ADD)
-    public ModelAndView postAddSubject(@Valid @ModelAttribute AddSubjectCmd cmd, BindingResult bindingResult,
-                                       Authentication authentication) {
-        log.debug("Adding subject: {}", cmd);
+    @PostMapping(Routes.OWNER_MANAGE_JOB_ADD)
+    public ModelAndView postJobView(@Valid @ModelAttribute AddJobCmd cmd, BindingResult bindingResult,
+                                    Authentication authentication) {
+        log.debug("Adding job: {}", cmd);
 
         // TODO: validate if binding errors
 
@@ -68,8 +63,8 @@ public class ManageSubjectController {
         Owner owner = ownerService.findByUserId(bimbelUserPrincipal.getBimbelUser().getId())
             .orElseThrow(() -> new IllegalArgumentException("Owner not found for user: " + bimbelUserPrincipal.getBimbelUser()));
 
-        manageSubjectService.addSubject(cmd, owner.getOrganization());
+        jobManagementService.saveJob(cmd, owner.getOrganization());
 
-        return new ModelAndView(ControllerConstant.redirect() + Routes.OWNER_MANAGE_SUBJECT);
+        return new ModelAndView(ControllerConstant.redirect() + Routes.OWNER_MANAGE_JOB);
     }
 }

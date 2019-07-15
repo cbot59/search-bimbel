@@ -1,28 +1,28 @@
-const $tableSubject = $('#table-subject');
+const $tableSearchJob = $('#table-search-job');
 
-function getActionButton(name) {
-  return `<button href="#">Delete</button>`;
+function getActionButton(jobId) {
+  return `<a href="${jobDetailsUrl}/${jobId}" class="btn btn-outline-primary">View</a>`;
 }
 
 // TODO: adjust request to be paginated
 const dataTableProp = {
   ajax: {
     data: params => {
-      params.page = $tableSubject.DataTable().page.info().page;
+      params.page = $tableSearchJob.DataTable().page.info().page;
     },
     dataSrc: json => {
       json.recordsTotal = json.totalElements;
       json.recordsFiltered = json.numberOfElements;
       return json.content;
     },
-    url: `${subjectsApi}/${organizationId}`,
+    url: `${jobsApi}`,
   },
   columns: [
+    {data: 'organizationName'},
     {data: 'name'},
-    {data: 'description'},
-    {data: 'level'},
+    {data: 'age'},
     {
-      data: 'name',
+      data: 'jobId',
       render: (data) => {
         return getActionButton(data);
       },
@@ -30,10 +30,10 @@ const dataTableProp = {
   ],
   dom: 'ftipr',
   processing: true,
-  searching: false,
+  searching: true,
   serverSide: true,
 };
 
 $(document).ready(() => {
-  $tableSubject.DataTable(dataTableProp);
+  $tableSearchJob.DataTable(dataTableProp);
 });

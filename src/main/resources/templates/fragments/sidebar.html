@@ -25,36 +25,42 @@
             <span th:text="#{sidebar-title}">Dashboard</span></a>
     </li>
 
-    <!-- Nav Item - Manage Subject -->
+    <!-- Nav Item - Owner Role Management menu -->
     <li class="nav-item" sec:authorize="hasAuthority('OWNER')">
-        <a class="nav-link" th:href="${@routes.OWNER_MANAGE_SUBJECT}">
-            <span class="fas fa-fw fa-tachometer-alt"></span>
-            <span th:text="#{sidebar-owner-manage_subject}">Manage
+        <a class="nav-link"
+           href="#owner-collapse-menu-list"
+           role="button"
+           data-toggle="collapse"
+           data-target="#owner-collapse-menu-list"
+           aria-expanded="false"
+           aria-controls="owner-collapse-menu-list"
+           th:text="#{sidebar-owner-manage}">Manage</a>
+
+        <div class="collapse"
+             id="owner-collapse-menu-list">
+            <a class="nav-link collapse-item"
+               th:href="${@routes.OWNER_MANAGE_JOB}">
+                <span class="fas fa-fw fa-tachometer-alt"></span>
+                <span th:text="#{sidebar-owner-manage_job}">Manage job</span></a>
+
+            <a class="nav-link collapse-item"
+               th:href="${@routes.OWNER_MANAGE_SUBJECT}">
+                <span class="fas fa-fw fa-tachometer-alt"></span>
+                <span th:text="#{sidebar-owner-manage_subject}">Manage
                 subject</span></a>
-    </li>
 
-
-    <!-- Nav Item - Manage Subject -->
-    <li class="nav-item" sec:authorize="hasAuthority('OWNER')">
-        <a class="nav-link" th:href="${@routes.OWNER_MANAGE_JOB}">
-            <span class="fas fa-fw fa-tachometer-alt"></span>
-            <span th:text="#{sidebar-owner-manage_job}">Manage job</span></a>
-    </li>
-
-    <!-- Nav Item - Manage Tutor -->
-    <li class="nav-item" sec:authorize="hasAuthority('OWNER')">
-        <a class="nav-link" th:href="${@routes.OWNER_MANAGE_TUTOR}">
-            <span class="fas fa-fw fa-tachometer-alt"></span>
-            <span th:text="#{sidebar-owner-manage_tutor}">Manage
-                tutor</span></a>
-    </li>
-
-    <!-- Nav Item - Manage Student -->
-    <li class="nav-item" sec:authorize="hasAuthority('OWNER')">
-        <a class="nav-link" th:href="${@routes.OWNER_MANAGE_STUDENT}">
-            <span class="fas fa-fw fa-tachometer-alt"></span>
-            <span th:text="#{sidebar-owner-manage_student}">Manage
+            <a class="nav-link collapse-item"
+               th:href="${@routes.OWNER_MANAGE_STUDENT}">
+                <span class="fas fa-fw fa-tachometer-alt"></span>
+                <span th:text="#{sidebar-owner-manage_student}">Manage
                 student</span></a>
+
+            <a class="nav-link collapse-item"
+               th:href="${@routes.OWNER_MANAGE_TUTOR}">
+                <span class="fas fa-fw fa-tachometer-alt"></span>
+                <span th:text="#{sidebar-owner-manage_tutor}">Manage
+                tutor</span></a>
+        </div>
     </li>
 
     <!-- Nav Item - Upload Material -->
@@ -63,6 +69,13 @@
             <span class="fas fa-fw fa-tachometer-alt"></span>
             <span th:text="#{sidebar-owner-upload_material}">Upload
                 Learning Material</span></a>
+    </li>
+
+    <!-- Nav Item - Search Job -->
+    <li class="nav-item" sec:authorize="hasAuthority('TUTOR')">
+        <a class="nav-link" th:href="${@routes.TUTOR_SEARCH_JOB}">
+            <span class="fas fa-fw fa-tachometer-alt"></span>
+            <span th:text="#{sidebar-tutor-search_job}">Search Job</span></a>
     </li>
 
     <!-- Nav Item - Schedule -->

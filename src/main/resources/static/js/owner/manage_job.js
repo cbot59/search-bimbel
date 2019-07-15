@@ -4,20 +4,22 @@ function getActionButton(name) {
   return `<button href="#">Delete</button>`;
 }
 
-// TODO: adjust request to be paginated
 const dataTableProp = {
   ajax: {
+    data: params => {
+      params.page = $tableJob.DataTable().page.info().page;
+    },
     dataSrc: json => {
       json.recordsTotal = json.totalElements;
       json.recordsFiltered = json.numberOfElements;
       return json.content;
     },
-    url: `${jobsApi}/${organizationId}`,
+    url: `/api/organizations/${organizationId}/jobs`,
   },
   columns: [
     {data: 'name'},
-    {data: 'description'},
-    {data: 'level'},
+    {data: 'age'},
+    {data: 'otherNote'},
     {
       data: 'name',
       render: (data) => {
