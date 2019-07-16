@@ -14,4 +14,6 @@ import java.util.Optional;
 public interface TutorRepository extends JpaRepository<Tutor, Long> {
 
     Optional<Tutor> findById(Long id);
+
+    Optional<Tutor> findByBimbelUserId(Long bimbelUserId);
 }

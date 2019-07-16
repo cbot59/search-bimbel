@@ -80,6 +80,6 @@ public class TutorServiceImpl implements TutorService {
     @Override
     public Optional<Tutor> findByUserId(Long bimbelUserId) {
         log.debug("Request to get Tutor : {}", bimbelUserId);
-        return tutorRepository.findById(bimbelUserId);
+        return tutorRepository.findByBimbelUserId(bimbelUserId);
     }
 }
