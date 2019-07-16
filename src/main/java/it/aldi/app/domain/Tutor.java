@@ -32,6 +32,9 @@ public class Tutor implements Serializable {
     @JoinColumn(unique = true)
     private BimbelUser bimbelUser;
 
+    public Tutor() {
+    }
+
     public Tutor(BimbelUser bimbelUser) {
         this.bimbelUser = bimbelUser;
     }

@@ -1,12 +1,9 @@
 package it.aldi.app.domain;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -19,10 +16,9 @@ import java.util.Objects;
 public class JobApplication implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
@@ -30,6 +26,17 @@ public class JobApplication implements Serializable {
 
     @ManyToOne
     private Tutor tutor;
+
+    private JobApplication() {}
+
+    private JobApplication(Job job, Tutor tutor) {
+        this.job = job;
+        this.tutor = tutor;
+    }
+
+    public static JobApplication from(Job job, Tutor tutor) {
+        return new JobApplication(job, tutor);
+    }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
