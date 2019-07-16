@@ -1,5 +1,6 @@
 package it.aldi.app.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -22,10 +23,16 @@ public class JobApplication implements Serializable {
     private Long id;
 
     @ManyToOne
+    @JsonIgnoreProperties("jobApplications")
     private Job job;
 
     @ManyToOne
+    @JsonIgnoreProperties("jobApplications")
     private Tutor tutor;
+
+    @ManyToOne
+    @JsonIgnoreProperties("jobApplications")
+    private Organization organization;
 
     private JobApplication() {}
 
@@ -72,6 +79,20 @@ public class JobApplication implements Serializable {
     public void setTutor(Tutor tutor) {
         this.tutor = tutor;
     }
+
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public JobApplication organization(Organization organization) {
+        this.organization = organization;
+        return this;
+    }
+
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -83,21 +104,18 @@ public class JobApplication implements Serializable {
             return false;
         }
         JobApplication jobApplication = (JobApplication) o;
-        if (jobApplication.getId() == null || getId() == null) {
-            return false;
-        }
-        return Objects.equals(getId(), jobApplication.getId());
+        return jobApplication.id != null && id != null && Objects.equals(id, jobApplication.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(id);
     }
 
     @Override
     public String toString() {
         return "JobApplication{" +
-            "id=" + getId() +
+            "id=" + id +
             "}";
     }
 }
