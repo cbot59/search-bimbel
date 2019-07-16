@@ -44,6 +44,12 @@
                 <span th:text="#{sidebar-owner-manage_job}">Manage job</span></a>
 
             <a class="nav-link collapse-item"
+               th:href="${@routes.OWNER_MANAGE_JOB_APPLICATION}">
+                <span class="fas fa-fw fa-tachometer-alt"></span>
+                <span th:text="#{sidebar-owner-manage_job_application}">Manage job
+                application</span></a>
+
+            <a class="nav-link collapse-item"
                th:href="${@routes.OWNER_MANAGE_SUBJECT}">
                 <span class="fas fa-fw fa-tachometer-alt"></span>
                 <span th:text="#{sidebar-owner-manage_subject}">Manage
