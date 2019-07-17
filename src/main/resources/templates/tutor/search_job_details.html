@@ -8,7 +8,10 @@
 </head>
 <body>
 <main layout:fragment="content">
-    <form id="form-job-details" th:object="${jobDto}">
+    <form id="form-job-details"
+          th:action="${@routes.TUTOR_SEARCH_JOB_DETAILS} + '/' + ${jobDto.getJobId()}"
+          method="post"
+          th:object="${jobDto}">
         <div class="form-group row">
             <label for="org-name-job-details-input" class="col-3"
                    th:text="#{label-form-job_details-org_name}">Nama
