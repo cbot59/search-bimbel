@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -38,6 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/resources/static/**", "/webjars/**").permitAll()
             .antMatchers("/register/**", "/signin/**").anonymous()
             .antMatchers("/", "/logout/**").authenticated()
+            .antMatchers(HttpMethod.PATCH, Routes.API + Routes.ORGANIZATIONS + "/**").hasAuthority(RoleConstant.OWNER)
             .antMatchers(Routes.TUTOR_HOME + "/**").hasAuthority(RoleConstant.TUTOR)
             .antMatchers(Routes.OWNER_HOME + "/**").hasAuthority(RoleConstant.OWNER)
             .antMatchers(Routes.STUDENT_HOME + "/**").hasAuthority(RoleConstant.STUDENT)
