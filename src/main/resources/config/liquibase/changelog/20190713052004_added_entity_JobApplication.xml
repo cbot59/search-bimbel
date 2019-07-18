@@ -21,6 +21,9 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
+            <column name="approved" type="boolean" defaultValueBoolean="false">
+            </column>
+
             <column name="job_id" type="bigint">
                 <constraints nullable="true" />
             </column>
