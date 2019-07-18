@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Service Implementation for managing BimbelUserType.
@@ -48,20 +47,6 @@ public class BimbelUserTypeServiceImpl implements BimbelUserTypeService {
     public List<BimbelUserType> findAll() {
         log.debug("Request to get all BimbelUserTypes");
         return bimbelUserTypeRepository.findAll();
-    }
-
-    /**
-     * get all the bimbelUserTypes where BimbelUser is null.
-     *
-     * @return the list of entities
-     */
-    @Override
-    @Transactional(readOnly = true)
-    public List<BimbelUserType> findAllWhereBimbelUserIsNull() {
-        log.debug("Request to get all bimbelUserTypes where BimbelUser is null");
-        return bimbelUserTypeRepository.findAll().stream()
-            .filter(bimbelUserType -> bimbelUserType.getBimbelUser() == null)
-            .collect(Collectors.toList());
     }
 
     /**

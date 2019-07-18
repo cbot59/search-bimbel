@@ -1,5 +1,6 @@
 package it.aldi.app.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import it.aldi.app.controller.dto.BimbelUserDto;
 import it.aldi.app.util.RegexConstant;
 import lombok.AllArgsConstructor;
@@ -14,7 +15,6 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * A BimbelUser.
@@ -54,8 +54,8 @@ public class BimbelUser implements Serializable {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @OneToOne
-    @JoinColumn(unique = true)
+    @ManyToOne
+    @JsonIgnoreProperties("bimbelUsers")
     private BimbelUserType bimbelUserType;
 
     private BimbelUser() {
