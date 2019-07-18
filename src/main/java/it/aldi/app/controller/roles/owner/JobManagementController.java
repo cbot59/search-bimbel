@@ -46,8 +46,14 @@ public class JobManagementController {
     }
 
     @GetMapping(Routes.OWNER_MANAGE_JOB_ADD)
-    public String addJobView(Model model) {
-        model.addAttribute(new AddJobCmd());
+    public String addJobView(Model model, Authentication authentication) {
+        BimbelUserPrincipal bimbelUserPrincipal = (BimbelUserPrincipal) authentication.getPrincipal();
+
+        Owner owner = ownerService.findByUserId(bimbelUserPrincipal.getBimbelUser().getId())
+            .orElseThrow(() -> new IllegalArgumentException("Owner not found for user: " + bimbelUserPrincipal.getBimbelUser()));
+
+        model.addAttribute("orgId", owner.getOrganization().getId());
+
         return ADD_JOB_VIEW;
     }
 
@@ -58,12 +64,7 @@ public class JobManagementController {
 
         // TODO: validate if binding errors
 
-        BimbelUserPrincipal bimbelUserPrincipal = (BimbelUserPrincipal) authentication.getPrincipal();
-
-        Owner owner = ownerService.findByUserId(bimbelUserPrincipal.getBimbelUser().getId())
-            .orElseThrow(() -> new IllegalArgumentException("Owner not found for user: " + bimbelUserPrincipal.getBimbelUser()));
-
-        jobManagementService.saveJob(cmd, owner.getOrganization());
+        jobManagementService.saveJob(cmd);
 
         return new ModelAndView(ControllerConstant.redirect() + Routes.OWNER_MANAGE_JOB);
     }

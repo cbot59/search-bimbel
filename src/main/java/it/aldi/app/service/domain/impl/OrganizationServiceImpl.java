@@ -1,6 +1,7 @@
 package it.aldi.app.service.domain.impl;
 
 import it.aldi.app.domain.Organization;
+import it.aldi.app.exception.EntityNotFoundException;
 import it.aldi.app.repository.OrganizationRepository;
 import it.aldi.app.service.domain.OrganizationService;
 import org.slf4j.Logger;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -76,9 +76,10 @@ public class OrganizationServiceImpl implements OrganizationService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<Organization> findOne(Long id) {
+    public Organization findOne(Long id) {
         log.debug("Request to get Organization : {}", id);
-        return organizationRepository.findById(id);
+        return organizationRepository.findById(id)
+            .orElseThrow(() -> new EntityNotFoundException("Organization is not found, id: " + id));
     }
 
     /**

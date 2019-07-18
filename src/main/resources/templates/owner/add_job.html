@@ -50,6 +50,7 @@
                               th:placeholder="#{placeholder-add_job-other_note}"></textarea>
                 </div>
             </div>
+            <input type="hidden" name="organizationId" th:value="${orgId}"/>
             <button type="submit" class="btn btn-primary"
                     th:text="#{button-submit}"></button>
         </form>

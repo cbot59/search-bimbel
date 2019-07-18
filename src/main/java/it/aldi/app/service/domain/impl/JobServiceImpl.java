@@ -1,6 +1,7 @@
 package it.aldi.app.service.domain.impl;
 
 import it.aldi.app.domain.Job;
+import it.aldi.app.exception.EntityNotFoundException;
 import it.aldi.app.repository.JobRepository;
 import it.aldi.app.service.domain.JobService;
 import org.slf4j.Logger;
@@ -9,8 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 /**
  * Service Implementation for managing Job.
@@ -60,9 +59,10 @@ public class JobServiceImpl implements JobService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<Job> findOne(Long id) {
+    public Job findOne(Long id) {
         log.debug("Request to get Job : {}", id);
-        return jobRepository.findById(id);
+        return jobRepository.findById(id)
+            .orElseThrow(() -> new EntityNotFoundException("Job not available, jobId: " + id));
     }
 
     /**
