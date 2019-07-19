@@ -16,7 +16,7 @@ import java.util.List;
 
 @Component
 @Slf4j
-public final class CustomApplicationRunner implements ApplicationRunner {
+public class CustomApplicationRunner implements ApplicationRunner {
 
     private final RegisterService registerService;
 
@@ -25,7 +25,7 @@ public final class CustomApplicationRunner implements ApplicationRunner {
     private final JobManagementService jobManagementService;
 
     @Autowired
-    private CustomApplicationRunner(RegisterService registerService, BimbelUserRepository bimbelUserRepository,
+    public CustomApplicationRunner(RegisterService registerService, BimbelUserRepository bimbelUserRepository,
                                     JobManagementService jobManagementService) {
         this.registerService = registerService;
         this.bimbelUserRepository = bimbelUserRepository;
