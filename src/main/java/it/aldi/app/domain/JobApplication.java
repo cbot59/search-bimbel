@@ -22,6 +22,9 @@ public class JobApplication implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "approved")
+    private Boolean approved;
+
     @ManyToOne
     @JsonIgnoreProperties("jobApplications")
     private Job job;
@@ -39,6 +42,8 @@ public class JobApplication implements Serializable {
     private JobApplication(Job job, Tutor tutor) {
         this.job = job;
         this.tutor = tutor;
+        organization = job.getOrganization();
+        approved = false;
     }
 
     public static JobApplication from(Job job, Tutor tutor) {
@@ -52,6 +57,19 @@ public class JobApplication implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Boolean isApproved() {
+        return approved;
+    }
+
+    public JobApplication approved(Boolean approved) {
+        this.approved = approved;
+        return this;
+    }
+
+    public void setApproved(Boolean approved) {
+        this.approved = approved;
     }
 
     public Job getJob() {
@@ -116,6 +134,7 @@ public class JobApplication implements Serializable {
     public String toString() {
         return "JobApplication{" +
             "id=" + id +
+            ", approved='" + isApproved() + "'" +
             "}";
     }
 }

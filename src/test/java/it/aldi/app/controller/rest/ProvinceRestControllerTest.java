@@ -1,5 +1,6 @@
 package it.aldi.app.controller.rest;
 
+import it.aldi.app.CustomApplicationRunner;
 import it.aldi.app.controller.Routes;
 import it.aldi.app.domain.Province;
 import it.aldi.app.util.HttpRequestHelper;
@@ -7,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -25,6 +27,9 @@ public class ProvinceRestControllerTest {
 
     @Autowired
     private HttpRequestHelper requestHelper;
+
+    @MockBean
+    private CustomApplicationRunner customApplicationRunner;
 
     @Test
     public void getAllProvince() {

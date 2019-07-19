@@ -1,6 +1,5 @@
 package it.aldi.app.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -31,10 +30,6 @@ public class BimbelUserType implements Serializable {
     @OneToMany(mappedBy = "bimbelUserType")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<BimbelUserTypeRole> bimbelUserTypeRoles = new HashSet<>();
-
-    @OneToOne(mappedBy = "bimbelUserType")
-    @JsonIgnore
-    private BimbelUser bimbelUser;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -81,19 +76,6 @@ public class BimbelUserType implements Serializable {
 
     public void setBimbelUserTypeRoles(Set<BimbelUserTypeRole> bimbelUserTypeRoles) {
         this.bimbelUserTypeRoles = Collections.unmodifiableSet(bimbelUserTypeRoles);
-    }
-
-    public BimbelUser getBimbelUser() {
-        return bimbelUser;
-    }
-
-    public BimbelUserType bimbelUser(BimbelUser bimbelUser) {
-        this.bimbelUser = bimbelUser;
-        return this;
-    }
-
-    public void setBimbelUser(BimbelUser bimbelUser) {
-        this.bimbelUser = bimbelUser;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

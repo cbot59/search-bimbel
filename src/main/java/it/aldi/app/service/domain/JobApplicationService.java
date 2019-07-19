@@ -31,7 +31,7 @@ public interface JobApplicationService {
      * @param id the id of the entity
      * @return the entity
      */
-    Optional<JobApplication> findOne(Long id);
+    JobApplication findOne(Long id);
 
     /**
      * Delete the "id" jobApplication.
@@ -46,5 +46,5 @@ public interface JobApplicationService {
      * @param organizationId the id of Organization
      * @return the list of entities
      */
-    List<JobApplication> findAll(Long organizationId);
+    List<JobApplication> findAllByOrganizationAndAvailability(Long organizationId);
 }

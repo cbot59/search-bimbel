@@ -1,9 +1,34 @@
 const $tableJobApplication = $('#table-job-application');
 
 function getActionButton(jobAppId) {
-  // TODO: link to approve jobApp
-  return `<button href="#" class="btn btn-outline-primary">Approve</button>`;
+  return `<button id="approve-job-${jobAppId}-button" class="btn btn-outline-primary" data-job-app-id="${jobAppId}">Approve</button>`;
 }
+
+const jobApplicationUrl = `/api/organizations/${organizationId}/job_applications`;
+const token = $('[name="_csrf"]').val();
+
+const patchApprove = jobAppId => {
+  $.ajax({
+    beforeSend: (request) => request.setRequestHeader('X-CSRF-Token', token),
+    contentType: 'application/json',
+    data: JSON.stringify({jobAppId: jobAppId}),
+    method: 'PATCH',
+    success: location.reload(),
+    url: `${jobApplicationUrl}/${jobAppId}`,
+  });
+};
+
+const registerApproveButtonEvent = () => {
+  Array.from($('button[id^=approve-job]')).forEach(button => {
+    const jQButtonApprove = $(button);
+
+    jQButtonApprove.on('click', (e) => {
+      const jobAppId = $(e.currentTarget).data('job-app-id');
+
+      patchApprove(jobAppId);
+    });
+  });
+};
 
 const dataTableProp = {
   ajax: {
@@ -12,7 +37,7 @@ const dataTableProp = {
       json.recordsFiltered = json.length;
       return json;
     },
-    url: `/api/organizations/${organizationId}/job_applications`,
+    url: jobApplicationUrl,
   },
   columns: [
     {data: 'jobName'},
@@ -25,6 +50,7 @@ const dataTableProp = {
     },
   ],
   dom: 'ftipr',
+  drawCallback: registerApproveButtonEvent,
   processing: true,
   searching: false,
   serverSide: true,

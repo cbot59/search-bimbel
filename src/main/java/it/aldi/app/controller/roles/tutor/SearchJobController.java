@@ -3,7 +3,6 @@ package it.aldi.app.controller.roles.tutor;
 import it.aldi.app.controller.Routes;
 import it.aldi.app.controller.rest.dto.response.JobDto;
 import it.aldi.app.domain.Tutor;
-import it.aldi.app.exception.EntityNotFoundException;
 import it.aldi.app.security.model.BimbelUserPrincipal;
 import it.aldi.app.service.domain.JobService;
 import it.aldi.app.service.domain.TutorService;
@@ -39,8 +38,7 @@ public class SearchJobController {
 
     @GetMapping(Routes.TUTOR_SEARCH_JOB_DETAILS + "/{jobId}")
     public String searchJobDetailsView(@PathVariable("jobId") Long jobId, Model model) {
-        JobDto jobDto = JobDto.from(jobService.findOne(jobId)
-            .orElseThrow(() -> new EntityNotFoundException("Job not available")));
+        JobDto jobDto = JobDto.from(jobService.findOne(jobId));
 
         model.addAttribute(jobDto);
         return SEARCH_JOB_DETAILS_VIEW;

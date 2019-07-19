@@ -1,6 +1,7 @@
 package it.aldi.app.controller;
 
 import it.aldi.app.Application;
+import it.aldi.app.CustomApplicationRunner;
 import it.aldi.app.service.register.RegisterService;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,6 +26,9 @@ public class RegisterControllerTest {
 
     @MockBean
     private RegisterService registerService;
+
+    @MockBean
+    private CustomApplicationRunner customApplicationRunner;
 
     @Before
     public void setup() {

@@ -5,7 +5,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Service Interface for managing Organization.
@@ -41,7 +40,7 @@ public interface OrganizationService {
      * @param id the id of the entity
      * @return the entity
      */
-    Optional<Organization> findOne(Long id);
+    Organization findOne(Long id);
 
     /**
      * Delete the "id" organization.

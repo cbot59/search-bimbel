@@ -20,7 +20,7 @@ public class JobApplicationManagementController {
     private final OwnerService ownerService;
 
     @GetMapping(Routes.OWNER_MANAGE_JOB_APPLICATION)
-    public String getManageJobApplictionView(Model model, Authentication authentication) {
+    public String getManageJobApplicationView(Model model, Authentication authentication) {
         BimbelUserPrincipal bimbelUserPrincipal = (BimbelUserPrincipal) authentication.getPrincipal();
 
         Owner owner = ownerService.findByUserId(bimbelUserPrincipal.getBimbelUser().getId())

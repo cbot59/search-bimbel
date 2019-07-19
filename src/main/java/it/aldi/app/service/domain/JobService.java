@@ -4,8 +4,6 @@ import it.aldi.app.domain.Job;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.Optional;
-
 /**
  * Service Interface for managing Job.
  */
@@ -33,7 +31,7 @@ public interface JobService {
      * @param id the id of the entity
      * @return the entity
      */
-    Optional<Job> findOne(Long id);
+    Job findOne(Long id);
 
     /**
      * Delete the "id" job.
@@ -44,14 +42,16 @@ public interface JobService {
 
     /**
      * Get all the jobs within a query search
+     *
      * @param pageable the pagination information
-     * @param search keyword to find job
+     * @param search   keyword to find job
      * @return the list of entities
      */
     Page<Job> findAll(Pageable pageable, String search);
 
     /**
      * Get all the jobs on an Organization
+     *
      * @param pageable the pagination information
      * @return the list of entities
      */

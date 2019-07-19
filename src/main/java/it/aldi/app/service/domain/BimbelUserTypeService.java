@@ -25,13 +25,6 @@ public interface BimbelUserTypeService {
     List<BimbelUserType> findAll();
 
     /**
-     * Get all the BimbelUserTypeDTO where BimbelUser is null.
-     *
-     * @return the list of entities
-     */
-    List<BimbelUserType> findAllWhereBimbelUserIsNull();
-
-    /**
      * Get the "id" bimbelUserType.
      *
      * @param id the id of the entity

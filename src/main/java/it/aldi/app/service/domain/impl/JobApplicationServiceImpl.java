@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Service Implementation for managing JobApplication.
@@ -58,9 +57,10 @@ public class JobApplicationServiceImpl implements JobApplicationService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<JobApplication> findOne(Long id) {
+    public JobApplication findOne(Long id) {
         log.debug("Request to get JobApplication : {}", id);
-        return jobApplicationRepository.findById(id);
+        return jobApplicationRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("There is no application for current JobApplication, id: " + id));
     }
 
     /**
@@ -76,7 +76,7 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<JobApplication> findAll(Long organizationId) {
-        return jobApplicationRepository.findByOrganizationId(organizationId);
+    public List<JobApplication> findAllByOrganizationAndAvailability(Long organizationId) {
+        return jobApplicationRepository.findByOrganizationAndAvailability(organizationId, false);
     }
 }

@@ -47,6 +47,8 @@ public class Routes {
     public static final String API_CITIES = API + CITIES;
     public static final String API_ORGANIZATIONS_JOBS = API + ORGANIZATIONS + "/{orgId}" + JOBS;
     public static final String API_ORGANIZATIONS_JOB_APPLICATIONS = API + ORGANIZATIONS + "/{orgId}" + JOB_APPLICATIONS;
+    public static final String API_ORGANIZATIONS_JOB_APPLICATIONS_APPROVE =
+        API + ORGANIZATIONS + "/{orgId}" + JOB_APPLICATIONS + "/{jobAppId}";
     public static final String API_JOBS = API + JOBS;
     public static final String API_PROVINCE = API + PROVINCES;
     public static final String API_STUDENTS = API + STUDENTS;
