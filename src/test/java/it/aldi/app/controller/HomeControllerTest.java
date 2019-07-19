@@ -1,50 +1,43 @@
 package it.aldi.app.controller;
 
-import it.aldi.app.Application;
+import it.aldi.app.config.SecurityConfig;
+import it.aldi.app.repository.BimbelUserRepository;
+import it.aldi.app.security.service.BimbelUserDetailsService;
 import it.aldi.app.service.ProvinceService;
 import it.aldi.app.util.ControllerConstant;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
-import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = Application.class, webEnvironment = RANDOM_PORT)
+@Import({SecurityConfig.class, BimbelUserDetailsService.class, Routes.class})
+@WebMvcTest(controllers = HomeController.class)
 public class HomeControllerTest {
 
     private static final String TUTOR = "TUTOR";
 
-    @Autowired
-    private WebApplicationContext webApplicationContext;
-
     @MockBean
     private ProvinceService provinceService;
 
-    private MockMvc mockMvc;
+    @MockBean
+    private BimbelUserRepository bimbelUserRepository;
 
-    @Before
-    public void setup() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
-            .apply(SecurityMockMvcConfigurers.springSecurity())
-            .build();
-    }
+    @Autowired
+    private MockMvc mockMvc;
 
     @Test
     @WithMockUser(authorities = TUTOR)
     public void testIndex_shouldReturnTutorPage() throws Exception {
-        mockMvc.perform(get("/"))
+        mockMvc.perform(get(Routes.INDEX))
             .andExpect(status().is3xxRedirection())
             .andExpect(view().name(ControllerConstant.redirect() + Routes.TUTOR_HOME))
             .andExpect(redirectedUrl(Routes.TUTOR_HOME));

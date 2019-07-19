@@ -1,7 +1,7 @@
 package it.aldi.app.controller;
 
 import it.aldi.app.Application;
-import it.aldi.app.service.register.UserTypeRegistrationService;
+import it.aldi.app.CustomApplicationRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,7 +24,7 @@ public class SigninControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private UserTypeRegistrationService userTypeRegistrationService;
+    private CustomApplicationRunner customApplicationRunner;
 
     @Before
     public void setup() {
