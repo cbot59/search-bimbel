@@ -1,11 +1,7 @@
-package it.aldi.app.controller.dto;
+package it.aldi.app.controller.cmd;
 
-import it.aldi.app.controller.cmd.RegisterUserCmd;
 import it.aldi.app.util.RegexConstant;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -13,9 +9,10 @@ import javax.validation.constraints.Size;
 
 @Data
 @Builder
+@ToString(exclude = "password")
 @NoArgsConstructor
 @AllArgsConstructor
-public class BimbelUserDto {
+public class RegisterUserCmd {
 
     @NotNull
     @Size(min = 6)
@@ -38,15 +35,10 @@ public class BimbelUserDto {
     @NotNull
     private String roles;
 
-    public BimbelUserDto(RegisterUserCmd cmd) {
-        username = cmd.getUsername();
-        name = cmd.getName();
-        password = cmd.getPassword();
-        email = cmd.getEmail();
-        roles = cmd.getRoles();
-    }
+    @NotNull
+    @Size(min = 3, message = "Phone number should be at least three digits")
+    private String phone;
 
-    private static BimbelUserDto parse(RegisterUserCmd cmd) {
-        return new BimbelUserDto(cmd);
-    }
+    @NotNull(message = "Address should not be empty")
+    private String address;
 }

@@ -14,35 +14,21 @@
     <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
 
     <!--
-        Added the entity BimbelUser.
+        Added the entity BimbelUserDetails.
     -->
-    <changeSet id="20190223045719-1" author="jhipster">
-        <createTable tableName="bimbel_user">
+    <changeSet id="20190720054835-1" author="jhipster">
+        <createTable tableName="bimbel_user_details">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="username" type="varchar(255)">
-                <constraints nullable="false" unique="true" uniqueConstraintName="ux_bimbel_user_username" />
-            </column>
-
-            <column name="name" type="varchar(255)">
+            <column name="phone" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
 
-            <column name="password" type="varchar(255)">
-                <constraints nullable="false" />
-            </column>
-
-            <column name="email" type="varchar(255)">
-                <constraints nullable="false" unique="true" uniqueConstraintName="ux_bimbel_user_email" />
-            </column>
-
-            <column name="bimbel_user_type_id" type="bigint">
+            <column name="address" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="bimbel_user_details_id" type="bigint">
-                <constraints unique="true" nullable="true" uniqueConstraintName="ux_bimbel_user_bimbel_user_details_id" />
-            </column>
+
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
 

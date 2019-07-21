@@ -14,72 +14,103 @@
         <p class="alert alert-danger" th:if="${errMsg}" th:text="${errMsg}"></p>
         <form th:action="${@routes.REGISTER}"
               method="post"
-              th:object="${bimbelUserDto}">
+              th:object="${registerUserCmd}">
             <div class="form-group row">
-                <label for="name-input" class="col-3">Name</label>
+                <label for="name-register-input" class="col-3">Name</label>
                 <div class="col-6">
                     <p th:each="error : ${#fields.errors('name')}"
                        th:text="${error}">Validation error</p>
-                    <input type="text" class="form-control" id="name-input"
+                    <input type="text" class="form-control"
+                           id="name-register-input"
                            required="required"
                            th:pattern="${@regexConstant.NAME_REGEX}"
                            th:title="#{validation-register-title-name}"
-                           th:placeholder="#{placeholder-name}"
+                           th:placeholder="#{placeholder-register-name}"
                            th:field="*{name}"/>
                 </div>
             </div>
             <div class="form-group row">
-                <label for="username-input" class="col-3">Username</label>
+                <label for="username-register-input"
+                       class="col-3">Username</label>
                 <div class="col-6">
                     <p class="alert alert-danger"
                        th:each="error : ${#fields.errors('username')}"
                        th:text="${error}">Validation error</p>
-                    <input type="text" class="form-control" id="username-input"
+                    <input type="text" class="form-control"
+                           id="username-register-input"
                            required="required"
                            minlength="6"
                            th:pattern="${@regexConstant.USERNAME_REGEX}"
                            th:title="#{validation-register-title-username}"
-                           th:placeholder="#{placeholder-username}"
+                           th:placeholder="#{placeholder-register-username}"
                            th:field="*{username}"/>
                 </div>
             </div>
             <div class="form-group row">
-                <label for="email-input" class="col-3">Email</label>
+                <label for="email-register-input" class="col-3">Email</label>
                 <div class="col-6">
                     <p th:each="error : ${#fields.errors('email')}"
                        th:text="${error}">Validation error</p>
                     <input type="email"
                            class="form-control"
-                           id="email-input"
+                           id="email-register-input"
                            required="required"
-                           th:placeholder="#{placeholder-email}"
+                           th:placeholder="#{placeholder-register-email}"
                            th:field="*{email}"/>
                 </div>
             </div>
             <div class="form-group row">
-                <label for="password-input" class="col-3">Password</label>
+                <label for="password-register-input"
+                       class="col-3">Password</label>
                 <div class="col-6">
                     <p th:each="error : ${#fields.errors('password')}"
                        th:text="${error}">Validation error</p>
                     <input type="password"
                            class="form-control"
-                           id="password-input"
+                           id="password-register-input"
                            required="required"
                            minlength="6"
                            th:title="#{validation-register-title-password}"
-                           th:placeholder="#{placeholder-password}"
+                           th:placeholder="#{placeholder-register-password}"
                            th:field="*{password}"/>
                 </div>
             </div>
             <div class="form-group row">
-                <label for="role-input" class="col-3">Role</label>
+                <label for="role-register-input" class="col-3">Role</label>
                 <div class="col-6">
-                    <select class="form-control" id="role-input"
+                    <select class="form-control" id="role-register-input"
                             th:field="*{roles}">
                         <option th:each="role : ${roleList}"
                                 th:value="${role.getName()}"
                                 th:text="${role.getName()}"></option>
                     </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="phone-register-input" class="col-3">Phone</label>
+                <div class="col-6">
+                    <p th:each="error : ${#fields.errors('phone')}"
+                       th:text="${error}">Validation error</p>
+                    <input type="tel" class="form-control"
+                           id="phone-register-input"
+                           pattern="0[0-9]{7}|0[0-9]{9}|0[0-9]{10}|0[0-9]{11}"
+                           title="021xxxxxxxxx | 08xxxxxxxxx"
+                           required="required"
+                           th:placeholder="#{placeholder-register-phone}"
+                           th:field="*{phone}"/>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="address-register-input" class="col-3">Address
+                </label>
+                <div class="col-6">
+                    <p th:each="error : ${#fields.errors('address')}"
+                       th:text="${error}">Validation error</p>
+                    <textarea class="form-control" id="address-register-input"
+                              maxlength="250"
+                              th:placeholder="#{placeholder-register-address}"
+                              th:field="*{address}">
+                    </textarea>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary"

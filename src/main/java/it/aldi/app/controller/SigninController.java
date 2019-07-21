@@ -4,6 +4,7 @@ import it.aldi.app.controller.dto.BimbelUserDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
@@ -17,8 +18,11 @@ public class SigninController {
      * Sign in page.
      */
     @GetMapping(Routes.SIGNIN)
-    public String signin(@ModelAttribute BimbelUserDto bimbelUserDto) {
+    public String signin(Model model, @ModelAttribute("redirectMsg") String redirectMsg,
+                         @ModelAttribute BimbelUserDto bimbelUserDto) {
         LOGGER.info("Showing sign in page");
+
+        model.addAttribute(redirectMsg);
 
         return SIGN_IN_VIEW;
     }

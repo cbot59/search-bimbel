@@ -1,15 +1,14 @@
 package it.aldi.app.service.register;
 
-import it.aldi.app.controller.dto.BimbelUserDto;
-import it.aldi.app.domain.BimbelUser;
+import it.aldi.app.controller.cmd.RegisterUserCmd;
 import it.aldi.app.domain.Role;
 
 import java.util.List;
 
 public interface RegisterService {
-    void registerUser(BimbelUserDto bimbelUserDto);
+    void registerUser(RegisterUserCmd registerUserCmd);
 
     List<Role> getPublicRoles();
 
-    String verifyExistingData(BimbelUserDto bimbelUserDto);
+    String verifyExistingData(RegisterUserCmd registerUserCmd);
 }
