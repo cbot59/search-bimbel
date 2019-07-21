@@ -83,6 +83,6 @@ public class UserTypeRegistrationServiceImpl implements UserTypeRegistrationServ
         Organization organization = organizationService.save(Organization.createDefault(bimbelUser.getName()));
         Chairman chairman = chairmanService.save(new Chairman().organization(organization));
 
-        tutorService.save(Tutor.initialize(bimbelUser).chairman(new Chairman()));
+        tutorService.save(Tutor.initialize(bimbelUser).chairman(chairman));
     }
 }
