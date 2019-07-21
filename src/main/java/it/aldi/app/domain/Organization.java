@@ -49,17 +49,17 @@ public class Organization implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<UserOrganization> userOrganizations = new HashSet<>();
 
-    @OneToOne(mappedBy = "organization")
-    @JsonIgnore
-    private Owner owner;
-
     @OneToMany(mappedBy = "organization")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Subject> subjects = new HashSet<>();
 
+    @OneToOne(mappedBy = "organization")
+    @JsonIgnore
+    private Chairman chairman;
+
     @OneToMany(mappedBy = "organization")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Job> jobs = new HashSet<>();
+    private Set<Enrollment> enrollments = new HashSet<>();
 
     private Organization() {
     }
@@ -161,15 +161,6 @@ public class Organization implements Serializable {
         this.userOrganizations = Collections.unmodifiableSet(userOrganizations);
     }
 
-    public Owner getOwner() {
-        return owner;
-    }
-
-    public Organization owner(Owner owner) {
-        this.owner = owner;
-        return this;
-    }
-
     public Set<Subject> getSubjects() {
         return Collections.unmodifiableSet(subjects);
     }
@@ -195,33 +186,42 @@ public class Organization implements Serializable {
         this.subjects = Collections.unmodifiableSet(subjects);
     }
 
-    public void setOwner(Owner owner) {
-        this.owner = owner;
+    public Chairman getChairman() {
+        return chairman;
     }
 
-    public Set<Job> getJobs() {
-        return Collections.unmodifiableSet(jobs);
-    }
-
-    public Organization jobs(Set<Job> jobs) {
-        this.jobs = Collections.unmodifiableSet(jobs);
+    public Organization chairman(Chairman chairman) {
+        this.chairman = chairman;
         return this;
     }
 
-    public Organization addJob(Job job) {
-        jobs.add(job);
-        job.setOrganization(this);
+    public void setChairman(Chairman chairman) {
+        this.chairman = chairman;
+    }
+
+    public Set<Enrollment> getEnrollments() {
+        return Collections.unmodifiableSet(enrollments);
+    }
+
+    public Organization enrollments(Set<Enrollment> enrollments) {
+        this.enrollments = Collections.unmodifiableSet(enrollments);
         return this;
     }
 
-    public Organization removeJob(Job job) {
-        jobs.remove(job);
-        job.setOrganization(null);
+    public Organization addEnrollment(Enrollment enrollment) {
+        enrollments.add(enrollment);
+        enrollment.setOrganization(this);
         return this;
     }
 
-    public void setJobs(Set<Job> jobs) {
-        this.jobs = Collections.unmodifiableSet(jobs);
+    public Organization removeEnrollment(Enrollment enrollment) {
+        enrollments.remove(enrollment);
+        enrollment.setOrganization(null);
+        return this;
+    }
+
+    public void setEnrollments(Set<Enrollment> enrollments) {
+        this.enrollments = Collections.unmodifiableSet(enrollments);
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove

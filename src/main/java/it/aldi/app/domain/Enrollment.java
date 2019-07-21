@@ -8,10 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * A Enrollment.
@@ -39,6 +36,10 @@ public class Enrollment implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties("enrollments")
     private Student student;
+
+    @ManyToOne
+    @JsonIgnoreProperties("enrollments")
+    private Organization organization;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -88,6 +89,19 @@ public class Enrollment implements Serializable {
         this.student = student;
     }
 
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public Enrollment organization(Organization organization) {
+        this.organization = organization;
+        return this;
+    }
+
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -95,10 +109,13 @@ public class Enrollment implements Serializable {
         if (this == o) {
             return true;
         }
+
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
+
         Enrollment enrollment = (Enrollment) o;
+
         return enrollment.id != null && id != null && Objects.equals(id, enrollment.id);
     }
 

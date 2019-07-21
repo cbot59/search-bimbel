@@ -43,7 +43,7 @@ public class SubjectManagementController {
         Owner owner = ownerService.findByUserId(bimbelUserPrincipal.getBimbelUser().getId())
             .orElseThrow(() -> new IllegalArgumentException("Owner not found for user: " + bimbelUserPrincipal.getBimbelUser()));
 
-        model.addAttribute("orgId", owner.getOrganization().getId());
+        model.addAttribute("orgId", owner.getChairman().getOrganization().getId());
 
         return MANAGE_SUBJECT_VIEW;
     }
@@ -68,7 +68,7 @@ public class SubjectManagementController {
         Owner owner = ownerService.findByUserId(bimbelUserPrincipal.getBimbelUser().getId())
             .orElseThrow(() -> new IllegalArgumentException("Owner not found for user: " + bimbelUserPrincipal.getBimbelUser()));
 
-        subjectManagementService.saveSubject(cmd, owner.getOrganization());
+        subjectManagementService.saveSubject(cmd, owner.getChairman().getOrganization());
 
         return new ModelAndView(ControllerConstant.redirect() + Routes.OWNER_MANAGE_SUBJECT);
     }

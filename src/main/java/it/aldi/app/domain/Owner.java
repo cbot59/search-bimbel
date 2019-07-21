@@ -18,29 +18,40 @@ public class Owner implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @OneToOne
-    @JoinColumn(unique = true)
-    private Organization organization;
 
     @OneToOne
     @JoinColumn(unique = true)
     private BimbelUser bimbelUser;
 
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "id")
+    private Chairman chairman;
+
     public Owner() {
-        organization = null;
         bimbelUser = null;
     }
 
-    private Owner(Organization organization, BimbelUser bimbelUser) {
-        this.organization = organization;
+    private Owner(BimbelUser bimbelUser) {
         this.bimbelUser = bimbelUser;
     }
 
-    public static Owner initialize(Organization organization, BimbelUser bimbelUser) {
-        return new Owner(organization, bimbelUser);
+    public static Owner initialize(BimbelUser bimbelUser) {
+        return new Owner(bimbelUser);
+    }
+
+    public Chairman getChairman() {
+        return chairman;
+    }
+
+    public Owner chairman(Chairman chairman) {
+        this.chairman = chairman;
+        return this;
+    }
+
+    public void setChairman(Chairman chairman) {
+        this.chairman = chairman;
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -50,19 +61,6 @@ public class Owner implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Organization getOrganization() {
-        return organization;
-    }
-
-    public Owner organization(Organization organization) {
-        this.organization = organization;
-        return this;
-    }
-
-    public void setOrganization(Organization organization) {
-        this.organization = organization;
     }
 
     public BimbelUser getBimbelUser() {

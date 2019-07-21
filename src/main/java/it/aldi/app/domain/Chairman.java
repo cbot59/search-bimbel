@@ -8,12 +8,12 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * A Tutor.
+ * A Chairman.
  */
 @Entity
-@Table(name = "tutor")
+@Table(name = "chairman")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Tutor implements Serializable {
+public class Chairman implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -21,24 +21,9 @@ public class Tutor implements Serializable {
     private Long id;
 
     @OneToOne
-    @JoinColumn(unique = true)
-    private BimbelUser bimbelUser;
-
-    @OneToOne
     @MapsId
     @JoinColumn(name = "id")
-    private Chairman chairman;
-
-    public Tutor() {
-    }
-
-    public Tutor(BimbelUser bimbelUser) {
-        this.bimbelUser = bimbelUser;
-    }
-
-    public static Tutor initialize(BimbelUser bimbelUser) {
-        return new Tutor(bimbelUser);
-    }
+    private Organization organization;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -49,30 +34,17 @@ public class Tutor implements Serializable {
         this.id = id;
     }
 
-    public BimbelUser getBimbelUser() {
-        return bimbelUser;
+    public Organization getOrganization() {
+        return organization;
     }
 
-    public Tutor bimbelUser(BimbelUser bimbelUser) {
-        this.bimbelUser = bimbelUser;
+    public Chairman organization(Organization organization) {
+        this.organization = organization;
         return this;
     }
 
-    public void setBimbelUser(BimbelUser bimbelUser) {
-        this.bimbelUser = bimbelUser;
-    }
-
-    public Chairman getChairman() {
-        return chairman;
-    }
-
-    public Tutor chairman(Chairman chairman) {
-        this.chairman = chairman;
-        return this;
-    }
-
-    public void setChairman(Chairman chairman) {
-        this.chairman = chairman;
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -86,9 +58,9 @@ public class Tutor implements Serializable {
             return false;
         }
 
-        Tutor tutor = (Tutor) o;
+        Chairman chairman = (Chairman) o;
 
-        return tutor.id != null && id != null && Objects.equals(id, tutor.id);
+        return chairman.id != null && id != null && Objects.equals(id, chairman.id);
     }
 
     @Override
@@ -98,7 +70,7 @@ public class Tutor implements Serializable {
 
     @Override
     public String toString() {
-        return "Tutor{" +
+        return "Chairman{" +
             "id=" + id +
             "}";
     }

@@ -30,6 +30,6 @@ public class JobRestController {
     @GetMapping(Routes.API_ORGANIZATIONS_JOBS)
     public ResponseEntity<Page<JobDto>> getJobsByOrgId(@PathVariable("orgId") Long id, Pageable pageable) {
         return ResponseEntity.status(HttpStatus.OK)
-            .body(jobService.findAllByOrgId(id, pageable).map(JobDto::from));
+            .body(jobService.findAll(pageable).map(JobDto::from));
     }
 }

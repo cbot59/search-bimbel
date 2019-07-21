@@ -33,16 +33,11 @@ public class JobApplication implements Serializable {
     @JsonIgnoreProperties("jobApplications")
     private Tutor tutor;
 
-    @ManyToOne
-    @JsonIgnoreProperties("jobApplications")
-    private Organization organization;
-
     private JobApplication() {}
 
     private JobApplication(Job job, Tutor tutor) {
         this.job = job;
         this.tutor = tutor;
-        organization = job.getOrganization();
         approved = false;
     }
 
@@ -96,19 +91,6 @@ public class JobApplication implements Serializable {
 
     public void setTutor(Tutor tutor) {
         this.tutor = tutor;
-    }
-
-    public Organization getOrganization() {
-        return organization;
-    }
-
-    public JobApplication organization(Organization organization) {
-        this.organization = organization;
-        return this;
-    }
-
-    public void setOrganization(Organization organization) {
-        this.organization = organization;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove

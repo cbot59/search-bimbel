@@ -40,7 +40,7 @@ public class JobManagementController {
         Owner owner = ownerService.findByUserId(bimbelUserPrincipal.getBimbelUser().getId())
             .orElseThrow(() -> new IllegalArgumentException("Owner not found for user: " + bimbelUserPrincipal.getBimbelUser()));
 
-        model.addAttribute("orgId", owner.getOrganization().getId());
+        model.addAttribute("orgId", owner.getChairman().getOrganization().getId());
 
         return MANAGE_JOB_VIEW;
     }
@@ -52,7 +52,7 @@ public class JobManagementController {
         Owner owner = ownerService.findByUserId(bimbelUserPrincipal.getBimbelUser().getId())
             .orElseThrow(() -> new IllegalArgumentException("Owner not found for user: " + bimbelUserPrincipal.getBimbelUser()));
 
-        model.addAttribute("orgId", owner.getOrganization().getId());
+        model.addAttribute("orgId", owner.getChairman().getOrganization().getId());
 
         return ADD_JOB_VIEW;
     }

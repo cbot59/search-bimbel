@@ -39,7 +39,7 @@ public class OwnerController {
         Owner owner = ownerService.findByUserId(bimbelUserPrincipal.getBimbelUser().getId())
             .orElseThrow(() -> new IllegalArgumentException("Owner not found for user: " + bimbelUserPrincipal.getBimbelUser()));
 
-        model.addAttribute("orgIds", owner.getOrganization().getId());
+        model.addAttribute("orgIds", owner.getChairman().getOrganization().getId());
 
         return OWNER_MANAGE_STUDENT_VIEW;
     }
@@ -51,7 +51,7 @@ public class OwnerController {
         Owner owner = ownerService.findByUserId(bimbelUserPrincipal.getBimbelUser().getId())
             .orElseThrow(() -> new IllegalArgumentException("Owner not found for user: " + bimbelUserPrincipal.getBimbelUser()));
 
-        model.addAttribute("orgIds", owner.getOrganization().getId());
+        model.addAttribute("orgIds", owner.getChairman().getOrganization().getId());
 
         return OWNER_MANAGE_TUTOR_VIEW;
     }

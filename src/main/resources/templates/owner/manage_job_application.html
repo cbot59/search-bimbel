@@ -48,6 +48,7 @@
 <th:block layout:fragment="custom-js">
     <script type="text/javascript" th:inline="javascript">
       const organizationId = [[${orgId}]];
+      const manageJobApplicationDetailsUrl = [[${@routes.OWNER_MANAGE_JOB_APPLICATION_DETAILS}]];
     </script>
     <script type="text/javascript"
             th:src="@{/webjars/datatables/1.10.19/js/jquery.dataTables.min.js}"></script>

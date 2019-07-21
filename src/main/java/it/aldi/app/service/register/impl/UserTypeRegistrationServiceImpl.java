@@ -1,10 +1,7 @@
 package it.aldi.app.service.register.impl;
 
 import it.aldi.app.domain.*;
-import it.aldi.app.service.domain.OrganizationService;
-import it.aldi.app.service.domain.OwnerService;
-import it.aldi.app.service.domain.StudentService;
-import it.aldi.app.service.domain.TutorService;
+import it.aldi.app.service.domain.*;
 import it.aldi.app.service.register.UserTypeRegistrationService;
 import it.aldi.app.util.RoleConstant;
 import org.springframework.stereotype.Service;
@@ -22,14 +19,18 @@ public class UserTypeRegistrationServiceImpl implements UserTypeRegistrationServ
 
     private final TutorService tutorService;
 
+    private final ChairmanService chairmanService;
+
     public UserTypeRegistrationServiceImpl(OrganizationService organizationService,
                                            OwnerService ownerService,
                                            StudentService studentService,
-                                           TutorService tutorService) {
+                                           TutorService tutorService,
+                                           ChairmanService chairmanService) {
         this.organizationService = organizationService;
         this.ownerService = ownerService;
         this.studentService = studentService;
         this.tutorService = tutorService;
+        this.chairmanService = chairmanService;
     }
 
     @Override
@@ -57,8 +58,9 @@ public class UserTypeRegistrationServiceImpl implements UserTypeRegistrationServ
         }
 
         Organization organization = organizationService.save(Organization.createDefault(bimbelUser.getName()));
+        Chairman chairman = chairmanService.save(new Chairman().organization(organization));
 
-        ownerService.save(Owner.initialize(organization, bimbelUser));
+        ownerService.save(Owner.initialize(bimbelUser).chairman(chairman));
     }
 
     private void registerStudent(BimbelUser bimbelUser) {
@@ -78,6 +80,9 @@ public class UserTypeRegistrationServiceImpl implements UserTypeRegistrationServ
             throw new IllegalArgumentException("Tutor already exists: " + tutor.get());
         }
 
-        tutorService.save(Tutor.initialize(bimbelUser));
+        Organization organization = organizationService.save(Organization.createDefault(bimbelUser.getName()));
+        Chairman chairman = chairmanService.save(new Chairman().organization(organization));
+
+        tutorService.save(Tutor.initialize(bimbelUser).chairman(new Chairman()));
     }
 }

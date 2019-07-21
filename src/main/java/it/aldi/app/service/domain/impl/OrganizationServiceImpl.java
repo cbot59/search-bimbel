@@ -55,16 +55,15 @@ public class OrganizationServiceImpl implements OrganizationService {
     }
 
     /**
-     * get all the organizations where Owner is null.
+     * get all the organizations where Chairman is null.
      *
      * @return the list of entities
      */
-    @Override
     @Transactional(readOnly = true)
-    public List<Organization> findAllWhereOwnerIsNull() {
-        log.debug("Request to get all organizations where Owner is null");
+    public List<Organization> findAllWhereChairmanIsNull() {
+        log.debug("Request to get all organizations where Chairman is null");
         return organizationRepository.findAll().stream()
-            .filter(organization -> organization.getOwner() == null)
+            .filter(organization -> organization.getChairman() == null)
             .collect(Collectors.toList());
     }
 

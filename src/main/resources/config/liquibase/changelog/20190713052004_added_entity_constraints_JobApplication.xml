@@ -20,11 +20,5 @@
                                  referencedColumnNames="id"
                                  referencedTableName="tutor"/>
 
-        <addForeignKeyConstraint baseColumnNames="organization_id"
-                                 baseTableName="job_application"
-                                 constraintName="fk_job_application_organization_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="organization"/>
-
     </changeSet>
 </databaseChangeLog>

@@ -12,6 +12,9 @@ public class TutorDto {
     private String email;
     private String username;
     private List<String> subjects;
+    private String phone;
+    private String address;
+    private String otherNote;
 
     private TutorDto(BimbelUser bimbelUser) {
         name = bimbelUser.getName();
@@ -19,6 +22,9 @@ public class TutorDto {
         username = bimbelUser.getEmail();
         // TODO: get subject from entity relation
         subjects = Arrays.asList("Matematika", "Fisika");
+        phone = bimbelUser.getBimbelUserDetails().getPhone();
+        address = bimbelUser.getBimbelUserDetails().getAddress();
+        otherNote = "Belum ada isi";
     }
 
     public static TutorDto valueOf(BimbelUser bimbelUser) {

@@ -1,6 +1,7 @@
 package it.aldi.app.service.domain.impl;
 
 import it.aldi.app.domain.Tutor;
+import it.aldi.app.repository.ChairmanRepository;
 import it.aldi.app.repository.TutorRepository;
 import it.aldi.app.service.domain.TutorService;
 import org.slf4j.Logger;
@@ -23,8 +24,11 @@ public class TutorServiceImpl implements TutorService {
 
     private final TutorRepository tutorRepository;
 
-    public TutorServiceImpl(TutorRepository tutorRepository) {
+    private final ChairmanRepository chairmanRepository;
+
+    public TutorServiceImpl(TutorRepository tutorRepository, ChairmanRepository chairmanRepository) {
         this.tutorRepository = tutorRepository;
+        this.chairmanRepository = chairmanRepository;
     }
 
     /**
@@ -36,6 +40,8 @@ public class TutorServiceImpl implements TutorService {
     @Override
     public Tutor save(Tutor tutor) {
         log.debug("Request to save Tutor : {}", tutor);
+        long chairmanId = tutor.getChairman().getId();
+        chairmanRepository.findById(chairmanId).ifPresent(tutor::chairman);
         return tutorRepository.save(tutor);
     }
 

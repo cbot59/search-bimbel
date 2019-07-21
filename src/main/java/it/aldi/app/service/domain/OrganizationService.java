@@ -28,11 +28,11 @@ public interface OrganizationService {
     Page<Organization> findAll(Pageable pageable);
 
     /**
-     * Get all the OrganizationDTO where Owner is null.
+     * Get all the OrganizationDTO where Chairman is null.
      *
      * @return the list of entities
      */
-    List<Organization> findAllWhereOwnerIsNull();
+    List<Organization> findAllWhereChairmanIsNull();
 
     /**
      * Get the "id" organization.

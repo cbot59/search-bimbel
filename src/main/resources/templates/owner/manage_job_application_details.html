@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+<main layout:fragment="content">
+    <form id="form-job-details"
+          th:action="${@routes.OWNER_MANAGE_JOB_APPLICATION_DETAILS} + '/' + ${jobAppId}"
+          method="post"
+          th:object="${tutorDto}">
+        <div class="form-group row">
+            <label for="tutor-name-job-application-details-input" class="col-3"
+                   th:text="#{label-form-job_application_details-tutor_name}">Nama
+                tutor</label>
+            <div class="col-6">
+                <input type="text"
+                       readonly="readonly"
+                       id="tutor-name-job-application-details-input"
+                       class="form-control"
+                       th:field="*{name}"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="tutor-email-job-application-details-input" class="col-3"
+                   th:text="#{label-form-job_application_details-tutor_address}">Email tutor</label>
+            <div class="col-6">
+                <input type="text"
+                       readonly="readonly"
+                       id="tutor-email-job-application-details-input"
+                       class="form-control"
+                       th:field="*{email}"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="tutor-username-job-application-details-input" class="col-3"
+                   th:text="#{label-form-job_application_details-tutor_phone}">No. Telepon tutor</label>
+            <div class="col-6">
+                <input type="text"
+                       readonly="readonly"
+                       id="tutor-username-job-application-details-input"
+                       class="form-control"
+                       th:field="*{username}"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="tutor-other-note-job-application-details-input" class="col-3"
+                   th:text="#{label-form-job_application_details-tutor_other_note}">Keterangan
+            </label>
+            <div class="col-6">
+                <input type="text"
+                       readonly="readonly"
+                       id="tutor-other-note-job-application-details-input"
+                       class="form-control"
+                       th:field="*{otherNote}"/>
+            </div>
+        </div>
+        <a href="javascript:history.back()" class="btn btn-primary"
+                th:text="#{button-back}"></a>
+    </form>
+</main>
+
+<th:block layout:fragment="custom-js">
+
+</th:block>
+</body>
+</html>

@@ -14,5 +14,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="student"/>
 
+        <addForeignKeyConstraint baseColumnNames="organization_id"
+                                 baseTableName="enrollment"
+                                 constraintName="fk_enrollment_organization_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="organization"/>
+
     </changeSet>
 </databaseChangeLog>

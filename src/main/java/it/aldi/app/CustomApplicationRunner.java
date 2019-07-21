@@ -1,8 +1,6 @@
 package it.aldi.app;
 
 import it.aldi.app.controller.cmd.RegisterUserCmd;
-import it.aldi.app.controller.dto.BimbelUserDto;
-import it.aldi.app.controller.rest.dto.request.AddJobCmd;
 import it.aldi.app.repository.BimbelUserRepository;
 import it.aldi.app.service.job_management.JobManagementService;
 import it.aldi.app.service.register.RegisterService;
@@ -37,7 +35,6 @@ public class CustomApplicationRunner implements ApplicationRunner {
     public void run(ApplicationArguments applicationArguments) {
         if (bimbelUserRepository.count() < 1) {
             insertInitialUser();
-            insertInitialJob();
         }
     }
 
@@ -77,32 +74,5 @@ public class CustomApplicationRunner implements ApplicationRunner {
         for (RegisterUserCmd cmd : registerUserCmds) {
             registerService.registerUser(cmd);
         }
-    }
-
-    private void insertInitialJob() {
-        List<AddJobCmd> jobs = new ArrayList<>();
-
-        jobs.add(AddJobCmd.builder()
-            .name("Guru SD Matematika")
-            .age(18)
-            .otherNote("Bisa mengajar perkalian")
-            .organizationId(1L)
-            .build());
-
-        jobs.add(AddJobCmd.builder()
-            .name("Guru SMP Bahasa Indonesia")
-            .age(18)
-            .otherNote("Puisi, Prosa, Paragraf")
-            .organizationId(1L)
-            .build());
-
-        jobs.add(AddJobCmd.builder()
-            .name("Guru SMA Kimia")
-            .age(24)
-            .otherNote("Hafal tabel unsur kimia")
-            .organizationId(1L)
-            .build());
-
-        jobs.forEach(jobManagementService::saveJob);
     }
 }
