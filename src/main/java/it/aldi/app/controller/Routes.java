@@ -9,6 +9,7 @@ public class Routes {
      * Util text
      */
     public static final String DETAILS = "/details";
+    public static final String PROFILE = "/profile";
 
     /*
      * MVC endpoint
@@ -36,6 +37,7 @@ public class Routes {
     public static final String OWNER_MANAGE_SUBJECT = OWNER_HOME + "/manage_subject";
     public static final String OWNER_MANAGE_SUBJECT_ADD = OWNER_MANAGE_SUBJECT + "/add";
     public static final String OWNER_MANAGE_TUTOR = OWNER_HOME + "/manage_tutor";
+    public static final String OWNER_PROFILE = OWNER_HOME + PROFILE;
     public static final String OWNER_UPLOAD_MATERIAL = OWNER_HOME + "/upload_material";
 
     /*

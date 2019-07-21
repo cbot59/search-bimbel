@@ -31,6 +31,7 @@ public class Owner implements Serializable {
 
     public Owner() {
         bimbelUser = null;
+        chairman = null;
     }
 
     private Owner(BimbelUser bimbelUser) {
