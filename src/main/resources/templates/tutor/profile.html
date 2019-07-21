@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+<main layout:fragment="content">
+    <form id="form-profile-tutor"
+          th:action="${@routes.TUTOR_PROFILE}"
+          method="post"
+          th:object="${tutorProfile}">
+
+        <div class="row">
+            <div
+                class="alert alert-success alert-dismissible fade show text-center col"
+                th:if="${!#strings.isEmpty(redirectMsg)}">
+            <span role="alert"
+                  th:text="${redirectMsg}">
+            </span>
+                <button type="button"
+                        class="close"
+                        data-dismiss="alert"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="tutor-name-profile-input" class="col-3">Nama</label>
+            <div class="col-6">
+                <input type="text"
+                       id="tutor-name-profile-input"
+                       class="form-control"
+                       name="orgName"
+                       th:value="*{name}"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="tutor-username-profile-input" class="col-3">Username
+            </label>
+            <div class="col-6">
+                <input type="text"
+                       readonly="readonly"
+                       id="tutor-username-profile-input"
+                       class="form-control"
+                       th:field="*{username}"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="tutor-email-profile-input"
+                   class="col-3">Email</label>
+            <div class="col-6">
+                <input type="text"
+                       readonly="readonly"
+                       id="tutor-email-profile-input"
+                       class="form-control"
+                       th:field="*{email}"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="tutor-phone-profile-input" class="col-3">Phone</label>
+            <div class="col-6">
+                <input type="text"
+                       id="tutor-phone-profile-input"
+                       class="form-control"
+                       th:field="*{phone}"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="tutor-address-profile-input" class="col-3">Address
+            </label>
+            <div class="col-6">
+                <input type="text"
+                       id="tutor-address-profile-input"
+                       class="form-control"
+                       th:field="*{address}"/>
+            </div>
+        </div>
+
+        <button type="submit"
+                class="btn btn-primary"
+                th:text="#{button-save}"></button>
+    </form>
+</main>
+
+<th:block layout:fragment="custom-js">
+
+</th:block>
+</body>
+</html>

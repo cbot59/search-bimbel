@@ -22,6 +22,7 @@ public class Routes {
     public static final String SIGNIN = "/signin";
     // TUTOR
     public static final String TUTOR_HOME = "/tutor";
+    public static final String TUTOR_PROFILE = TUTOR_HOME + PROFILE;
     public static final String TUTOR_SEARCH_JOB = TUTOR_HOME + "/search_job";
     public static final String TUTOR_SEARCH_JOB_DETAILS = TUTOR_SEARCH_JOB + DETAILS;
     public static final String TUTOR_SCHEDULE = TUTOR_HOME + "/schedule";

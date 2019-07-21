@@ -2,11 +2,14 @@ package it.aldi.app.service.profile.impl;
 
 import it.aldi.app.controller.cmd.EditOwnerProfileCmd;
 import it.aldi.app.controller.cmd.EditStudentProfileCmd;
+import it.aldi.app.controller.cmd.EditTutorProfileCmd;
 import it.aldi.app.controller.dto.OwnerProfileDto;
 import it.aldi.app.controller.dto.StudentProfileDto;
+import it.aldi.app.controller.dto.TutorProfileDto;
 import it.aldi.app.domain.BimbelUser;
 import it.aldi.app.domain.Owner;
 import it.aldi.app.domain.Student;
+import it.aldi.app.domain.Tutor;
 import it.aldi.app.service.domain.*;
 import it.aldi.app.service.profile.ProfileService;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +23,8 @@ public class ProfileServiceImpl implements ProfileService {
 
     private final StudentService studentService;
 
+    private final TutorService tutorService;
+
     private final BimbelUserService bimbelUserService;
 
     private final BimbelUserDetailsService bimbelUserDetailsService;
@@ -28,11 +33,12 @@ public class ProfileServiceImpl implements ProfileService {
 
     public ProfileServiceImpl(OwnerService ownerService,
                               StudentService studentService,
-                              BimbelUserService bimbelUserService,
+                              TutorService tutorService, BimbelUserService bimbelUserService,
                               BimbelUserDetailsService bimbelUserDetailsService,
                               OrganizationService organizationService) {
         this.ownerService = ownerService;
         this.studentService = studentService;
+        this.tutorService = tutorService;
         this.bimbelUserService = bimbelUserService;
         this.bimbelUserDetailsService = bimbelUserDetailsService;
         this.organizationService = organizationService;
@@ -52,6 +58,14 @@ public class ProfileServiceImpl implements ProfileService {
             .orElseThrow(() -> new IllegalArgumentException("Student not found for user: " + bimbelUser));
 
         return StudentProfileDto.from(student);
+    }
+
+    @Override
+    public TutorProfileDto getTutorProfile(BimbelUser bimbelUser) {
+        Tutor tutor = tutorService.findByUserId(bimbelUser.getId())
+            .orElseThrow(() -> new IllegalArgumentException("Tutor not found for user: " + bimbelUser));
+
+        return TutorProfileDto.from(tutor);
     }
 
     @Override
@@ -77,5 +91,18 @@ public class ProfileServiceImpl implements ProfileService {
         bimbelUserDetailsService.save(student.getBimbelUser().getBimbelUserDetails()
             .phone(editStudentProfileCmd.getPhone())
             .address(editStudentProfileCmd.getAddress()));
+    }
+
+    @Override
+    public void editTutorProfile(EditTutorProfileCmd editTutorProfileCmd, BimbelUser bimbelUser) {
+        Tutor tutor = tutorService.findByUserId(bimbelUser.getId())
+            .orElseThrow(() -> new IllegalArgumentException("Tutor not found for user: " + bimbelUser));
+
+        organizationService.save(tutor.getChairman().getOrganization()
+            .name(editTutorProfileCmd.getOrgName()));
+
+        bimbelUserDetailsService.save(tutor.getBimbelUser().getBimbelUserDetails()
+            .phone(editTutorProfileCmd.getPhone())
+            .address(editTutorProfileCmd.getAddress()));
     }
 }

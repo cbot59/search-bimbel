@@ -41,7 +41,7 @@
                         class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></span>
                     Profile
                 </a>
-                <a class="dropdown-item" href="#"
+                <a class="dropdown-item" th:href="${@routes.TUTOR_PROFILE}"
                    sec:authorize="hasAuthority('TUTOR')">
                     <span
                         class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></span>
