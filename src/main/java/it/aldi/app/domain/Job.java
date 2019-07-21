@@ -33,9 +33,6 @@ public class Job implements Serializable {
     @Column(name = "other_note")
     private String otherNote;
 
-    @ManyToOne
-    private Organization organization;
-
     private Job() {
 
     }
@@ -96,19 +93,6 @@ public class Job implements Serializable {
 
     public void setOtherNote(String otherNote) {
         this.otherNote = otherNote;
-    }
-
-    public Organization getOrganization() {
-        return organization;
-    }
-
-    public Job organization(Organization organization) {
-        this.organization = organization;
-        return this;
-    }
-
-    public void setOrganization(Organization organization) {
-        this.organization = organization;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

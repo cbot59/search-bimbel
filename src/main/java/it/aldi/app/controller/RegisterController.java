@@ -1,5 +1,6 @@
 package it.aldi.app.controller;
 
+import it.aldi.app.controller.cmd.RegisterUserCmd;
 import it.aldi.app.controller.dto.BimbelUserDto;
 import it.aldi.app.service.register.RegisterService;
 import lombok.NonNull;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
@@ -29,25 +31,28 @@ public class RegisterController {
 
     @GetMapping(Routes.REGISTER)
     public String viewRegisterPage(Model model) {
-        model.addAttribute(new BimbelUserDto());
+        model.addAttribute(new RegisterUserCmd());
         model.addAttribute("roleList", registerService.getPublicRoles());
         return REGISTER_VIEW;
     }
 
     @PostMapping(Routes.REGISTER)
-    public ModelAndView postRegister(@Valid @ModelAttribute BimbelUserDto bimbelUserDto, BindingResult bindingResult) {
-        log.debug("Registering user: {}", bimbelUserDto);
+    public ModelAndView postRegister(@Valid @ModelAttribute RegisterUserCmd registerUserCmd,
+                                     BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
+        log.debug("Registering user: {}", registerUserCmd);
 
         if (bindingResult.hasErrors()) {
-            return wrongInputModelView(bimbelUserDto);
+            return wrongInputModelView(registerUserCmd);
         }
 
-        String errorMsg = registerService.verifyExistingData(bimbelUserDto);
+        String errorMsg = registerService.verifyExistingData(registerUserCmd);
         if (!errorMsg.isEmpty()) {
             return dataExistsModelView(bindingResult, errorMsg);
         }
 
-        registerService.registerUser(bimbelUserDto);
+        registerService.registerUser(registerUserCmd);
+
+        redirectAttributes.addFlashAttribute("redirectMsg", "Register success, please login");
 
         return new ModelAndView(redirect() + Routes.SIGNIN);
     }
@@ -65,12 +70,12 @@ public class RegisterController {
         return modelAndView;
     }
 
-    private ModelAndView wrongInputModelView(@ModelAttribute @Valid BimbelUserDto bimbelUserDto) {
+    private ModelAndView wrongInputModelView(@ModelAttribute @Valid RegisterUserCmd cmd) {
         log.warn("There's an error occured when user register");
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName(REGISTER_VIEW);
-        modelAndView.addObject("bimbelUserDto", bimbelUserDto);
+        modelAndView.addObject("registerUserCmd", cmd);
         modelAndView.addObject("roleList", registerService.getPublicRoles());
 
         return modelAndView;

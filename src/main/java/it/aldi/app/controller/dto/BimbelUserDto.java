@@ -1,5 +1,6 @@
 package it.aldi.app.controller.dto;
 
+import it.aldi.app.controller.cmd.RegisterUserCmd;
 import it.aldi.app.util.RegexConstant;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,4 +37,16 @@ public class BimbelUserDto {
 
     @NotNull
     private String roles;
+
+    public BimbelUserDto(RegisterUserCmd cmd) {
+        username = cmd.getUsername();
+        name = cmd.getName();
+        password = cmd.getPassword();
+        email = cmd.getEmail();
+        roles = cmd.getRoles();
+    }
+
+    private static BimbelUserDto parse(RegisterUserCmd cmd) {
+        return new BimbelUserDto(cmd);
+    }
 }

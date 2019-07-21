@@ -3,12 +3,12 @@ package it.aldi.app.service.user_management.impl;
 import it.aldi.app.controller.rest.dto.response.StudentDto;
 import it.aldi.app.controller.rest.dto.response.TutorDto;
 import it.aldi.app.domain.Student;
-import it.aldi.app.domain.Tutor;
 import it.aldi.app.domain.UserOrganization;
 import it.aldi.app.service.domain.UserOrganizationService;
 import it.aldi.app.service.user_management.UserManagementService;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,14 +23,9 @@ public class UserManagementServiceImpl implements UserManagementService {
 
     @Override
     public List<TutorDto> getTutors(Long organizationId) {
-        List<UserOrganization> userOrganizations = userOrganizationService.findByOrganization(organizationId);
-        List<Tutor> tutors = userOrganizations.stream()
-            .map(UserOrganization::getTutor)
-            .collect(Collectors.toList());
-
-        return tutors.stream()
-            .map(tutor -> TutorDto.valueOf(tutor.getBimbelUser()))
-            .collect(Collectors.toList());
+        // TODO: change business model, Tutor is no longer attached to Organization
+        // Create new entity Teacher and made this method getTeachers()
+        return Collections.emptyList();
     }
 
     @Override

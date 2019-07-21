@@ -7,11 +7,13 @@ import lombok.Value;
 public class JobApplicationDto {
     private Long jobAppId;
     private String jobName;
+    private Long tutorId;
     private String tutorName;
 
     private JobApplicationDto(JobApplication jobApplication) {
         jobAppId = jobApplication.getId();
         jobName = jobApplication.getJob().getName();
+        tutorId = jobApplication.getTutor().getId();
         tutorName = jobApplication.getTutor().getBimbelUser().getName();
     }
 

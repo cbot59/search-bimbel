@@ -48,12 +48,4 @@ public interface JobService {
      * @return the list of entities
      */
     Page<Job> findAll(Pageable pageable, String search);
-
-    /**
-     * Get all the jobs on an Organization
-     *
-     * @param pageable the pagination information
-     * @return the list of entities
-     */
-    Page<Job> findAllByOrgId(Long organizationId, Pageable pageable);
 }

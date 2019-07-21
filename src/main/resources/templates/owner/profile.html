@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+<main layout:fragment="content">
+    <form id="form-profile-owner"
+          th:action="${@routes.OWNER_PROFILE}"
+          method="post"
+          th:object="${ownerProfile}">
+
+        <div class="row">
+            <div
+                class="alert alert-success alert-dismissible fade show text-center col"
+                th:if="${!#strings.isEmpty(redirectMsg)}">
+            <span class=""
+                  role="alert"
+                  th:text="${redirectMsg}">
+            </span>
+                <button type="button"
+                        class="close"
+                        data-dismiss="alert"
+                        aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="owner-name-profile-input" class="col-3">Nama
+                Bimbel</label>
+            <div class="col-6">
+                <input type="text"
+                       id="owner-name-profile-input"
+                       class="form-control"
+                       name="orgName"
+                       th:value="*{name}"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="owner-username-profile-input" class="col-3">Username
+            </label>
+            <div class="col-6">
+                <input type="text"
+                       readonly="readonly"
+                       id="owner-username-profile-input"
+                       class="form-control"
+                       th:field="*{username}"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="owner-email-profile-input"
+                   class="col-3">Email</label>
+            <div class="col-6">
+                <input type="text"
+                       readonly="readonly"
+                       id="owner-email-profile-input"
+                       class="form-control"
+                       th:field="*{email}"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="owner-phone-profile-input" class="col-3">Phone</label>
+            <div class="col-6">
+                <input type="text"
+                       id="owner-phone-profile-input"
+                       class="form-control"
+                       th:field="*{phone}"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="owner-address-profile-input" class="col-3">Address
+            </label>
+            <div class="col-6">
+                <input type="text"
+                       id="owner-address-profile-input"
+                       class="form-control"
+                       th:field="*{address}"/>
+            </div>
+        </div>
+
+        <button type="submit"
+                class="btn btn-primary"
+                th:text="#{button-save}"></button>
+    </form>
+</main>
+
+<th:block layout:fragment="custom-js">
+
+</th:block>
+</body>
+</html>

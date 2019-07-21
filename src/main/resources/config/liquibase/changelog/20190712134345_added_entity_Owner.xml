@@ -20,8 +20,6 @@
         <createTable tableName="owner">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
-            </column>            <column name="organization_id" type="bigint">
-                <constraints unique="true" nullable="true" uniqueConstraintName="ux_owner_organization_id" />
             </column>            <column name="bimbel_user_id" type="bigint">
                 <constraints unique="true" nullable="true" uniqueConstraintName="ux_owner_bimbel_user_id" />
             </column>

@@ -31,7 +31,8 @@ public class JobManagementServiceImpl implements JobManagementService {
     @Override
     public void saveJob(AddJobCmd cmd) {
         Organization organization = organizationService.findOne(cmd.getOrganizationId());
-        Job job = Job.from(cmd).organization(organization);
+        // TODO: business model changed, job is no longer used
+        Job job = Job.from(cmd);
 
         jobService.save(job);
     }

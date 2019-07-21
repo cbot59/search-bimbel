@@ -73,10 +73,4 @@ public class JobApplicationServiceImpl implements JobApplicationService {
         log.debug("Request to delete JobApplication : {}", id);
         jobApplicationRepository.delete(id);
     }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<JobApplication> findAllByOrganizationAndAvailability(Long organizationId) {
-        return jobApplicationRepository.findByOrganizationAndAvailability(organizationId, false);
-    }
 }

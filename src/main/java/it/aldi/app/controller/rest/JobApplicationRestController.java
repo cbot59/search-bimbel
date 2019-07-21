@@ -30,7 +30,7 @@ public class JobApplicationRestController {
     @GetMapping(Routes.API_ORGANIZATIONS_JOB_APPLICATIONS)
     public ResponseEntity<List<JobApplicationDto>> getJobApplicationsByOrgId(@PathVariable("orgId") Long id) {
         return ResponseEntity.status(HttpStatus.OK)
-            .body(jobApplicationService.findAllByOrganizationAndAvailability(id).stream()
+            .body(jobApplicationService.findAll().stream()
                 .map(JobApplicationDto::from)
                 .collect(Collectors.toList()));
     }

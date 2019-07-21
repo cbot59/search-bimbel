@@ -32,6 +32,7 @@ public class SearchJobServiceImpl implements SearchJobService {
 
     @Override
     public void applyJob(Long jobId, Tutor tutor) {
+        // TODO: add validation, if submitted before, should throw error
         Job job = jobService.findOne(jobId);
 
         jobApplicationService.save(JobApplication.from(job, tutor));

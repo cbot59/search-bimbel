@@ -5,10 +5,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * A Tutor.
@@ -21,16 +18,16 @@ public class Tutor implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @OneToMany(mappedBy = "tutor")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<UserOrganization> userOrganizations = new HashSet<>();
 
     @OneToOne
     @JoinColumn(unique = true)
     private BimbelUser bimbelUser;
+
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "id")
+    private Chairman chairman;
 
     public Tutor() {
     }
@@ -52,31 +49,6 @@ public class Tutor implements Serializable {
         this.id = id;
     }
 
-    public Set<UserOrganization> getUserOrganizations() {
-        return Collections.unmodifiableSet(userOrganizations);
-    }
-
-    public Tutor userOrganizations(Set<UserOrganization> userOrganizations) {
-        this.userOrganizations = Collections.unmodifiableSet(userOrganizations);
-        return this;
-    }
-
-    public Tutor addUserOrganization(UserOrganization userOrganization) {
-        this.userOrganizations.add(userOrganization);
-        userOrganization.setTutor(this);
-        return this;
-    }
-
-    public Tutor removeUserOrganization(UserOrganization userOrganization) {
-        this.userOrganizations.remove(userOrganization);
-        userOrganization.setTutor(null);
-        return this;
-    }
-
-    public void setUserOrganizations(Set<UserOrganization> userOrganizations) {
-        this.userOrganizations = Collections.unmodifiableSet(userOrganizations);
-    }
-
     public BimbelUser getBimbelUser() {
         return bimbelUser;
     }
@@ -88,6 +60,19 @@ public class Tutor implements Serializable {
 
     public void setBimbelUser(BimbelUser bimbelUser) {
         this.bimbelUser = bimbelUser;
+    }
+
+    public Chairman getChairman() {
+        return chairman;
+    }
+
+    public Tutor chairman(Chairman chairman) {
+        this.chairman = chairman;
+        return this;
+    }
+
+    public void setChairman(Chairman chairman) {
+        this.chairman = chairman;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

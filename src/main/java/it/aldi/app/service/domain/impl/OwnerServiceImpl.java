@@ -1,6 +1,7 @@
 package it.aldi.app.service.domain.impl;
 
 import it.aldi.app.domain.Owner;
+import it.aldi.app.repository.ChairmanRepository;
 import it.aldi.app.repository.OwnerRepository;
 import it.aldi.app.service.domain.OwnerService;
 import org.slf4j.Logger;
@@ -22,8 +23,11 @@ public class OwnerServiceImpl implements OwnerService {
 
     private final OwnerRepository ownerRepository;
 
-    public OwnerServiceImpl(OwnerRepository ownerRepository) {
+    private final ChairmanRepository chairmanRepository;
+
+    public OwnerServiceImpl(OwnerRepository ownerRepository, ChairmanRepository chairmanRepository) {
         this.ownerRepository = ownerRepository;
+        this.chairmanRepository = chairmanRepository;
     }
 
     /**
@@ -35,6 +39,8 @@ public class OwnerServiceImpl implements OwnerService {
     @Override
     public Owner save(Owner owner) {
         log.debug("Request to save Owner : {}", owner);
+        long chairmanId = owner.getChairman().getId();
+        chairmanRepository.findById(chairmanId).ifPresent(owner::chairman);
         return ownerRepository.save(owner);
     }
 

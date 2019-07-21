@@ -1,10 +1,7 @@
 package it.aldi.app.service.register.impl;
 
-import it.aldi.app.controller.dto.BimbelUserDto;
-import it.aldi.app.domain.BimbelUser;
-import it.aldi.app.domain.BimbelUserType;
-import it.aldi.app.domain.BimbelUserTypeRole;
-import it.aldi.app.domain.Role;
+import it.aldi.app.controller.cmd.RegisterUserCmd;
+import it.aldi.app.domain.*;
 import it.aldi.app.service.domain.BimbelUserService;
 import it.aldi.app.service.domain.BimbelUserTypeRoleService;
 import it.aldi.app.service.domain.BimbelUserTypeService;
@@ -52,12 +49,15 @@ public class RegisterServiceImpl implements RegisterService {
     }
 
     @Override
-    public void registerUser(BimbelUserDto bimbelUserDto) {
-        BimbelUserType bimbelUserType = bimbelUserTypeService.findOne(bimbelUserDto.getRoles());
-        Role role = roleService.findOne(bimbelUserDto.getRoles());
+    public void registerUser(RegisterUserCmd cmd) {
+        BimbelUserType bimbelUserType = bimbelUserTypeService.findOne(cmd.getRoles());
+        Role role = roleService.findOne(cmd.getRoles());
 
         BimbelUserTypeRole bimbelUserTypeRole = BimbelUserTypeRole.from(bimbelUserType, role);
-        BimbelUser bimbelUser = BimbelUser.register(bimbelUserDto, bimbelUserType);
+        BimbelUserDetails bimbelUserDetails = BimbelUserDetails.from(cmd);
+        BimbelUser bimbelUser = BimbelUser.register(cmd)
+            .bimbelUserType(bimbelUserType)
+            .bimbelUserDetails(bimbelUserDetails);
 
         bimbelUserTypeRoleService.save(bimbelUserTypeRole);
         BimbelUser savedBimbelUser = bimbelUserService.save(bimbelUser);
@@ -73,31 +73,33 @@ public class RegisterServiceImpl implements RegisterService {
     }
 
     @Override
-    public String verifyExistingData(BimbelUserDto bimbelUserDto) {
-        if (bimbelUserService.findByUsername(bimbelUserDto.getUsername()) != null) {
+    public String verifyExistingData(RegisterUserCmd cmd) {
+        if (bimbelUserService.findByUsername(cmd.getUsername()) != null) {
             return errorMsgConstant.getUsernameExists();
         }
-        if (bimbelUserService.findByEmail(bimbelUserDto.getEmail()) != null) {
+
+        if (bimbelUserService.findByEmail(cmd.getEmail()) != null) {
             return errorMsgConstant.getEmailExists();
         }
+
         return "";
     }
 
-    private Set<Role> assignRoles(BimbelUserDto bimbelUserDto) {
+    private Set<Role> assignRoles(RegisterUserCmd cmd) {
         List<Role> availableRoles = roleService.findAll();
-        switch (bimbelUserDto.getRoles()) {
+        switch (cmd.getRoles()) {
             case SUPER_ADMIN:
                 return everyRoles(availableRoles);
             case OWNER:
                 return managementRoles(availableRoles);
             default:
-                return singleRole(bimbelUserDto, availableRoles);
+                return singleRole(cmd, availableRoles);
         }
     }
 
-    private static Set<Role> singleRole(BimbelUserDto bimbelUserDto, List<Role> availableRoles) {
+    private static Set<Role> singleRole(RegisterUserCmd cmd, List<Role> availableRoles) {
         return availableRoles.stream()
-            .filter(role -> role.getName().equalsIgnoreCase(bimbelUserDto.getRoles()))
+            .filter(role -> role.getName().equalsIgnoreCase(cmd.getRoles()))
             .collect(Collectors.toSet());
     }
 

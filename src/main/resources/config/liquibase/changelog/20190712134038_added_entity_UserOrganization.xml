@@ -25,10 +25,6 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="tutor_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
-
             <column name="organization_id" type="bigint">
                 <constraints nullable="true" />
             </column>

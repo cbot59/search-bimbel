@@ -16,7 +16,8 @@ public class JobDto {
         name = job.getName();
         age = job.getAge();
         otherNote = job.getOtherNote();
-        organizationName = job.getOrganization().getName();
+        // TODO: business model changed, job is no longer used
+        organizationName = "";
     }
 
     public static JobDto from(Job job) {

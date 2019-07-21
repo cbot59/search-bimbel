@@ -1,6 +1,7 @@
 package it.aldi.app.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import it.aldi.app.controller.cmd.RegisterUserCmd;
 import it.aldi.app.controller.dto.BimbelUserDto;
 import it.aldi.app.util.RegexConstant;
 import lombok.AllArgsConstructor;
@@ -58,22 +59,26 @@ public class BimbelUser implements Serializable {
     @JsonIgnoreProperties("bimbelUsers")
     private BimbelUserType bimbelUserType;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(unique = true)
+    private BimbelUserDetails bimbelUserDetails;
+
     private BimbelUser() {
     }
 
-    private BimbelUser(BimbelUserDto bimbelUserDto) {
-        username = bimbelUserDto.getUsername();
-        name = bimbelUserDto.getName();
-        password = bimbelUserDto.getPassword();
-        email = bimbelUserDto.getEmail();
+    private BimbelUser(RegisterUserCmd cmd) {
+        username = cmd.getUsername();
+        name = cmd.getName();
+        password = cmd.getPassword();
+        email = cmd.getEmail();
     }
 
-    public static BimbelUser from(BimbelUserDto bimbelUserDto) {
-        return new BimbelUser(bimbelUserDto);
+    public static BimbelUser from(RegisterUserCmd cmd) {
+        return new BimbelUser(cmd);
     }
 
-    public static BimbelUser register(BimbelUserDto bimbelUserDto, BimbelUserType bimbelUserType) {
-        return from(bimbelUserDto).bimbelUserType(bimbelUserType);
+    public static BimbelUser register(RegisterUserCmd cmd) {
+        return from(cmd);
     }
 
     public static BimbelUser empty() {
@@ -152,6 +157,19 @@ public class BimbelUser implements Serializable {
 
     public void setBimbelUserType(BimbelUserType bimbelUserType) {
         this.bimbelUserType = bimbelUserType;
+    }
+
+    public BimbelUserDetails getBimbelUserDetails() {
+        return bimbelUserDetails;
+    }
+
+    public BimbelUser bimbelUserDetails(BimbelUserDetails bimbelUserDetails) {
+        this.bimbelUserDetails = bimbelUserDetails;
+        return this;
+    }
+
+    public void setBimbelUserDetails(BimbelUserDetails bimbelUserDetails) {
+        this.bimbelUserDetails = bimbelUserDetails;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

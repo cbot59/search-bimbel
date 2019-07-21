@@ -40,7 +40,9 @@
             <column name="bimbel_user_type_id" type="bigint">
                 <constraints nullable="true" />
             </column>
-
+            <column name="bimbel_user_details_id" type="bigint">
+                <constraints unique="true" nullable="true" uniqueConstraintName="ux_bimbel_user_bimbel_user_details_id" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
 

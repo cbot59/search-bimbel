@@ -12,7 +12,8 @@ public class SearchJobDto {
     private String otherNote;
 
     private SearchJobDto(Job job) {
-        organizationName = job.getOrganization().getName();
+        // TODO: business model changed, job is no longer used
+        organizationName = "";
         jobId = job.getId();
         jobName = job.getName();
         age = job.getAge();

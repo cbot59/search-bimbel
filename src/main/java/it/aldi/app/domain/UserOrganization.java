@@ -28,10 +28,6 @@ public class UserOrganization implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties("userOrganizations")
-    private Tutor tutor;
-
-    @ManyToOne
-    @JsonIgnoreProperties("userOrganizations")
     private Organization organization;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -54,19 +50,6 @@ public class UserOrganization implements Serializable {
 
     public void setStudent(Student student) {
         this.student = student;
-    }
-
-    public Tutor getTutor() {
-        return tutor;
-    }
-
-    public UserOrganization tutor(Tutor tutor) {
-        this.tutor = tutor;
-        return this;
-    }
-
-    public void setTutor(Tutor tutor) {
-        this.tutor = tutor;
     }
 
     public Organization getOrganization() {

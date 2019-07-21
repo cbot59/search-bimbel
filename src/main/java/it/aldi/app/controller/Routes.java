@@ -6,6 +6,12 @@ import org.springframework.stereotype.Component;
 public class Routes {
 
     /*
+     * Util text
+     */
+    public static final String DETAILS = "/details";
+    public static final String PROFILE = "/profile";
+
+    /*
      * MVC endpoint
      */
     public static final String HOME = "/home";
@@ -17,7 +23,7 @@ public class Routes {
     // TUTOR
     public static final String TUTOR_HOME = "/tutor";
     public static final String TUTOR_SEARCH_JOB = TUTOR_HOME + "/search_job";
-    public static final String TUTOR_SEARCH_JOB_DETAILS = TUTOR_SEARCH_JOB + "/details";
+    public static final String TUTOR_SEARCH_JOB_DETAILS = TUTOR_SEARCH_JOB + DETAILS;
     public static final String TUTOR_SCHEDULE = TUTOR_HOME + "/schedule";
     // STUDENT
     public static final String STUDENT_HOME = "/student";
@@ -25,11 +31,13 @@ public class Routes {
     public static final String OWNER_HOME = "/owner";
     public static final String OWNER_MANAGE_JOB = OWNER_HOME + "/manage_job";
     public static final String OWNER_MANAGE_JOB_APPLICATION = OWNER_HOME + "/manage_job_application";
+    public static final String OWNER_MANAGE_JOB_APPLICATION_DETAILS = OWNER_HOME + "/manage_job_application" + DETAILS;
     public static final String OWNER_MANAGE_JOB_ADD = OWNER_MANAGE_JOB + "/add";
     public static final String OWNER_MANAGE_STUDENT = OWNER_HOME + "/manage_student";
     public static final String OWNER_MANAGE_SUBJECT = OWNER_HOME + "/manage_subject";
     public static final String OWNER_MANAGE_SUBJECT_ADD = OWNER_MANAGE_SUBJECT + "/add";
     public static final String OWNER_MANAGE_TUTOR = OWNER_HOME + "/manage_tutor";
+    public static final String OWNER_PROFILE = OWNER_HOME + PROFILE;
     public static final String OWNER_UPLOAD_MATERIAL = OWNER_HOME + "/upload_material";
 
     /*
