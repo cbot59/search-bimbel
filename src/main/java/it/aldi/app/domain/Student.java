@@ -36,6 +36,9 @@ public class Student implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Enrollment> enrollments = new HashSet<>();
 
+    public Student() {
+    }
+
     public Student(BimbelUser bimbelUser) {
         this.bimbelUser = bimbelUser;
     }

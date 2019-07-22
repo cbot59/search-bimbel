@@ -8,10 +8,10 @@
 </head>
 <body>
 <main layout:fragment="content">
-    <form id="form-profile-owner"
-          th:action="${@routes.OWNER_PROFILE}"
+    <form id="form-profile-tutor"
+          th:action="${@routes.TUTOR_PROFILE}"
           method="post"
-          th:object="${ownerProfile}">
+          th:object="${tutorProfile}">
 
         <div class="row">
             <div
@@ -30,53 +30,52 @@
         </div>
 
         <div class="form-group row">
-            <label for="owner-name-profile-input" class="col-3">Nama
-                Bimbel</label>
+            <label for="tutor-name-profile-input" class="col-3">Nama</label>
             <div class="col-6">
                 <input type="text"
-                       id="owner-name-profile-input"
+                       id="tutor-name-profile-input"
                        class="form-control"
                        name="orgName"
                        th:value="*{name}"/>
             </div>
         </div>
         <div class="form-group row">
-            <label for="owner-username-profile-input" class="col-3">Username
+            <label for="tutor-username-profile-input" class="col-3">Username
             </label>
             <div class="col-6">
                 <input type="text"
                        readonly="readonly"
-                       id="owner-username-profile-input"
+                       id="tutor-username-profile-input"
                        class="form-control"
                        th:field="*{username}"/>
             </div>
         </div>
         <div class="form-group row">
-            <label for="owner-email-profile-input"
+            <label for="tutor-email-profile-input"
                    class="col-3">Email</label>
             <div class="col-6">
                 <input type="text"
                        readonly="readonly"
-                       id="owner-email-profile-input"
+                       id="tutor-email-profile-input"
                        class="form-control"
                        th:field="*{email}"/>
             </div>
         </div>
         <div class="form-group row">
-            <label for="owner-phone-profile-input" class="col-3">Phone</label>
+            <label for="tutor-phone-profile-input" class="col-3">Phone</label>
             <div class="col-6">
                 <input type="text"
-                       id="owner-phone-profile-input"
+                       id="tutor-phone-profile-input"
                        class="form-control"
                        th:field="*{phone}"/>
             </div>
         </div>
         <div class="form-group row">
-            <label for="owner-address-profile-input" class="col-3">Address
+            <label for="tutor-address-profile-input" class="col-3">Address
             </label>
             <div class="col-6">
                 <input type="text"
-                       id="owner-address-profile-input"
+                       id="tutor-address-profile-input"
                        class="form-control"
                        th:field="*{address}"/>
             </div>

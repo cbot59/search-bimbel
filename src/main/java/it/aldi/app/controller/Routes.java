@@ -22,11 +22,13 @@ public class Routes {
     public static final String SIGNIN = "/signin";
     // TUTOR
     public static final String TUTOR_HOME = "/tutor";
+    public static final String TUTOR_PROFILE = TUTOR_HOME + PROFILE;
     public static final String TUTOR_SEARCH_JOB = TUTOR_HOME + "/search_job";
     public static final String TUTOR_SEARCH_JOB_DETAILS = TUTOR_SEARCH_JOB + DETAILS;
     public static final String TUTOR_SCHEDULE = TUTOR_HOME + "/schedule";
     // STUDENT
     public static final String STUDENT_HOME = "/student";
+    public static final String STUDENT_PROFILE = STUDENT_HOME + PROFILE;
     // OWNER
     public static final String OWNER_HOME = "/owner";
     public static final String OWNER_MANAGE_JOB = OWNER_HOME + "/manage_job";
